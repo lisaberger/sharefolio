@@ -1,0 +1,115 @@
+@import '_config';
+@import 'App';
+
+
+.titlepicture {
+    width: 100%;
+    position: relative;
+
+    img {
+        height: 30rem;
+        width: 100%;
+        border-radius: 0px 0px 20px 20px ;
+        object-fit: cover;
+        position: relative;
+        box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+
+.project {
+  width: 100%;
+  padding: 25px;
+  display: flex;
+  justify-content:space-around;
+  gap: 50px;
+}
+
+
+.project__description {
+  width: 55%;
+  margin: 30px 0px 50px 100px;
+}
+
+.project__bigpictures {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 100%;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.15);
+    margin: 20px;
+  }
+}
+
+.project__aspect {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+
+  img {
+    width: 100%;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  p {
+    margin: 0px 30px 30px 50px;
+  }
+
+  h4 {
+    margin: 15px 50px 5px 50px;
+  }
+}
+
+.gallery {
+  margin: auto;  
+  width: 80%;
+  position: relative;
+
+  img {
+      height: 30rem;
+      width: 100%;
+      border-radius: 20px 20px 20px 20px ;
+      object-fit: cover;
+      position: relative;
+      box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.15);
+      margin-bottom: 100px;
+  }
+
+  .gallery__info {
+      background: $primary-color;
+      border-radius: 0px 0px 20px 20px;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      top: 35rem;
+      padding: 20px 80px;
+  }
+
+  #gallery__subline {
+     color: $font-color-dark;
+     margin: 30px; 
+  }
+
+  h5 {
+      font-size: $font-size-h5;
+      font-weight: $font-weight-semibold;
+      color: $background-color !important;
+
+  }
+
+  h3 {
+    margin: 30px;
+  }
+
+  p {
+      font-size: $font-size-p;
+      font-weight: $font-weight-regular;
+      color: $background-color;
+  }
+}

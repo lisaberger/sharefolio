@@ -1,0 +1,35 @@
+{
+    "name": "wk_account_postgres_01",
+    "version": "1.1.2",
+    "author": "Wolfgang L. J. Kowarschick",
+    "license": "MIT",
+    "description": "Postgres: Account Database",
+    "scripts": {
+        "serve": "docker compose up",
+        "dev": "nodemon main.js",
+        "run": "node main.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01"
+    },
+    "keywords": [
+        "Postgres",
+        "account",
+        "JSON",
+        "REST"
+    ],
+    "dependencies": {
+        "axios": "^0.27.2",
+        "body-parser": "^1.20.0",
+        "cookie-session": "^2.0.0",
+        "cors": "^2.8.5",
+        "express": "^4.18.1",
+        "expressjs": "^1.0.1",
+        "multer": "^1.4.5-lts.1",
+        "passport": "0.5.0",
+        "passport-local": "^1.0.0",
+        "pg": "^8.7.3",
+        "vuex": "^4.0.2"
+    }
+}

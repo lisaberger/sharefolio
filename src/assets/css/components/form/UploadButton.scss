@@ -1,0 +1,51 @@
+@import 'config';
+
+.upload {
+    margin: 0.2rem 0rem;
+}
+
+#fileInput {
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+label {
+    background-color: white;
+    border: solid $primary-color;
+    border-radius: 40px;
+    display: block;
+    position: relative;
+    width: 55px;
+    height: 40px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $primary-color;
+    font-weight: $font-weight-bold;
+    padding: 8px 20px;
+    border-width: 1px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+
+    &:hover {
+        background-color: $primary-color;
+        color: white;
+        font-weight: $font-weight-medium;
+    }
+}
+
+.label {
+    font-weight: $font-weight-medium;
+    margin-left: 0.5rem;
+    color: $primary-color;
+
+    &:active {
+        color: $secondary-color;
+    }
+}
+
+
+

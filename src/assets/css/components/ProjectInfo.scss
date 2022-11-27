@@ -1,0 +1,52 @@
+@import '.././_config.scss';
+@import '.././App.scss';
+
+
+.project__info {
+    flex-grow: 0.4;
+    width: 35%;
+    h1 {
+        font-size: $font-size-h1;
+    }
+    h1+p {
+        font-size: $font-size-subh;
+        margin: 8px 0px 20px 0px;
+    }
+
+    img {
+        float: left;
+        border-radius: 0%;
+        width: 30px;
+        height: auto;
+        padding-top: 10px;
+        margin-right: 20px;
+    }
+
+    h4 {
+        font-size: $font-size-h4;
+        font-weight: $font-weight-bold;
+    } 
+
+    p {
+      margin: 30px 0px 30px 0px;
+    }  
+}
+
+
+.sidefacts {
+  margin-top: 30px;
+
+  .participants {
+    font-size: $font-size-p-small;
+  }
+
+  h5 {
+    margin-top: 10px;
+    font-size: $font-size-h5;
+  }
+}
+
+.project__description {
+  width: 55%;
+  margin: 30px 0px 50px 100px;
+}

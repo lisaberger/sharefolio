@@ -1,0 +1,45 @@
+@import 'config';
+
+.primary__btn {
+  text-decoration: none;
+  width: fit-content;
+  border: none;
+  background: linear-gradient(180deg, #5D4FFF 0%, #A1A2FF 100%);
+  border-radius: 40px;
+  color: $background-color;
+  padding: 10px 45px;
+  font-size: $font-size-h5;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+
+  &:hover {
+    background: $primary-color;
+  }
+  &:active {
+    background-color: $secondary-color;
+  }
+}
+
+.secondary__btn {
+  width:fit-content;
+  border-color: $primary-color;
+  border-width: 1px;
+  background: $background-color;
+  border-radius: 40px;
+  color: $primary-color;
+  padding: 10px 45px;
+  text-align: center;
+  font-size: $font-size-h5;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+
+  &:hover {
+    background: linear-gradient(180deg, #5D4FFF 0%, #A1A2FF 100%);
+    color: $background-color;
+    border-color: $background-color;
+  }
+
+  &:active {
+    background: #A1A2FF;
+  }
+}

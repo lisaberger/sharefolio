@@ -1,0 +1,45 @@
+@use 'sass:math';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* Colors */
+$background-color:  #ffffff; /* alt #f6f6f6*/
+$primary-color: #5D4FFF;
+$secondary-color: #A1A2FF;
+$font-color-dark: #141414;
+$font-color-light: #505050;
+$line-color: #d3d3d3;
+
+/* Typography */
+$font-family-sans:  Inter, Helvetica, Arial, sans-serif;
+
+/*Font weights */
+$font-weight-regular:   400;
+$font-weight-medium:    500;
+$font-weight-semibold:  600;
+$font-weight-bold:      700;
+$font-weight-extrabold: 800;
+
+/* Type Scale */
+$font-size-base:    16px; /* 16px - 1em */
+$font-size-factor:  1.20; /* Minor Third - https://type-scale.com/ */
+
+/* Display */
+$font-size-d-xbig:      math.pow($font-size-factor,7)*$font-size-base; /* 3.583rem/57.33px */
+$font-size-d-big:      math.pow($font-size-factor,6)*$font-size-base; /* 2.986rem/47.78px */
+
+/* Headings */
+$font-size-h5:      math.pow($font-size-factor,1)*$font-size-base; /* 1.2rem/19.20px */
+$font-size-h4:      math.pow($font-size-factor,2)*$font-size-base; /* 1.44rem/23.04px */
+$font-size-h3:      math.pow($font-size-factor,3)*$font-size-base; /* 1.728rem/27.65px */
+$font-size-h2:      math.pow($font-size-factor,4)*$font-size-base; /* 2.074rem/33.18px */
+$font-size-h1:      math.pow($font-size-factor,5)*$font-size-base; /* 2.488rem/39.81px */
+
+/* Subheading */
+$font-size-subh:      math.pow($font-size-factor,2)*$font-size-base; /* 1.44rem/23.04px */
+
+/* Paragraphs */
+$font-size-p-small: math.pow($font-size-factor,-1)*$font-size-base; /* 0.833rem/13.33px */
+$font-size-p:       math.pow($font-size-factor,0)*$font-size-base;  /* 1rem/16.00px */
+$font-size-p-large: math.pow($font-size-factor,1)*$font-size-base;  /* 1.2rem/19.20px */
+
+

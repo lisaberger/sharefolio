@@ -1,0 +1,37 @@
+@import '_config';
+@import 'App';
+
+
+.login {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 50px 40px 150px 50px;
+
+    h2 {
+        font-size: $font-size-h2;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        font-size: $font-size-h4;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    p {
+      margin: 0px 50px 25px 0px;
+      font-size: $font-size-p;
+      color: $font-color-dark;
+    }
+
+    #register__text {
+      margin: 50px 50px 20px 0px;
+    }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}

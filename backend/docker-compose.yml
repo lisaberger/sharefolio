@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  postgres:
+    container_name: "webprog_account_postgres"
+    build: 
+      context: ./postgres
+      args:    
+        WEB_DB: ${WEB_DB}
+    ports:
+      - 5432:5432
+    
+  adminer:
+    container_name: "webprog_account_adminer"
+    build: 
+      context: ./adminer 
+    ports:
+      - 11000:8080

@@ -1,0 +1,56 @@
+@import '.././_config.scss';
+@import '.././App.scss';
+
+
+.personal__projects {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 10px;
+
+  div {
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+
+  .project {
+      
+      h1, p {
+          margin-bottom: 20px;
+      }
+      background-color: white;
+      border-radius: 25px;
+      box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      padding: 10px;
+  }
+}
+
+.projectProfile__Img {
+  width: 320px;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+h4 {
+  font-size: $font-size-h4;
+  font-weight: $font-weight-bold;
+}
+
+p {
+ font-size: $font-size-p-small;
+ color: $font-color-light;
+}
+
+.project__sub {
+  font-size: $font-size-p;
+  margin-bottom: 10px;
+}
+
+

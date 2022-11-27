@@ -1,0 +1,67 @@
+@import 'config';
+
+.profile {
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    .profile__info {
+        width: 35%;
+        h1 {
+            font-size: $font-size-h1;
+        }
+        h1+p {
+            font-size: $font-size-subh;
+            margin: 8px 0px 20px 0px;;
+        }
+
+        img {
+            float: left;
+            border-radius: 0%;
+            width: 30px;
+            height: auto;
+            padding-top: 10px;
+        }
+
+        h5 {
+            font-size: $font-size-h5;
+            font-weight: $font-weight-bold;
+        }
+
+        .location h5 {
+            float: left;
+            padding: 15px;
+            margin: 8px;
+            position: relative;
+            bottom: 5px;
+        }
+
+       
+    }
+
+    img {
+        border-radius: 100%;
+        width: 350px; 
+        height: 350px;
+        object-fit: cover;
+    }
+}
+
+.location__container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.projects {
+
+    .projects__info {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row; 
+        justify-content: flex-start;    
+        gap: 20px;  
+      }
+}
