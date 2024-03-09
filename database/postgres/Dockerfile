@@ -10,11 +10,6 @@ ENV POSTGRES_DB       postgres
 ENV WEB_DB            $WEB_DB
 ENV PGDATA            /var/lib/postgresql/custom
 
-#RUN apt-get update \
-# && apt-get install --no-install-recommends -y postgresql-9.4-postgis-2.3 postgresql-9.4-postgis-2.3-scripts \
-# && apt-get clean \
-# && rm -rf /var/lib/apt/lists/*
-
 USER postgres
 
 COPY custom-entrypoint.sh /usr/local/bin/
@@ -32,8 +27,6 @@ RUN    mkdir "${PGDATA}" \
 
 ENTRYPOINT [ "custom-entrypoint.sh" ]
 CMD [ "-c", "max_locks_per_transaction=512" ]
-
-
 
 
 FROM postgres:latest

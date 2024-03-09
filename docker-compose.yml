@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+    postgres:
+        container_name: 'sharefolio_postgres'
+        build:
+            context: ./database/postgres
+            args:
+                WEB_DB: ${WEB_DB}
+        ports:
+            - 5432:5432
+
+    adminer:
+        container_name: 'sharefolio_adminer'
+        build:
+            context: ./database/adminer
+        ports:
+            - 11000:8080
+
+    api:
+        container_name: 'sharefolio_api'
+        build:
+            context: ./backend
+        ports:
+            - 4000:4000
+        volumes:
+            - ./backend:/app
+            - /app/node_modules
+        depends_on:
+            - postgres
+
+    ui:
+        container_name: 'sharefolio_ui'
+        build:
+            context: ./frontend
+        ports:
+            - 5173:5173
+        volumes:
+            - ./frontend:/app
+            - /app/node_modules
+        depends_on:
+            - api

@@ -1,11 +1,11 @@
 const state = () => ({
-    authData : {
+    authData: {
         token: '',
         refreshToken: '',
         userName: '',
         userId: '',
-        exp: ''
-    }
+        exp: '',
+    },
 });
 
 const getters = {};
@@ -17,7 +17,7 @@ const mutations = {};
 export default {
     namespaced: true,
     state,
-    getters, 
-    actions, 
-    mutations
-}
+    getters,
+    actions,
+    mutations,
+};
