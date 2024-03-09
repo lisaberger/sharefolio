@@ -1,29 +1,25 @@
 <template>
-  <input 
-    :value="label" 
-    :type="type" 
-    @click="click" 
-    :class="theme"/>
+    <input :value="label" :type="type" :class="theme" @click="click" />
 </template>
 
 <script>
 export default {
-  name: 'Button',
-  emits: ['click'],
+    name: 'Button',
 
-  props: {
-    type: {type: String, defaut: 'button'},
-    label: {type: String, default: 'Button'},
-    theme: {type: String }
-  },
-  methods: {
-    click() {
-        this.$emit('click')
-    }
-  }
-}
+    props: {
+        type: { type: String, defaut: 'button' },
+        label: { type: String, default: 'Button' },
+        theme: { type: String },
+    },
+    emits: ['click'],
+    methods: {
+        click() {
+            this.$emit('click');
+        },
+    },
+};
 </script>
 
 <style scoped lang="scss">
-@import '/css/components/form/Button.scss'
+@import '/css/components/form/Button.scss';
 </style>

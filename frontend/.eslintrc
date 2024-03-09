@@ -1,0 +1,12 @@
+{
+    "root": true,
+    "extends": [
+        "plugin:vue/vue3-recommended",
+        "eslint:recommended",
+        "@vue/eslint-config-prettier",
+        "prettier"
+    ],
+    "rules": {
+        // override/ add rules here..
+    }
+}

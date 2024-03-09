@@ -12,9 +12,9 @@
         h1 {
             font-size: $font-size-h1;
         }
-        h1+p {
+        h1 + p {
             font-size: $font-size-subh;
-            margin: 8px 0px 20px 0px;;
+            margin: 8px 0px 20px 0px;
         }
 
         img {
@@ -37,13 +37,11 @@
             position: relative;
             bottom: 5px;
         }
-
-       
     }
 
     img {
         border-radius: 100%;
-        width: 350px; 
+        width: 350px;
         height: 350px;
         object-fit: cover;
     }
@@ -54,14 +52,12 @@
     flex-direction: column;
 }
 
-
 .projects {
-
     .projects__info {
         display: flex;
         flex-wrap: wrap;
-        flex-direction: row; 
-        justify-content: flex-start;    
-        gap: 20px;  
-      }
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 20px;
+    }
 }

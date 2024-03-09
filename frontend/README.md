@@ -13,6 +13,7 @@ npm install
 In both the root directory and the /backend folder to acquire all dependencies.
 
 To run the dev script you require _nodemon_, so run
+
 ```sh
 npm install -g nodemon --save
 ```
@@ -28,14 +29,18 @@ docker compose up
 npm run dev
 ```
 
-This starts the database development server and the REST API. You may use 
-```sh 
+This starts the database development server and the REST API. You may use
+
+```sh
 npm run serve
-``` 
+```
+
 instead of
+
 ```sh
 docker compose up
-``` 
+```
+
 The API request server runs on localhost:4000 using expressjs
 
 Uses <https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01> as basis, modified for this project.

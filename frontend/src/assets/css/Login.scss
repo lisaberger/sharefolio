@@ -1,7 +1,6 @@
 @import '_config';
 @import 'App';
 
-
 .login {
     position: relative;
     width: 100%;
@@ -21,17 +20,17 @@
     }
 
     p {
-      margin: 0px 50px 25px 0px;
-      font-size: $font-size-p;
-      color: $font-color-dark;
+        margin: 0px 50px 25px 0px;
+        font-size: $font-size-p;
+        color: $font-color-dark;
     }
 
     #register__text {
-      margin: 50px 50px 20px 0px;
+        margin: 50px 50px 20px 0px;
     }
 }
 
 form {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }

@@ -2,21 +2,20 @@
 @import 'App';
 
 .teaser {
-
     width: 100%;
     position: relative;
 
     img {
         width: inherit;
         height: 25rem;
-        border-radius: 0px 0px 20px 20px ;
+        border-radius: 0px 0px 20px 20px;
         object-fit: cover;
         position: relative;
         box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.15);
     }
 
     .teaser__infobox {
-        background: linear-gradient(180deg, #5d4fff00 -63.16%, #5D4FFF 100%);
+        background: linear-gradient(180deg, #5d4fff00 -63.16%, #5d4fff 100%);
         border-radius: 0px 0px 20px 20px;
         position: inherit;
         display: flex;
@@ -33,7 +32,6 @@
         font-size: $font-size-h5;
         font-weight: $font-weight-semibold;
         color: $background-color !important;
-
     }
 
     p {
@@ -64,8 +62,8 @@
         text-align: center;
         color: $font-color-light;
     }
-    
-    p~p {
+
+    p ~ p {
         padding: 10px;
         font-size: $font-size-p-small;
         color: $font-color-light;
@@ -77,15 +75,13 @@
         width: 100%;
     }
 
-    .logged__out{
+    .logged__out {
         display: flex;
         align-items: center;
         flex-direction: column;
         justify-content: center;
     }
 }
-
-
 
 .projects {
     margin-top: 20px;
@@ -94,8 +90,8 @@
     .projects__container {
         display: flex;
         flex-wrap: wrap;
-        flex-direction: row; 
-        justify-content: center;       
+        flex-direction: row;
+        justify-content: center;
         gap: 18px;
         padding: 20px 0px;
 
@@ -114,7 +110,7 @@
                 cursor: pointer;
             }
         }
-      }
+    }
 }
 
 .start__row {

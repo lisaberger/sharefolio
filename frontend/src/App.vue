@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeMount, ref } from '@vue/runtime-core';
+import { onBeforeMount, ref } from 'vue';
 import { RouterLink, RouterView } from 'vue-router';
 import Button from '/src/components/form/Button.vue';
 import Cookies from 'js-cookie';
@@ -35,8 +35,8 @@ const logoutUser = () => {
         <nav class="navbar">
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <router-link to="/"
-                        ><img
+                    <router-link to="/">
+                        <img
                             id="logo__big"
                             src="./assets/links/sharefolio_rgb_3c.svg"
                             alt="Sharefolio-Logo"
@@ -45,7 +45,7 @@ const logoutUser = () => {
                 </li>
                 <li>
                     <div>
-                        <div class="logged__out" v-if="!userLoggedIn">
+                        <div v-if="!userLoggedIn" class="logged__out">
                             <router-link to="/login">
                                 <Button
                                     type="button"
@@ -54,7 +54,7 @@ const logoutUser = () => {
                                 />
                             </router-link>
                         </div>
-                        <div class="logged__in" v-if="userLoggedIn">
+                        <div v-if="userLoggedIn" class="logged__in">
                             <Button
                                 type="button"
                                 label="Abmelden"
