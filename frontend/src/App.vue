@@ -1,3 +1,19 @@
+<template>
+    <header>
+        <main-navigation
+            :user-logged-in="userLoggedIn"
+            :user="user"
+            @logout="logoutUser"
+        />
+    </header>
+    <main class="wrapper">
+        <router-view />
+    </main>
+    <footer>
+        <the-footer />
+    </footer>
+</template>
+
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
 import { RouterView } from 'vue-router';
@@ -27,25 +43,9 @@ onBeforeMount(() => {
 const logoutUser = () => {
     axios.get('http://localhost:4000/logout');
     Cookies.remove('isLoggedIn');
-    router.go();
+    router.go(0);
 };
 </script>
-
-<template>
-    <header>
-        <main-navigation
-            :user-logged-in="userLoggedIn"
-            :user="user"
-            @logout="logoutUser"
-        />
-    </header>
-    <hr />
-    <main class="wrapper">
-        <router-view />
-    </main>
-    <hr />
-    <the-footer />
-</template>
 
 <style lang="scss">
 @import '@/assets/css/App.scss';

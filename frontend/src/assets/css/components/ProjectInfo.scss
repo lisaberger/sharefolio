@@ -1,6 +1,5 @@
-@import '.././_config.scss';
+@import '.././_variables.scss';
 @import '.././App.scss';
-
 
 .project__info {
     flex-grow: 0.4;
@@ -8,7 +7,7 @@
     h1 {
         font-size: $font-size-h1;
     }
-    h1+p {
+    h1 + p {
         font-size: $font-size-subh;
         margin: 8px 0px 20px 0px;
     }
@@ -25,28 +24,27 @@
     h4 {
         font-size: $font-size-h4;
         font-weight: $font-weight-bold;
-    } 
+    }
 
     p {
-      margin: 30px 0px 30px 0px;
-    }  
+        margin: 30px 0px 30px 0px;
+    }
 }
 
-
 .sidefacts {
-  margin-top: 30px;
+    margin-top: 30px;
 
-  .participants {
-    font-size: $font-size-p-small;
-  }
+    .participants {
+        font-size: $font-size-p-small;
+    }
 
-  h5 {
-    margin-top: 10px;
-    font-size: $font-size-h5;
-  }
+    h5 {
+        margin-top: 10px;
+        font-size: $font-size-h5;
+    }
 }
 
 .project__description {
-  width: 55%;
-  margin: 30px 0px 50px 100px;
+    width: 55%;
+    margin: 30px 0px 50px 100px;
 }

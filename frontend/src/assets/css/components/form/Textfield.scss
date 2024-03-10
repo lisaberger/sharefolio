@@ -1,4 +1,4 @@
-@import 'config';
+@import '/css/_variables.scss';
 
 div {
     position: relative;
@@ -8,30 +8,27 @@ div {
         font-size: $font-size-p-small;
         font-weight: $font-weight-bold;
         display: block;
-      }
+    }
 
     input {
-      background-color: $background-color;
-      outline: 1px solid $primary-color;
-      border: 2px solid transparent;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      padding: 10px;
-      border-radius: 15px;
-      font-size: $font-size-base;
-      width: 100%;
-      
-      &:focus {
-        outline: none;
-        border-width: 2px;
-        border-color: $secondary-color;
-      }
-      &::placeholder {
-        opacity: 0.4;
-        font-size: $font-size-p-small;
+        background-color: $background-color;
+        outline: 1px solid $primary-color;
+        border: 2px solid transparent;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 15px;
+        font-size: $font-size-base;
+        width: 100%;
 
-      }
+        &:focus {
+            outline: none;
+            border-width: 2px;
+            border-color: $secondary-color;
+        }
+        &::placeholder {
+            opacity: 0.4;
+            font-size: $font-size-p-small;
+        }
     }
 }
-
-

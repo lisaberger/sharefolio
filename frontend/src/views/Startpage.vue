@@ -115,5 +115,5 @@ function linkify(nameString) {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/css/Startpage.scss';
+@import '@/assets/css/views/Startpage.scss';
 </style>

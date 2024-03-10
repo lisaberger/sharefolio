@@ -1,4 +1,4 @@
-@import 'config';
+@import '/css/_variables';
 
 * {
     margin: 0;
@@ -24,14 +24,6 @@ a {
     &:active {
         color: $secondary-color;
     }
-}
-
-hr {
-    border: none;
-    height: 1px;
-    color: $line-color;
-    background: $line-color;
-    width: 100%;
 }
 
 .navbar {
@@ -166,15 +158,6 @@ hr {
             color: $secondary-color;
         }
     }
-}
-
-footer {
-    background: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    padding: 20px 75px;
 }
 
 /*Smartphones*/

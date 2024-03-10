@@ -1,7 +1,10 @@
+@import '/css/_variables';
+
 .navbar {
     background: #ffffff;
     position: relative;
     padding: 10px 75px;
+    border-bottom: 2px solid $line-color;
 
     .nav-menu {
         display: flex;

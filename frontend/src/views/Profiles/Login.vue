@@ -73,5 +73,5 @@ const login = () => {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/css/Login.scss';
+@import '@/assets/css/views/Login.scss';
 </style>

@@ -1,4 +1,4 @@
-@import 'config';
+@import '/css/_variables';
 
 .upload {
     margin: 0.2rem 0rem;
@@ -46,6 +46,3 @@ label {
         color: $secondary-color;
     }
 }
-
-
-
