@@ -15,5 +15,5 @@ import Button from '../../src/components/form/Button.vue';
 </template>
 
 <style scoped lang="scss">
-@import '@/css/Error.scss';
+@import '@/assets/css/Error.scss';
 </style>

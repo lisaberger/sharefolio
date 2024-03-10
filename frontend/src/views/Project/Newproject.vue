@@ -233,5 +233,5 @@ onBeforeMount(() => {
 </template>
 
 <style scoped lang="scss">
-@import '@/css/Newproject.scss';
+@import '@/assets/css/Newproject.scss';
 </style>

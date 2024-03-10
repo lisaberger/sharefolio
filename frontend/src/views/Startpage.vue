@@ -36,9 +36,11 @@ onBeforeMount(() => {
     if (Cookies.get('isLoggedIn')) {
         userLoggedIn.value = true;
         userID.value = Cookies.get('isLoggedIn');
-        axios.get(`http://localhost:4000/user/id/${userID.value}`).then((response) => {
-            user.value = response.data[0];
-        });
+        axios
+            .get(`http://localhost:4000/user/id/${userID.value}`)
+            .then((response) => {
+                user.value = response.data[0];
+            });
     }
 });
 
@@ -63,17 +65,25 @@ function linkify(nameString) {
             <div v-if="userLoggedIn">
                 <h1>Willkommen, {{ user.username }}</h1>
                 <p>Teile deine schönsten Projekte</p>
-                <p>Oder lass dich von den kreativen Arbeiten anderer Designer inspirieren.</p>
+                <p>
+                    Oder lass dich von den kreativen Arbeiten anderer Designer
+                    inspirieren.
+                </p>
             </div>
             <div v-if="!userLoggedIn" class="logged__out">
                 <h1>Willkommen bei Sharefolio</h1>
                 <p>Teile deine schönsten Projekte</p>
                 <p>
-                    Melde dich an und erstelle dein eigenes Portfolio. Oder lass dich<br />
+                    Melde dich an und erstelle dein eigenes Portfolio. Oder lass
+                    dich<br />
                     von den kreativen Arbeiten anderer Designer inspirieren.
                 </p>
                 <router-link to="/login/">
-                    <Button type="button" label="Anmelden" theme="primary__btn" />
+                    <Button
+                        type="button"
+                        label="Anmelden"
+                        theme="primary__btn"
+                    />
                 </router-link>
                 <router-link to="/register/">
                     <div class="link">Noch kein Profil?</div>
@@ -105,5 +115,5 @@ function linkify(nameString) {
 </template>
 
 <style scoped lang="scss">
-@import '@/css/Startpage.scss';
+@import '@/assets/css/Startpage.scss';
 </style>

@@ -1,0 +1,32 @@
+.navbar {
+    background: #ffffff;
+    position: relative;
+    padding: 10px 75px;
+
+    .nav-menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logged__in {
+        display: flex;
+        gap: 20px;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .login__picture {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    #logo__big {
+        width: 200px;
+    }
+}
+
+#logo__small {
+    display: none;
+}

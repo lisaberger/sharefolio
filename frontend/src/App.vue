@@ -1,7 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
-import { RouterLink, RouterView } from 'vue-router';
-import Button from '/src/components/form/Button.vue';
+import { RouterView } from 'vue-router';
+import MainNavigation from '@/components/MainNavigation.vue';
+import TheFooter from '@/components/TheFooter.vue';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
@@ -10,7 +11,7 @@ const userLoggedIn = ref(false);
 const userID = ref();
 const user = ref({});
 const router = useRouter();
-// const isLoading = true
+
 onBeforeMount(() => {
     if (Cookies.get('isLoggedIn')) {
         userLoggedIn.value = true;
@@ -32,68 +33,20 @@ const logoutUser = () => {
 
 <template>
     <header>
-        <nav class="navbar">
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <router-link to="/">
-                        <img
-                            id="logo__big"
-                            src="./assets/links/sharefolio_rgb_3c.svg"
-                            alt="Sharefolio-Logo"
-                        />
-                    </router-link>
-                </li>
-                <li>
-                    <div>
-                        <div v-if="!userLoggedIn" class="logged__out">
-                            <router-link to="/login">
-                                <Button
-                                    type="button"
-                                    label="Anmelden"
-                                    theme="secondary__btn"
-                                />
-                            </router-link>
-                        </div>
-                        <div v-if="userLoggedIn" class="logged__in">
-                            <Button
-                                type="button"
-                                label="Abmelden"
-                                theme="secondary__btn"
-                                @click="logoutUser"
-                            />
-                            <router-link
-                                class="link"
-                                :to="'/profile/' + user.username"
-                            >
-                                {{ user.username }}
-                            </router-link>
-                            <img
-                                class="login__picture"
-                                :src="
-                                    'http://localhost:3000/' + user.profilbild
-                                "
-                                alt="Profile Picture"
-                            />
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+        <main-navigation
+            :user-logged-in="userLoggedIn"
+            :user="user"
+            @logout="logoutUser"
+        />
     </header>
     <hr />
     <main class="wrapper">
         <router-view />
     </main>
     <hr />
-    <footer>
-        <div>
-            <h4>Sharefolio</h4>
-            <p>Share your Portfolio</p>
-        </div>
-        <p>​© 2022 By Sharefolio</p>
-    </footer>
+    <the-footer />
 </template>
 
 <style lang="scss">
-@import '@/css/App.scss';
+@import '@/assets/css/App.scss';
 </style>
