@@ -6,7 +6,7 @@
             @logout="logoutUser"
         />
     </header>
-    <main class="wrapper">
+    <main>
         <router-view />
     </main>
     <footer>
@@ -46,7 +46,3 @@ const logoutUser = () => {
     router.go(0);
 };
 </script>
-
-<style lang="scss">
-@import '@/assets/css/App.scss';
-</style>

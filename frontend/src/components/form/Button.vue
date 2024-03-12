@@ -21,5 +21,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '/css/components/form/Button.scss';
+// @import '/css/components/form/Button.scss';
 </style>

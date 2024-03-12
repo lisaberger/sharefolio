@@ -52,7 +52,7 @@ function linkify(nameString) {
 
 <template>
     <div v-if="!isLoading">
-        <section class="teaser">
+        <section>
             <RandomProject
                 :project-name="titleproject.name"
                 :project-subline="titleproject.art"
@@ -61,36 +61,33 @@ function linkify(nameString) {
             >
             </RandomProject>
         </section>
-        <section class="welcome">
+        <section class="flex justify-center py-10 text-center">
             <div v-if="userLoggedIn">
-                <h1>Willkommen, {{ user.username }}</h1>
+                <h1 class="text-3xl">Willkommen, {{ user.username }}</h1>
                 <p>Teile deine schönsten Projekte</p>
                 <p>
                     Oder lass dich von den kreativen Arbeiten anderer Designer
                     inspirieren.
                 </p>
             </div>
-            <div v-if="!userLoggedIn" class="logged__out">
-                <h1>Willkommen bei Sharefolio</h1>
-                <p>Teile deine schönsten Projekte</p>
-                <p>
-                    Melde dich an und erstelle dein eigenes Portfolio. Oder lass
-                    dich<br />
+            <div else>
+                <h1 class="text-4xl font-extrabold">
+                    Willkommen bei Sharefolio
+                </h1>
+                <p class="mb-4 text-lg">Teile deine schönsten Projekte</p>
+                <p class="mb-2 text-sm">
+                    Melde dich an und teile dein Portfolio. Oder lass dich<br />
                     von den kreativen Arbeiten anderer Designer inspirieren.
                 </p>
                 <router-link to="/login/">
-                    <Button
-                        type="button"
-                        label="Anmelden"
-                        theme="primary__btn"
-                    />
+                    <prime-button label="Anmelden" rounded class="mb-4" />
                 </router-link>
                 <router-link to="/register/">
-                    <div class="link">Noch kein Profil?</div>
+                    <div class="text-sm">Noch kein Profil?</div>
                 </router-link>
             </div>
         </section>
-        <hr class="start__row" />
+        <hr class="border-grey-100" />
         <div class="centered__button">
             <router-link to="/new/">
                 <UploadButton label="Neues Projekt" />
@@ -115,5 +112,5 @@ function linkify(nameString) {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/css/views/Startpage.scss';
+// @import '@/assets/css/views/Startpage.scss';
 </style>

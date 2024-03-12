@@ -1,6 +1,7 @@
 {
     "name": "sharefolio",
     "version": "1.0.0",
+    "type": "module",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
@@ -12,17 +13,22 @@
         "axios": "^1.6.7",
         "js-cookie": "^3.0.5",
         "pinia": "^2.1.7",
+        "primevue": "^3.49.1",
         "vue": "^3.4.21",
         "vue-router": "^4.3.0"
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "^5.0.4",
         "@vue/eslint-config-prettier": "^9.0.0",
+        "autoprefixer": "^10.4.18",
         "eslint": "^8.57.0",
         "eslint-plugin-vue": "^9.22.0",
+        "postcss": "^8.4.35",
+        "prettier-plugin-tailwindcss": "^0.5.12",
         "sass": "^1.71.1",
         "stylelint": "^16.2.1",
         "stylelint-config-standard": "^36.0.0",
+        "tailwindcss": "^3.4.1",
         "typescript": "^5.4.2",
         "vite": "^5.1.5"
     }

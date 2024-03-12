@@ -68,5 +68,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/css/components/ProjectInfo.scss';
+// @import '../assets/css/components/ProjectInfo.scss';
 </style>

@@ -13,7 +13,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
 const props = defineProps({
     label: { type: String, required: true },
     id: { type: String },
@@ -30,5 +29,5 @@ const updateText = (event) => {
 </script>
 
 <style scoped lang="scss">
-@import '/css/components/form/Textfield.scss';
+// @import '/css/components/form/Textfield.scss';
 </style>

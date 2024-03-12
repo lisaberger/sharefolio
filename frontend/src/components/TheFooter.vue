@@ -1,13 +1,11 @@
 <template>
-    <div class="footer">
+    <div
+        class="border-grey-100 flex justify-between border-t-2 bg-white px-16 py-4"
+    >
         <div>
-            <h4>Sharefolio</h4>
+            <h4 class="font-bold">Sharefolio</h4>
             <p>Share your Portfolio</p>
         </div>
-        <p>&copy; 2024 By Sharefolio</p>
+        <p class="text-xs">&copy; 2024 By Sharefolio</p>
     </div>
 </template>
-
-<style lang="scss">
-@import '@/assets/css/components/TheFooter.scss';
-</style>

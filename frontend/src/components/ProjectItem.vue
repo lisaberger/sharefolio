@@ -40,5 +40,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/css/components/ProjectItem.scss';
+// @import '../assets/css/components/ProjectItem.scss';
 </style>

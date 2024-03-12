@@ -188,5 +188,5 @@ const onSubmit = () => {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/css/views/Register.scss';
+// @import '@/assets/css/views/Register.scss';
 </style>
