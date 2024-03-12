@@ -3,17 +3,24 @@ import App from '@/App.vue';
 import router from '@/router';
 import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
-import Panel from 'primevue/panel';
 import Lara from '@/presets/lara';
 
-const app = createApp(App);
-const pinia = createPinia();
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import '@/assets/css/style.css';
 import Button from 'primevue/button';
 import IconField from 'primevue/iconfield';
 import InputText from 'primevue/inputtext';
 import InputIcon from 'primevue/inputicon';
+import Card from 'primevue/card';
+import Avatar from 'primevue/avatar';
+import AvatarGroup from 'primevue/avatargroup';
+
+import '@/assets/css/style.css';
+
+const app = createApp(App);
+const pinia = createPinia();
 
 app.use(router);
 app.use(pinia);
@@ -23,9 +30,15 @@ app.use(PrimeVue, {
     pt: Lara,
 });
 
+library.add(faMagnifyingGlass, faPlus);
+app.component('font-awesome-icon', FontAwesomeIcon);
+
 app.component('PrimeButton', Button);
+app.component('PrimeCard', Card);
 app.component('PrimeIconField', IconField);
 app.component('PrimeInputText', InputText);
 app.component('PrimeInputIcon', InputIcon);
+app.component('PrimeAvatar', Avatar);
+app.component('PrimeAvatarGroup', AvatarGroup);
 
 app.mount('#app');

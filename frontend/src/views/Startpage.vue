@@ -87,18 +87,24 @@ function linkify(nameString) {
                 </router-link>
             </div>
         </section>
-        <hr class="border-grey-100" />
-        <div class="centered__button">
+        <hr class="border-grey-100 mb-4" />
+        <div class="flex justify-center">
             <router-link to="/new/">
-                <UploadButton label="Neues Projekt" />
+                <prime-button label="Neues Projekt" rounded outlined>
+                    <template #icon>
+                        <font-awesome-icon
+                            :icon="['fas', 'plus']"
+                            class="mr-2"
+                        />
+                    </template>
+                </prime-button>
             </router-link>
         </div>
-        <section class="projects">
-            <div class="projects__container">
+        <section class="mt-4">
+            <div class="flex flex-wrap justify-center gap-4 px-8">
                 <ProjectItem
                     v-for="project in projects"
                     :key="project.id"
-                    class="project"
                     :project-name="project.name"
                     :project-subline="project.art"
                     :project-author="project.mitwirkende"
@@ -110,7 +116,3 @@ function linkify(nameString) {
         </section>
     </div>
 </template>
-
-<style scoped lang="scss">
-// @import '@/assets/css/views/Startpage.scss';
-</style>

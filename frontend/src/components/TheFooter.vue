@@ -1,8 +1,8 @@
 <template>
     <div
-        class="border-grey-100 flex justify-between border-t-2 bg-white px-16 py-4"
+        class="border-grey-100 border-t-1 flex justify-between bg-white px-16 py-4"
     >
-        <div>
+        <div class="text-sm">
             <h4 class="font-bold">Sharefolio</h4>
             <p>Share your Portfolio</p>
         </div>

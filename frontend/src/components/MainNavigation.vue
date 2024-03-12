@@ -9,27 +9,17 @@
             <li>
                 <prime-icon-field icon-position="left">
                     <prime-input-icon>
-                        <svg
-                            width="35"
-                            height="40"
-                            viewBox="0 0 35 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path d="..." fill="var(--primary-color)" />
-                            <path d="..." fill="var(--text-color)" /></svg
-                    ></prime-input-icon>
+                        <font-awesome-icon
+                            :icon="['fas', 'magnifying-glass']"
+                        />
+                    </prime-input-icon>
                     <prime-input-text placeholder="Search" />
                 </prime-icon-field>
             </li>
             <li>
                 <div v-if="!userLoggedIn">
                     <router-link to="/login">
-                        <prime-button
-                            label="Anmelden"
-                            rounded
-                            class="font-normal"
-                        />
+                        <prime-button label="Login" rounded text />
                     </router-link>
                 </div>
                 <div v-if="userLoggedIn && user">
@@ -49,24 +39,29 @@
 </template>
 
 <script setup lang="ts">
-// import Button from '@/components/form/Button.vue';
-import TheLogo from './TheLogo.vue';
+import TheLogo from '@/components/TheLogo.vue';
+import axios from 'axios';
+import { onBeforeMount, ref } from 'vue';
 
 defineProps({
     userLoggedIn: {
         type: Boolean,
         default: false,
     },
-    // eslint-disable-next-line vue/require-default-prop
     user: {
         type: Object,
         required: false,
     },
 });
 
+const projects = ref([]);
+
+onBeforeMount(() => {
+    /* API Request */
+    axios.get('http://localhost:4000/projects').then((response) => {
+        projects.value = response.data;
+    });
+});
+
 defineEmits(['logout']);
 </script>
-
-<style lang="scss">
-// @import '@/assets/css/components/MainNavigation.scss';
-</style>

@@ -6,7 +6,7 @@
             @logout="logoutUser"
         />
     </header>
-    <main>
+    <main class="px-4">
         <router-view />
     </main>
     <footer>
