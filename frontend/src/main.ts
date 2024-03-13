@@ -19,6 +19,8 @@ import AvatarGroup from 'primevue/avatargroup';
 import Panel from 'primevue/panel';
 import Password from 'primevue/password';
 import Message from 'primevue/message';
+import FileUpload from 'primevue/fileupload';
+import Textarea from 'primevue/textarea';
 
 import '@/assets/css/style.css';
 
@@ -46,5 +48,7 @@ app.component('PrimeAvatarGroup', AvatarGroup);
 app.component('PrimePanel', Panel);
 app.component('PrimePassword', Password);
 app.component('PrimeMessage', Message);
+app.component('PrimeFileUpload', FileUpload);
+app.component('PrimeTextArea', Textarea);
 
 app.mount('#app');
