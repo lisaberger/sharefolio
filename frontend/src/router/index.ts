@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Startpage from '@/views/Startpage.vue';
-import Newproject from '@/views/Project/Newproject.vue';
-import Projectpage from '@/views/Project/Projectpage.vue';
-import Login from '@/views/Profiles/Login.vue';
-import Register from '@/views/Profiles/Register.vue';
-import Profilepage from '@/views/Profiles/Profilepage.vue';
-import Error from '@/views/Error.vue';
+import HomePage from '@/pages/Home.page.vue';
+import NewProjectPage from '@/pages/project/NewProject.page.vue';
+import ProjectPage from '@/pages/project/Project.page.vue';
+import LoginPage from '@/pages/profile/Login.page.vue';
+import RegisterPage from '@/pages/profile/Register.page.vue';
+import ProfilePage from '@/pages/profile/Profile.page.vue';
+import ErrorPage from '@/pages/Error.page.vue';
 import Cookies from 'js-cookie';
 
 const router = createRouter({
@@ -13,44 +13,44 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            name: 'Start',
-            component: Startpage,
+            name: 'Home',
+            component: HomePage,
         },
         {
-            path: '/login/',
+            path: '/login',
             name: 'Login',
-            component: Login,
+            component: LoginPage,
             beforeEnter(to, from, next) {
                 isLoggedOut(next);
             },
         },
         {
-            path: '/register/',
+            path: '/register',
             name: 'Register',
-            component: Register,
+            component: RegisterPage,
             beforeEnter(to, from, next) {
                 isLoggedOut(next);
             },
         },
         {
-            path: '/profile/:user/',
+            path: '/profile/:user',
             name: 'Profile',
-            component: Profilepage,
+            component: ProfilePage,
         },
         {
-            path: '/project/:name/',
+            path: '/project/:name',
             name: 'Project',
-            component: Projectpage,
+            component: ProjectPage,
         },
         {
-            path: '/new/',
-            name: 'new Project',
-            component: Newproject,
+            path: '/new',
+            name: 'NewProject',
+            component: NewProjectPage,
             beforeEnter(to, from, next) {
                 isLoggedIn(next);
             },
         },
-        { path: '/:pathMatch(.*)*', name: 'Error', component: Error },
+        { path: '/:pathMatch(.*)*', name: 'Error', component: ErrorPage },
     ],
 });
 

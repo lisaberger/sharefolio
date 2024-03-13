@@ -16,6 +16,9 @@ import InputIcon from 'primevue/inputicon';
 import Card from 'primevue/card';
 import Avatar from 'primevue/avatar';
 import AvatarGroup from 'primevue/avatargroup';
+import Panel from 'primevue/panel';
+import Password from 'primevue/password';
+import Message from 'primevue/message';
 
 import '@/assets/css/style.css';
 
@@ -40,5 +43,8 @@ app.component('PrimeInputText', InputText);
 app.component('PrimeInputIcon', InputIcon);
 app.component('PrimeAvatar', Avatar);
 app.component('PrimeAvatarGroup', AvatarGroup);
+app.component('PrimePanel', Panel);
+app.component('PrimePassword', Password);
+app.component('PrimeMessage', Message);
 
 app.mount('#app');

@@ -2,8 +2,8 @@
     <nav class="border-b-2 border-gray-100 bg-white px-4 py-2">
         <ul class="flex items-center justify-between">
             <li>
-                <router-link to="/">
-                    <the-logo />
+                <router-link :to="{ name: 'Home' }">
+                    <logo-component />
                 </router-link>
             </li>
             <li>
@@ -18,13 +18,24 @@
             </li>
             <li>
                 <div v-if="!userLoggedIn">
-                    <router-link to="/login">
-                        <prime-button label="Login" rounded text />
+                    <router-link :to="{ name: 'Login' }">
+                        <prime-button label="Login" rounded text size="small" />
                     </router-link>
                 </div>
                 <div v-if="userLoggedIn && user">
-                    <prime-button label="Abmelden" @click="$emit('logout')" />
-                    <router-link class="link" :to="'/profile/' + user.username">
+                    <prime-button
+                        label="Abmelden"
+                        rounded
+                        text
+                        @click="$emit('logout')"
+                    />
+                    <router-link
+                        class="link"
+                        :to="{
+                            name: 'Profile',
+                            params: { username: user.username },
+                        }"
+                    >
                         {{ user.username }}
                     </router-link>
                     <img
@@ -39,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import TheLogo from '@/components/TheLogo.vue';
+import LogoComponent from '@/components/Logo.component.vue';
 import axios from 'axios';
 import { onBeforeMount, ref } from 'vue';
 

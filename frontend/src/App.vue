@@ -1,27 +1,28 @@
 <template>
-    <header>
-        <main-navigation
+    <header class="flex-none">
+        <main-navigation-component
             :user-logged-in="userLoggedIn"
             :user="user"
             @logout="logoutUser"
         />
     </header>
-    <main class="px-4">
+
+    <main class="mx-auto max-w-screen-xl flex-1 p-8 pt-0">
         <router-view />
     </main>
-    <footer>
-        <the-footer />
+
+    <footer class="flex-none">
+        <footer-component />
     </footer>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
-import { RouterView } from 'vue-router';
-import MainNavigation from '@/components/MainNavigation.vue';
-import TheFooter from '@/components/TheFooter.vue';
-import Cookies from 'js-cookie';
 import axios from 'axios';
-import { useRouter } from 'vue-router';
+import Cookies from 'js-cookie';
+import { onBeforeMount, ref } from 'vue';
+import { RouterView, useRouter } from 'vue-router';
+import MainNavigationComponent from '@/components/MainNavigation.component.vue';
+import FooterComponent from '@/components/Footer.component.vue';
 
 const userLoggedIn = ref(false);
 const userID = ref();

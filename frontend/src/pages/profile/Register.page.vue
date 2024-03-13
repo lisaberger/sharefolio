@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import Textfield from '../../components/form/Textfield.vue';
 import Button from '../../components/form/Button.vue';
 import axios from 'axios';
