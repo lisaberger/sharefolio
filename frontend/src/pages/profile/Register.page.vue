@@ -196,7 +196,7 @@ const onSubmit = () => {
     /* append to Form Data */
     fd.append('userData', JSON.stringify(tempUserData));
 
-    axios.post('http://localhost:4000/createUser', fd).then(async (res) => {
+    axios.post('http://localhost:4000/users/create', fd).then(async (res) => {
         /* redirect to login */
         await router.push({ path: '/login' });
     });

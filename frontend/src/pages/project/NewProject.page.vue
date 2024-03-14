@@ -80,9 +80,11 @@ const onSubmit = () => {
     };
     /* add data to Form Data and send to backend */
     fd.append('projectData', JSON.stringify(tempProjectData));
-    axios.post('http://localhost:4000/createProject', fd).then(async (res) => {
-        await router.push({ path: '/project/' + projectData.value.title });
-    });
+    axios
+        .post('http://localhost:4000/projects/create', fd)
+        .then(async (res) => {
+            await router.push({ path: '/project/' + projectData.value.title });
+        });
 };
 /*******************/
 /* Lifecycle Hooks */

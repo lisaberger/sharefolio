@@ -54,7 +54,7 @@ const route = useRoute();
 onBeforeMount(() => {
     /* API Request */
     axios
-        .get(`http://localhost:4000/project/${route.params.name}`)
+        .get(`http://localhost:4000/projects/${route.params.name}`)
         .then((response) => {
             project.value = response.data[0];
         });

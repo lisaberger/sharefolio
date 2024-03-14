@@ -34,7 +34,7 @@ onBeforeMount(() => {
         userLoggedIn.value = true;
         userID.value = Cookies.get('isLoggedIn');
         axios
-            .get(`http://localhost:4000/user/id/${userID.value}`)
+            .get(`http://localhost:4000/users/id/${userID.value}`)
             .then((response) => {
                 user.value = response.data[0];
             });
@@ -42,7 +42,7 @@ onBeforeMount(() => {
 });
 
 const logoutUser = () => {
-    axios.get('http://localhost:4000/logout');
+    axios.get('http://localhost:4000/auth/logout');
     Cookies.remove('isLoggedIn');
     router.go(0);
 };
