@@ -61,7 +61,7 @@ onBeforeMount(() => {
         userLoggedIn.value = true;
         userID.value = Cookies.get('isLoggedIn');
         axios
-            .get(`http://localhost:4000/user/id/${userID.value}`)
+            .get(`http://localhost:4000/users/id/${userID.value}`)
             .then((response) => {
                 user.value = response.data[0];
             });
