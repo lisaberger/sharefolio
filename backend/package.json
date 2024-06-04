@@ -1,9 +1,10 @@
 {
-    "name": "wk_account_postgres_01",
+    "name": "Sharefolio-server",
     "version": "1.1.2",
-    "author": "Wolfgang L. J. Kowarschick",
+    "author": "Lisa Berger",
     "license": "MIT",
     "description": "Postgres: Account Database",
+    "type": "module",
     "scripts": {
         "dev": "nodemon -L index.js",
         "run": "node index.js"

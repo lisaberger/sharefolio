@@ -64,7 +64,7 @@ const router = useRouter();
 const login = () => {
     /* Send post request with Login Data */
     axios
-        .post('http://localhost:4000/login', loginData.value)
+        .post('http://localhost:4000/auth/login', loginData.value)
         .then((res) => {
             /* set "logged in" - cookie to user is */
             Cookies.set('isLoggedIn', res.data.id, {

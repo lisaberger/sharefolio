@@ -19,7 +19,7 @@ const isLoading = ref(true);
 onBeforeMount(() => {
     /* API Request for user data */
     axios
-        .get(`http://localhost:4000/user/${route.params.user}`)
+        .get(`http://localhost:4000s/${route.params.user}`)
         .then((response) => {
             account.value = response.data[0];
             console.log(account.value);
@@ -29,7 +29,7 @@ onBeforeMount(() => {
 
     /* API Request for projects associated with the user */
     axios
-        .get(`http://localhost:4000/user/${route.params.user}/projects`)
+        .get(`http://localhost:4000/usesr/${route.params.user}/projects`)
         .then((response) => {
             projects.value = response.data;
         });
