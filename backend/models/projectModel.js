@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../db/db.js';
 import Account from './userModel.js';
 import EnumCategory from './categoryModel.js';
+import sequelize from '../db/db.js';
 
 const Project = sequelize.define('Project', {
     id: {

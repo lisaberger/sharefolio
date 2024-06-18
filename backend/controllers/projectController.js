@@ -14,7 +14,7 @@ const getProjects = async (req, res, next) => {
 
 
 const getProjectByName = async (req, res, next) => {
-    const projectName = req.params.name.replace(/\s+/g, '-').toLowerCase();
+    const projectName = req.params.name;
     try {
         const project = await Project.findOne({
             where: {
