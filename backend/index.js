@@ -11,6 +11,8 @@ import userRoutes from './routes/userRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';
 import authenticationRoutes from './routes/authenticationRoutes.js';
 
+import { swaggerSpec, swaggerUi } from './swagger.js';
+
 const app = express();
 const port = 4000;
 
@@ -33,6 +35,7 @@ app.use(bodyParser.json());
 /* connect to db */
 client.connect();
 
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /*************/
 /* REST API  */
