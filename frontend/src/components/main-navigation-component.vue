@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import LogoComponent from '@/components/Logo.component.vue';
+import LogoComponent from '@/components/logo-component.vue';
 import axios from 'axios';
 import { onBeforeMount, ref } from 'vue';
 

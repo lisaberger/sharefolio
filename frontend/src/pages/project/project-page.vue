@@ -37,26 +37,21 @@
     </section>
 </template>
 
-<script setup>
-import ProjectInformationComponent from '@/components/ProjectInformation.component.vue';
-import axios from 'axios';
+<script setup lang="ts">
+import ProjectInformationComponent from '@/components/project-information-component.vue';
 import { useRoute } from 'vue-router';
 import { onBeforeMount, ref } from 'vue';
 
-/* Define Props */
+import ProjectApi from '@/api/project-api';
+
 const project = ref({});
 const route = useRoute();
 
-/*******************/
-/* Lifecycle Hooks */
-/*******************/
+const projectApi = ProjectApi.getInstance();
 
-onBeforeMount(() => {
-    /* API Request */
-    axios
-        .get(`http://localhost:4000/projects/${route.params.name}`)
-        .then((response) => {
-            project.value = response.data[0];
-        });
-});
+const fetchProjectByName = async (name: string): Promise<void> => {
+    project.value = projectApi.getProjectByName(name)[0];
+};
+
+onBeforeMount(() => fetchProjectByName(route.params.name));
 </script>

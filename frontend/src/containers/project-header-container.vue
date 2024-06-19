@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import RandomProjectComponent from '@/components/RandomProject.component.vue';
+import RandomProjectComponent from '@/components/random-project-component.vue';
 
 defineProps({
     titleProject: {

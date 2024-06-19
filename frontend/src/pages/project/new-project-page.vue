@@ -1,6 +1,6 @@
 <script setup>
-import Textfield from '../../components/form/Textfield.vue';
-import Button from '../../components/form/Button.vue';
+import Textfield from '../../components/form/textfield.vue';
+import Button from '../../components/form/button.vue';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { onBeforeMount, ref } from 'vue';

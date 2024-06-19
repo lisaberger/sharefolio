@@ -1,7 +1,7 @@
 <script setup>
-import ProfileProjectItem from '../../components/ProfileProjectItem.vue';
-import Button from '../../components/form/Button.vue';
-import UploadButton from '../../components/form/UploadButton.vue';
+import ProfileProjectItem from '../../components/profile-projectItem-component.vue';
+import Button from '../../components/form/button.vue';
+import UploadButton from '../../components/form/upload-button.vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 import { onBeforeMount, ref } from 'vue';
@@ -19,17 +19,16 @@ const isLoading = ref(true);
 onBeforeMount(() => {
     /* API Request for user data */
     axios
-        .get(`http://localhost:4000s/${route.params.user}`)
+        .get(`http://localhost:4000/users/${route.params.user}`)
         .then((response) => {
             account.value = response.data[0];
             console.log(account.value);
             isLoading.value = false;
-            d;
         });
 
     /* API Request for projects associated with the user */
     axios
-        .get(`http://localhost:4000/usesr/${route.params.user}/projects`)
+        .get(`http://localhost:4000/users/${route.params.user}/projects`)
         .then((response) => {
             projects.value = response.data;
         });

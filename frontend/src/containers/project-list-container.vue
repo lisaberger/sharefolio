@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import ProjectListItem from '@/components/ProjectListItem.component.vue';
+import ProjectListItem from '@/components/project-list-item-component.vue';
 
 defineProps({
     projects: {
