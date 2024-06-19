@@ -3,7 +3,9 @@ import App from '@/App.vue';
 import router from '@/router';
 import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
-import Lara from '@/presets/lara';
+import { createI18n } from 'vue-i18n';
+
+import Lara from '@/theme';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -26,6 +28,9 @@ import '@/assets/css/style.css';
 
 const app = createApp(App);
 const pinia = createPinia();
+const i18n = createI18n({
+    locale: 'en',
+});
 
 app.use(router);
 app.use(pinia);
@@ -34,6 +39,8 @@ app.use(PrimeVue, {
     unstyled: true,
     pt: Lara,
 });
+
+app.use(i18n);
 
 library.add(faMagnifyingGlass, faPlus);
 app.component('font-awesome-icon', FontAwesomeIcon);
