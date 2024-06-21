@@ -1,28 +1,3 @@
-<template>
-    <div v-if="!isLoading">
-        <project-header-container :title-project="titleProject" />
-        <welcome-container :user-logged-in="userLoggedIn" />
-        <hr class="border-grey-100 mb-4" />
-
-        <section class="mt-4 p-8">
-            <project-list-container :projects="projects" />
-
-            <div class="mt-4 flex justify-center">
-                <router-link :to="{ name: 'NewProject' }">
-                    <prime-button label="Neues Projekt" rounded outlined>
-                        <template #icon>
-                            <font-awesome-icon
-                                :icon="['fas', 'plus']"
-                                class="mr-2"
-                            />
-                        </template>
-                    </prime-button>
-                </router-link>
-            </div>
-        </section>
-    </div>
-</template>
-
 <script setup lang="ts">
 import ProjectListContainer from '@/containers/project-list-container.vue';
 import ProjectHeaderContainer from '@/containers/project-header-container.vue';
@@ -85,3 +60,31 @@ onBeforeMount(() => {
     }
 });
 </script>
+
+<template>
+    <div v-if="!isLoading">
+        <project-header-container :title-project="titleProject" />
+        <welcome-container
+            :user-logged-in="userLoggedIn"
+            :current-user="user"
+        />
+        <hr class="border-grey-100 mb-4" />
+
+        <section class="mt-4 p-8">
+            <project-list-container :projects="projects" />
+
+            <div class="mt-4 flex justify-center">
+                <router-link :to="{ name: 'NewProject' }">
+                    <prime-button label="Neues Projekt" rounded outlined>
+                        <template #icon>
+                            <font-awesome-icon
+                                :icon="['fas', 'plus']"
+                                class="mr-2"
+                            />
+                        </template>
+                    </prime-button>
+                </router-link>
+            </div>
+        </section>
+    </div>
+</template>

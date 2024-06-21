@@ -1,6 +1,14 @@
 # Sharefolio
 
-A student project for Interactive Media at the University of Applied Sciences Augsburg using Vuejs.
+Sharefolio is a full-stack application designed to serve as a sharing platform for portfolios. Creative individuals can use this platform to showcase themselves and their best work.
+
+```
+                           __       __
+ ___| |__   __ _ _ __ ___ / _| ___ | (_) ___  
+/ __| '_ \ / _` | '__/ _ \ |_ / _ \| | |/ _ \
+\__ \ | | | (_| | | |  __/  _| (_) | | | (_) |
+|___/_| |_|\__,_|_|  \___|_|  \___/|_|_|\___/
+```
 
 ## Setup
 

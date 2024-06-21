@@ -1,4 +1,4 @@
-export class User {
+class User {
     constructor(
         id,
         name,
@@ -23,3 +23,5 @@ export class User {
         this.profilbild = profilbild;
     }
 }
+
+export default User;

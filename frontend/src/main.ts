@@ -24,12 +24,17 @@ import Message from 'primevue/message';
 import FileUpload from 'primevue/fileupload';
 import Textarea from 'primevue/textarea';
 
+import messages from '@intlify/unplugin-vue-i18n/messages';
+
 import '@/assets/css/style.css';
 
 const app = createApp(App);
 const pinia = createPinia();
 const i18n = createI18n({
-    locale: 'en',
+    locale: 'de',
+    fallbackLocale: 'en',
+    legacy: false,
+    messages,
 });
 
 app.use(router);

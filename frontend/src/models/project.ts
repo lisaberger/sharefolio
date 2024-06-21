@@ -1,5 +1,7 @@
 interface Project {}
 
-export class Project {
+class Project {
     // folgt...
 }
+
+export default Project;

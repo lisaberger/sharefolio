@@ -26,22 +26,12 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
-    projectName: {
-        type: String,
-        required: true,
-    },
-    projectSubline: {
-        type: String,
-        required: true,
-    },
-    projectPicture: {
-        type: String,
-        required: true,
-    },
-    projectLink: {
-        type: String,
-        required: true,
-    },
-});
+interface Props {
+    projectName: string;
+    projectSubline: string;
+    projectPicture: string;
+    projectLink: string;
+}
+
+defineProps<Props>();
 </script>

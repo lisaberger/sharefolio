@@ -21,8 +21,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { onBeforeMount, ref } from 'vue';
 import { RouterView, useRouter } from 'vue-router';
-import MainNavigationComponent from '@/components/MainNavigation.component.vue';
-import FooterComponent from '@/components/Footer.component.vue';
+import MainNavigationComponent from '@/components/main-navigation-component.vue';
+import FooterComponent from '@/components/footer-component.vue';
 
 const userLoggedIn = ref(false);
 const userID = ref();
