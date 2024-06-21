@@ -1,21 +1,3 @@
-<template>
-    <header class="flex-none">
-        <main-navigation-component
-            :user-logged-in="userLoggedIn"
-            :user="user"
-            @logout="logoutUser"
-        />
-    </header>
-
-    <main class="mx-auto max-w-screen-xl flex-1 p-8 pt-0">
-        <router-view />
-    </main>
-
-    <footer class="flex-none">
-        <footer-component />
-    </footer>
-</template>
-
 <script setup lang="ts">
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -47,3 +29,21 @@ const logoutUser = () => {
     router.go(0);
 };
 </script>
+
+<template>
+    <header class="flex-none">
+        <main-navigation-component
+            :user-logged-in="userLoggedIn"
+            :user="user"
+            @logout="logoutUser"
+        />
+    </header>
+
+    <main class="mx-auto max-w-screen-xl flex-1 p-8 pt-0">
+        <router-view />
+    </main>
+
+    <footer class="flex-none">
+        <footer-component />
+    </footer>
+</template>

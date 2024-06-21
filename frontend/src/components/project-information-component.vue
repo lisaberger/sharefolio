@@ -1,49 +1,3 @@
-<template>
-    <section class="m-8 flex gap-4">
-        <div class="w-2/3 flex-auto">
-            <h1 class="text-3xl font-bold">{{ projectName }}</h1>
-            <p class="mb-2 text-lg">{{ projectSubline }}</p>
-            <p>{{ projectDescription }}</p>
-
-            <prime-button label="Demo" rounded class="mt-2" />
-        </div>
-        <div clas="w-1/3 flex-auto">
-            <div class="mb-2 text-sm">
-                <h5 class="font-semibold">Ersteller</h5>
-                <div>
-                    <router-link
-                        :to="'/profile/' + projectLink + '/'"
-                        class="flex items-center"
-                    >
-                        <prime-avatar shape="circle" />
-                        <p class="ml-2">{{ projectAuthor }}</p>
-                    </router-link>
-                </div>
-            </div>
-            <div class="mb-2 text-sm">
-                <h5 class="font-semibold">Tools</h5>
-                <p>{{ projectTools }}</p>
-            </div>
-            <div class="mb-2 text-sm">
-                <h5 class="font-semibold">Kategorie</h5>
-                <p>{{ projectCategory }}</p>
-            </div>
-            <div class="mb-2 text-sm" v-if="projectParticipants">
-                <h5 class="font-semibold">Mitwirkende</h5>
-                <prime-avatar-group class="ml-4">
-                    <prime-avatar
-                        shape="circle"
-                        v-for="(author, index) in projectParticipants.split(
-                            ', '
-                        )"
-                        :key="index"
-                    />
-                </prime-avatar-group>
-            </div>
-        </div>
-    </section>
-</template>
-
 <script setup lang="ts">
 defineProps({
     project: {
@@ -84,3 +38,54 @@ defineProps({
     },
 });
 </script>
+
+<template>
+    <nav class="border-b-2 border-gray-100 bg-white px-4 py-2">
+        <ul class="flex items-center justify-between">
+            <li>
+                <router-link :to="{ name: 'Home' }">
+                    <logo-component />
+                </router-link>
+            </li>
+            <li>
+                <prime-icon-field icon-position="left">
+                    <prime-input-icon>
+                        <font-awesome-icon
+                            :icon="['fas', 'magnifying-glass']"
+                        />
+                    </prime-input-icon>
+                    <prime-input-text placeholder="Search" />
+                </prime-icon-field>
+            </li>
+            <li>
+                <div v-if="!userLoggedIn">
+                    <router-link :to="{ name: 'Login' }">
+                        <prime-button label="Login" rounded text size="small" />
+                    </router-link>
+                </div>
+                <div v-if="userLoggedIn && user">
+                    <prime-button
+                        label="Abmelden"
+                        rounded
+                        text
+                        @click="$emit('logout')"
+                    />
+                    <router-link
+                        class="link"
+                        :to="{
+                            name: 'Profile',
+                            params: { username: user.username },
+                        }"
+                    >
+                        {{ user.username }}
+                    </router-link>
+                    <img
+                        class="login__picture"
+                        :src="'http://localhost:3000/' + user.profilbild"
+                        alt="Profile Picture"
+                    />
+                </div>
+            </li>
+        </ul>
+    </nav>
+</template>

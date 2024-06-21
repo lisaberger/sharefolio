@@ -1,17 +1,3 @@
-<template>
-    <div>
-        <label :for="id">{{ label }}</label>
-        <input
-            :id="id"
-            :type="type"
-            :autofocus="autofocus"
-            :about="modelValue"
-            :placeholder="placeholder"
-            @input="updateText"
-        />
-    </div>
-</template>
-
 <script setup>
 const props = defineProps({
     label: { type: String, required: true },
@@ -27,6 +13,20 @@ const updateText = (event) => {
     emit('update:modelValue', event.target.value);
 };
 </script>
+
+<template>
+    <div>
+        <label :for="id">{{ label }}</label>
+        <input
+            :id="id"
+            :type="type"
+            :autofocus="autofocus"
+            :about="modelValue"
+            :placeholder="placeholder"
+            @input="updateText"
+        />
+    </div>
+</template>
 
 <style scoped lang="scss">
 // @import '/css/components/form/Textfield.scss';

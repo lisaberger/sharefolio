@@ -1,3 +1,37 @@
+<script setup>
+import { ref } from 'vue';
+
+defineProps({
+    projectName: {
+        type: String,
+        required: true,
+    },
+    projectSubline: {
+        type: String,
+        required: true,
+    },
+    projectAuthor: {
+        type: String,
+        required: true,
+    },
+    projectPicture: {
+        type: String,
+        required: true,
+    },
+    projectLink: {
+        type: String,
+        required: true,
+    },
+});
+
+const customCard = ref({
+    content: 'py-0',
+    root: {
+        class: ['rounded-3xl'],
+    },
+});
+</script>
+
 <template>
     <router-link :to="'/project/' + projectLink">
         <prime-card
@@ -35,37 +69,3 @@
         </prime-card>
     </router-link>
 </template>
-
-<script setup>
-import { ref } from 'vue';
-
-defineProps({
-    projectName: {
-        type: String,
-        required: true,
-    },
-    projectSubline: {
-        type: String,
-        required: true,
-    },
-    projectAuthor: {
-        type: String,
-        required: true,
-    },
-    projectPicture: {
-        type: String,
-        required: true,
-    },
-    projectLink: {
-        type: String,
-        required: true,
-    },
-});
-
-const customCard = ref({
-    content: 'py-0',
-    root: {
-        class: ['rounded-3xl'],
-    },
-});
-</script>

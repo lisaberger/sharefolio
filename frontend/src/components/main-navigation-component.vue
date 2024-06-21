@@ -1,3 +1,31 @@
+<script setup lang="ts">
+import LogoComponent from '@/components/logo-component.vue';
+import axios from 'axios';
+import { onBeforeMount, ref } from 'vue';
+
+defineProps({
+    userLoggedIn: {
+        type: Boolean,
+        default: false,
+    },
+    user: {
+        type: Object,
+        required: false,
+    },
+});
+
+const projects = ref([]);
+
+onBeforeMount(() => {
+    /* API Request */
+    axios.get('http://localhost:4000/projects').then((response) => {
+        projects.value = response.data;
+    });
+});
+
+defineEmits(['logout']);
+</script>
+
 <template>
     <nav class="border-b-2 border-gray-100 bg-white px-4 py-2">
         <ul class="flex items-center justify-between">
@@ -48,31 +76,3 @@
         </ul>
     </nav>
 </template>
-
-<script setup lang="ts">
-import LogoComponent from '@/components/logo-component.vue';
-import axios from 'axios';
-import { onBeforeMount, ref } from 'vue';
-
-defineProps({
-    userLoggedIn: {
-        type: Boolean,
-        default: false,
-    },
-    user: {
-        type: Object,
-        required: false,
-    },
-});
-
-const projects = ref([]);
-
-onBeforeMount(() => {
-    /* API Request */
-    axios.get('http://localhost:4000/projects').then((response) => {
-        projects.value = response.data;
-    });
-});
-
-defineEmits(['logout']);
-</script>

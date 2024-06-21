@@ -1,3 +1,44 @@
+<script setup lang="ts">
+import ProfileProjectItem from '@/components/profile-project-item-component.vue';
+import Button from '@/components/form/button.vue';
+import UploadButton from '@/components/form/upload-button.vue';
+import axios from 'axios';
+import { useRoute } from 'vue-router';
+import { onBeforeMount, ref } from 'vue';
+
+/* Define Props */
+const account = ref({});
+const projects = ref([]);
+const route = useRoute();
+const isLoading = ref(true);
+
+/*******************/
+/* Lifecycle Hooks */
+/*******************/
+
+onBeforeMount(() => {
+    /* API Request for user data */
+    axios
+        .get(`http://localhost:4000/users/${route.params.user}`)
+        .then((response) => {
+            account.value = response.data[0];
+            console.log(account.value);
+            isLoading.value = false;
+        });
+
+    /* API Request for projects associated with the user */
+    axios
+        .get(`http://localhost:4000/users/${route.params.user}/projects`)
+        .then((response) => {
+            projects.value = response.data;
+        });
+});
+
+function linkify(nameString) {
+    return nameString.replace(/ /g, '-').trim().toLowerCase();
+}
+</script>
+
 <template>
     <div v-if="!isLoading">
         <section class="profile">
@@ -52,47 +93,6 @@
         </section>
     </div>
 </template>
-
-<script setup lang="ts">
-import ProfileProjectItem from '@/components/profile-project-item-component.vue';
-import Button from '@/components/form/button.vue';
-import UploadButton from '@/components/form/upload-button.vue';
-import axios from 'axios';
-import { useRoute } from 'vue-router';
-import { onBeforeMount, ref } from 'vue';
-
-/* Define Props */
-const account = ref({});
-const projects = ref([]);
-const route = useRoute();
-const isLoading = ref(true);
-
-/*******************/
-/* Lifecycle Hooks */
-/*******************/
-
-onBeforeMount(() => {
-    /* API Request for user data */
-    axios
-        .get(`http://localhost:4000/users/${route.params.user}`)
-        .then((response) => {
-            account.value = response.data[0];
-            console.log(account.value);
-            isLoading.value = false;
-        });
-
-    /* API Request for projects associated with the user */
-    axios
-        .get(`http://localhost:4000/users/${route.params.user}/projects`)
-        .then((response) => {
-            projects.value = response.data;
-        });
-});
-
-function linkify(nameString) {
-    return nameString.replace(/ /g, '-').trim().toLowerCase();
-}
-</script>
 
 <style scoped lang="scss">
 // @import '@/assets/css/views/Profilepage.scss';

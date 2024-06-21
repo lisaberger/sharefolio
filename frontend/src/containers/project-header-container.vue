@@ -1,15 +1,3 @@
-<template>
-    <section>
-        <random-project-component
-            :project-name="titleProject.name"
-            :project-subline="titleProject.art"
-            :project-picture="titleProject.titelbild"
-            :project-link="linkify(titleProject.name)"
-        >
-        </random-project-component>
-    </section>
-</template>
-
 <script setup lang="ts">
 import RandomProjectComponent from '@/components/random-project-component.vue';
 
@@ -25,3 +13,15 @@ const linkify = (name: string) => {
     return name.replace(/ /g, '-').trim().toLowerCase();
 };
 </script>
+
+<template>
+    <section>
+        <random-project-component
+            :project-name="titleProject.name"
+            :project-subline="titleProject.art"
+            :project-picture="titleProject.titelbild"
+            :project-link="linkify(titleProject.name)"
+        >
+        </random-project-component>
+    </section>
+</template>
