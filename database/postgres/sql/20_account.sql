@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS account CASCADE;
 CREATE TABLE account
 ("id"            UUID          DEFAULT gen_random_uuid(),
  "name"          D_UNTAINTED,
- "username"          D_UNTAINTED,
+ "username"      D_UNTAINTED,
  "email"         D_EMAIL,
  "password"      VARCHAR       /*NOT NULL*/,
  "isAdmin"       BOOLEAN       NOT NULL DEFAULT false,

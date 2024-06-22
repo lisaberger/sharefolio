@@ -5,7 +5,7 @@ import cookieSession from 'cookie-session';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 
-import client from './db/client.js';
+import sequelize from './db/db.js'; // adjust path as per your project structure
 
 import userRoutes from './routes/userRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';
@@ -32,8 +32,24 @@ app.use(passport.session());
 app.use(cors());
 /* handler for the req / res body */
 app.use(bodyParser.json());
-/* connect to db */
-client.connect();
+
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Database connection has been established successfully.');
+    })
+    .catch((error) => {
+        console.error('Unable to connect to the database:', error);
+    });
+
+sequelize
+    .sync({ force: false })
+    .then(() => {
+        console.log('Database models synchronized successfully.');
+    })
+    .catch((error) => {
+        console.error('Error synchronizing database models:', error);
+    });
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
