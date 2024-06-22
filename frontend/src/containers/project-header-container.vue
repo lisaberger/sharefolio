@@ -1,27 +1,16 @@
 <script setup lang="ts">
 import RandomProjectComponent from '@/components/random-project-component.vue';
+import Project from '@/models/project';
 
-defineProps({
-    titleProject: {
-        type: Object,
-        required: true,
-    },
-});
+interface Props {
+    titleProject: Project;
+}
 
-// throws an error for unknown reasons but works anyways
-const linkify = (name: string) => {
-    return name.replace(/ /g, '-').trim().toLowerCase();
-};
+const props = defineProps<Props>();
 </script>
 
 <template>
     <section>
-        <random-project-component
-            :project-name="titleProject.name"
-            :project-subline="titleProject.art"
-            :project-picture="titleProject.titelbild"
-            :project-link="linkify(titleProject.name)"
-        >
-        </random-project-component>
+        <random-project-component :title-project="props.titleProject" />
     </section>
 </template>

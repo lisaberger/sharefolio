@@ -1,29 +1,20 @@
 <script setup lang="ts">
 import ProjectListItem from '@/components/project-list-item-component.vue';
+import Project from '@/models/project';
 
-defineProps({
-    projects: {
-        type: Array,
-        required: true,
-    },
-});
+interface Props {
+    projects: Array<Project>;
+}
 
-// throws an error for unknown reasons but works anyways
-const linkify = (name: string) => {
-    return name.replace(/ /g, '-').trim().toLowerCase();
-};
+const props = defineProps<Props>();
 </script>
 
 <template>
     <div class="flex flex-wrap justify-center gap-4">
         <project-list-item
             v-for="project in projects"
+            :project="project"
             :key="project.id"
-            :project-name="project.name"
-            :project-subline="project.art"
-            :project-author="project.mitwirkende"
-            :project-picture="project.titelbild"
-            :project-link="linkify(project.name)"
         />
     </div>
 </template>

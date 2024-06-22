@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import Textfield from '../../components/form/textfield.vue';
 import Button from '../../components/form/button.vue';
 import Cookies from 'js-cookie';

@@ -12,8 +12,8 @@ const getUsers = (req, res, next) => {
 };
 
 const getUserByName = (req, res, next) => {
-    const { name } = req.params;
-    client.query('SELECT * FROM account WHERE LOWER(username) = LOWER($1)', [name])
+    const { lastname } = req.params;
+    client.query('SELECT * FROM account WHERE LOWER(username) = LOWER($1)', [lastname])
         .then((response) => {
             if (response.rows.length === 0) {
                 res.status(404).json({ error: 'User not found' });
@@ -44,13 +44,13 @@ const getUserById = (req, res, next) => {
 };
 
 const getUsersProjects = (req, res, next) => {
-    const { name } = req.params;
+    const { lastname } = req.params;
     client.query(
-        `SELECT project.*, enum_category.name AS Kategorie, account.name AS Ersteller 
+        `SELECT project.*, enum_category.lastname AS Kategorie, account.lastname AS Ersteller 
          FROM project
          JOIN enum_category ON project.kategorie_id = enum_category.id
          JOIN account ON project.ersteller_id = account.id
-         WHERE LOWER(account.username) = LOWER($1)`, [name])
+         WHERE LOWER(account.username) = LOWER($1)`, [lastname])
         .then((response) => {
             res.status(200).json(response.rows);
         })
@@ -63,7 +63,7 @@ const getUsersProjects = (req, res, next) => {
 const createUser = (req, res, next) => {
     const userData = JSON.parse(req.body.userData);
     const query = `INSERT INTO account 
-                   (vorname, name, email, password, username, jobtitel, ort, beschreibung, profilbild) 
+                   (firstname, lastname, email, password, username, job, location, description, image) 
                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
     const values = [
         userData.firstName,

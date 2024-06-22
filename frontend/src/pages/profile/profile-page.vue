@@ -44,14 +44,14 @@ function linkify(nameString) {
         <section class="profile">
             <img
                 id="pfp"
-                :src="'http://localhost:3000/' + account.profilbild"
+                :src="'http://localhost:3000/' + account.image"
                 alt="Profile Picture"
             />
             <div class="profile__info">
-                <h1>{{ account.vorname }} {{ account.name }}</h1>
-                <p>{{ account.jobtitel }}</p>
+                <h1>{{ account.firstname }} {{ account.name }}</h1>
+                <p>{{ account.job }}</p>
                 <p>
-                    {{ account.beschreibung }}
+                    {{ account.description }}
                 </p>
                 <div class="location__container">
                     <span class="location">
@@ -59,7 +59,7 @@ function linkify(nameString) {
                             src="../../assets/links/Locoation Icon.svg"
                             alt=""
                         />
-                        <h5>{{ account.ort }}</h5>
+                        <h5>{{ account.location }}</h5>
                     </span>
                     <a :href="'mailto:' + account.email"
                         ><Button
@@ -83,7 +83,7 @@ function linkify(nameString) {
                         class="project"
                         :project-name="project.name"
                         :project-subline="project.art"
-                        :project-desctiption="project.beschreibung"
+                        :project-desctiption="project.description"
                         :project-picture="project.titelbild"
                         :project-link="linkify(project.name)"
                     >

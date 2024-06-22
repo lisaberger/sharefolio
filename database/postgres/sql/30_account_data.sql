@@ -7,16 +7,16 @@ BEGIN;
 INSERT INTO
     account (
         "id",
-        "name",
+        "lastname",
         "username",
         "email",
         "password",
         "isAdmin",
-        "vorname",
-        "jobtitel",
-        "ort",
-        "beschreibung",
-        "profilbild"
+        "firstname",
+        "job",
+        "location",
+        "description",
+        "image"
     )
 VALUES
     (

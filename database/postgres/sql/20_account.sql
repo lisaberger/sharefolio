@@ -19,17 +19,16 @@ DROP TABLE IF EXISTS account CASCADE;
 
 CREATE TABLE account
 ("id"            UUID          DEFAULT gen_random_uuid(),
- "name"          D_UNTAINTED,
- "username"          D_UNTAINTED,
+ "lastname"      D_UNTAINTED,
+ "firstname"     D_UNTAINTED,
+ "username"      D_UNTAINTED,
  "email"         D_EMAIL,
- "password"      VARCHAR       /*NOT NULL*/,
- "isAdmin"       BOOLEAN       NOT NULL DEFAULT false,
- /* Erweiterter Account */
- "vorname"       D_UNTAINTED,
- "jobtitel"      D_UNTAINTED,
- "ort"           D_UNTAINTED,
- "beschreibung"  TEXT,
- "profilbild"    VARCHAR       DEFAULT '/public/profile/avatar_placeholder.png',
+ "password"      VARCHAR,
+ "isAdmin"       BOOLEAN      NOT NULL DEFAULT false,
+ "job"           D_UNTAINTED,
+ "location"      D_UNTAINTED,
+ "description"   TEXT,
+ "image"         VARCHAR       DEFAULT '/public/profile/avatar_placeholder.png',
 
  CONSTRAINT account_pk
  PRIMARY KEY ("id"),

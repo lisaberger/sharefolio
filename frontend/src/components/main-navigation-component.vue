@@ -68,7 +68,7 @@ defineEmits(['logout']);
                     </router-link>
                     <img
                         class="login__picture"
-                        :src="'http://localhost:3000/' + user.profilbild"
+                        :src="'http://localhost:3000/' + user.image"
                         alt="Profile Picture"
                     />
                 </div>

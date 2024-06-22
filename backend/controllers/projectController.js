@@ -44,7 +44,7 @@ const createProject = (req, res, next) => {
     const projectData = req.body.projectData;
     const query = `
         INSERT INTO project 
-            (ersteller_id, titelbild, name, beschreibung, art, tools, kategorie_id, demolink, bild1, bild2) 
+            (ersteller_id, titelbild, name, description, art, tools, kategorie_id, demolink, bild1, bild2) 
         VALUES 
             ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
     const values = [

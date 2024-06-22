@@ -29,7 +29,7 @@ onBeforeMount(() => fetchProjectByName(route.params.name));
     <project-information-component
         :project-name="project.name"
         :project-subline="project.art"
-        :project-description="project.beschreibung"
+        :project-description="project.description"
         :project-tools="project.tools"
         :project-category="project.kategorie"
         :project-participants="project.mitwirkende"

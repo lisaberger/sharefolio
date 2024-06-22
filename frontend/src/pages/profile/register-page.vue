@@ -134,12 +134,12 @@ const onSubmit = () => {
                             <label id="register__label" for="profilepic"
                                 >+</label
                             >
-                            <span class="label">Profilbild</span>
+                            <span class="label">image</span>
                             <p v-if="file" id="upload__name">{{ file.name }}</p>
                         </div> -->
 
                         <div class="mb-2 flex flex-col gap-2">
-                            <label for="first-name">Vorname</label>
+                            <label for="first-name">firstname</label>
                             <prime-input-text
                                 id="first-name"
                                 v-model="userData.firstName"
@@ -174,7 +174,7 @@ const onSubmit = () => {
 
                         <div>
                             <div class="mb-2 flex flex-col gap-2">
-                                <label for="description">Beschreibung</label>
+                                <label for="description">description</label>
                                 <prime-text-area
                                     id="description"
                                     v-model="userData.descr"

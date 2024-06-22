@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+
+interface Props {
+    error?: Error;
+}
+
+const props = defineProps<Props>();
+
+const { t } = useI18n();
+</script>
+
 <template>
     <section class="flex h-full flex-col items-center justify-center">
         <img
@@ -16,18 +28,6 @@
         </router-link>
     </section>
 </template>
-
-<script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-
-interface Props {
-    error?: Error;
-}
-
-const props = defineProps<Props>();
-
-const { t } = useI18n();
-</script>
 
 <i18n lang="yaml">
 de:

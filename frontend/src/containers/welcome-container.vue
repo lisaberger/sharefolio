@@ -14,7 +14,7 @@ const { t } = useI18n();
 
 const welcomeText = computed(() => ({
     title: props.userLoggedIn
-        ? t('welcome.title.user', { name: props.currentUser?.name })
+        ? t('welcome.title.user', { name: props.currentUser?.firstname })
         : t('welcome.title.default'),
     subTitle: t('welcome.subTitle'),
     description: props.userLoggedIn

@@ -21,7 +21,7 @@ BEGIN
   RETURN QUERY
   SELECT rest_helper -- $1 = _id, $2 = _data
          ('INSERT INTO "account"("name", "user", "email", "password", "isAdmin")
-           VALUES(json_attr_value_d_untainted($2, ''name'',  NULL),
+           VALUES(json_attr_value_d_untainted($2, ''lastname'',  NULL),
                   json_attr_value_d_untainted($2, ''user'',  NULL),
                   json_attr_value_d_untainted($2, ''email'', NULL),
                   ($2->>''password'')::TEXT, 
@@ -42,7 +42,7 @@ BEGIN
   RETURN QUERY
   SELECT rest_helper -- $1 = _id, $2 = _data
          ('UPDATE "account" a
-           SET    "name"     = json_attr_value_d_untainted($2, ''name'',  NULL),
+           SET    "lastname"     = json_attr_value_d_untainted($2, ''lastname'',  NULL),
                   "user"     = json_attr_value_d_untainted($2, ''user'',  NULL),
                   "email"    = json_attr_value_d_untainted($2, ''email'', NULL),
                   "password" = COALESCE(($2->>''password'')::TEXT, a."password"),
@@ -63,7 +63,7 @@ BEGIN
   RETURN QUERY
   SELECT rest_helper -- $1 = _id, $2 = _data
          ('UPDATE "account" a
-           SET    "name"     = json_attr_value_d_untainted($2, ''name'',     a."name"),
+           SET    "lastname"     = json_attr_value_d_untainted($2, ''lastname'',     a."lastname"),
                   "user"     = json_attr_value_d_untainted($2, ''user'',     a."user"),
                   "email"    = json_attr_value_d_untainted($2, ''email'',    a."email"),
                   "password" = json_attr_value_not_null   ($2, ''password'', a."password")::TEXT,
@@ -96,115 +96,3 @@ $$
 /* Save it */
 
 COMMIT;
-
-/*
-DELETE FROM account WHERE "user" = 'kowa' OR "user" = 'wk';
-
-SELECT * FROM "account";
-
-SELECT * 
-FROM   post_account
-       ( '{ "name":     "Wolfgang Kowarschick",
-            "user":     "wk",
-            "email":    "wolfgang.kowarschick@hs-augsburg.de",
-            "password": "changeit",
-            "isAdmin":  false
-          }
-         '
-       );
-
-SELECT * FROM "account";
-
-SELECT check_password('wk', 'changeit') AS login;
-SELECT check_password('wolfgang.kowarschick@hs-augsburg.de', 'changeit') AS login;
-SELECT check_password('kowa', 'geheim') AS login;
-SELECT check_password('wolfgang@kowarschick.de', 'geheim') AS login;
-
-SELECT * 
-FROM   put_account
-       ( (SELECT "id" FROM "account" WHERE "user" = 'wk'), 
-         '{ "name":     "Wolfgang",
-            "user":     "kowa",
-            "email":    "wolfgang@kowarschick.de",
-            "password": "geheim",
-            "isAdmin":  true
-          }
-         '
-       );
-
-SELECT * FROM "account";
-
-SELECT * 
-FROM   patch_account
-       ( (SELECT "id" FROM "account" WHERE "user" = 'kowa'), 
-         '{ "name":     "Wolfgang",
-            "user":     "kowa",
-            "email":    "wolfgang@kowarschick.de"
-          }
-         '
-       );
-
-SELECT * FROM "account";
-
-SELECT check_password('wk', 'changeit') AS login;
-SELECT check_password('wolfgang.kowarschick@hs-augsburg.de', 'changeit') AS login;
-SELECT check_password('wk', 'geheim') AS login;
-SELECT check_password('wolfgang.kowarschick@hs-augsburg.de', 'geheim') AS login;
-SELECT check_password('kowa', 'geheim') AS login;
-SELECT check_password('wolfgang@kowarschick.de', 'geheim') AS login;
-
-SELECT "result" 
-FROM   patch_account
-       ( (SELECT "id" FROM "account" WHERE "user" = 'kowa'), 
-         '{ "user":  null,
-            "email": "wk@hs-augsburg.de"
-          }
-         '
-       );
-
-SELECT * FROM "account";
-
-SELECT "result" 
-FROM   patch_account
-       (  (SELECT "id" FROM "account" WHERE "email" = 'wk@hs-augsburg.de'), 
-         '{ "user":  "kowa",
-            "email": null
-          }
-         '
-       );
-
-SELECT * FROM "account";
-
-SELECT "result" 
-FROM   patch_account
-       ( (SELECT "id" FROM "account" WHERE "user" = 'kowa'), 
-         '{ "user":  null,
-            "email": null
-          }
-         '
-       );
-
-SELECT * FROM "account";
-
-SELECT "result" 
-FROM   patch_account
-       ( (SELECT "id" FROM "account" WHERE "user" = 'kowa'), 
-         '{ "isAdmin": true }'
-       );
-
-SELECT * FROM "account";
-
-SELECT "result" 
-FROM   patch_account
-       ( (SELECT "id" FROM "account" WHERE "user" = 'kowa'), 
-         '{ "isAdmin": false }'
-       );
-
-SELECT * FROM "account";
-
-SELECT "result" 
-FROM   delete_account
-       ((SELECT "id" FROM "account" WHERE "user" = 'kowa'));
-
-SELECT * FROM "account";
-*/

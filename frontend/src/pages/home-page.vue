@@ -3,7 +3,6 @@ import ProjectListContainer from '@/containers/project-list-container.vue';
 import ProjectHeaderContainer from '@/containers/project-header-container.vue';
 import WelcomeContainer from '@/containers/welcome-container.vue';
 import { onBeforeMount, ref } from 'vue';
-import axios from 'axios';
 import Cookies from 'js-cookie';
 import Project from '@/models/project';
 import User from '@/models/user';
@@ -21,15 +20,15 @@ const userLoggedIn = ref<boolean>(false);
 const userId = ref<string>('');
 const user = ref<User>({
     id: '',
-    name: '',
+    lastname: '',
     username: '',
     email: '',
     isAdmin: false,
-    vorname: '',
-    jobtitel: '',
-    ort: '',
-    beschreibung: '',
-    profilbild: '',
+    firstname: '',
+    job: '',
+    location: '',
+    description: '',
+    image: '',
 });
 
 const fetchProjects = async (): Promise<void> => {
