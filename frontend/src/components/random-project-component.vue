@@ -23,7 +23,7 @@ const projectLink = computed(() => linkify(props.titleProject.name));
     >
         <img
             class="h-80 w-full rounded-b-3xl object-cover drop-shadow-sm"
-            :src="props.titleProject.image"
+            :src="props.titleProject.teaserImage"
             alt="Zufälliges Projektbild"
         />
         <div

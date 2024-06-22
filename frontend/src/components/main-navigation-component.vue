@@ -3,16 +3,12 @@ import LogoComponent from '@/components/logo-component.vue';
 import axios from 'axios';
 import { onBeforeMount, ref } from 'vue';
 
-defineProps({
-    userLoggedIn: {
-        type: Boolean,
-        default: false,
-    },
-    user: {
-        type: Object,
-        required: false,
-    },
-});
+interface Props {
+    userLoggedIn: boolean;
+    currentUser?: User;
+}
+
+const props = defineProps<Props>();
 
 const projects = ref([]);
 
@@ -45,12 +41,12 @@ defineEmits(['logout']);
                 </prime-icon-field>
             </li>
             <li>
-                <div v-if="!userLoggedIn">
+                <div v-if="!props.userLoggedIn">
                     <router-link :to="{ name: 'Login' }">
                         <prime-button label="Login" rounded text size="small" />
                     </router-link>
                 </div>
-                <div v-if="userLoggedIn && user">
+                <div v-if="props.userLoggedIn && props.currentUser">
                     <prime-button
                         label="Abmelden"
                         rounded
@@ -61,14 +57,14 @@ defineEmits(['logout']);
                         class="link"
                         :to="{
                             name: 'Profile',
-                            params: { username: user.username },
+                            params: { username: currentUser.username },
                         }"
                     >
-                        {{ user.username }}
+                        {{ currentUser.username }}
                     </router-link>
                     <img
                         class="login__picture"
-                        :src="'http://localhost:3000/' + user.image"
+                        :src="'http://localhost:3000/' + currentUser.image"
                         alt="Profile Picture"
                     />
                 </div>

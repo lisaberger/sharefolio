@@ -12,7 +12,7 @@ const props = defineProps<Props>();
 <template>
     <div class="flex flex-wrap justify-center gap-4">
         <project-list-item
-            v-for="project in projects"
+            v-for="project in props.projects"
             :project="project"
             :key="project.id"
         />

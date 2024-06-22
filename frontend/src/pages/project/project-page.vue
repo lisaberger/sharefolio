@@ -20,23 +20,13 @@ onBeforeMount(() => fetchProjectByName(route.params.name));
 <template>
     <section>
         <img
-            :src="project.titelbild"
+            :src="project.teaserImage"
             alt="Projektbild"
             class="h-80 w-full rounded-b-3xl object-cover drop-shadow-sm"
         />
     </section>
 
-    <project-information-component
-        :project-name="project.name"
-        :project-subline="project.art"
-        :project-description="project.description"
-        :project-tools="project.tools"
-        :project-category="project.kategorie"
-        :project-participants="project.mitwirkende"
-        :project-author="project.ersteller"
-        :project-link="project.author"
-    >
-    </project-information-component>
+    <project-information-component :project="project" />
 
     <section>
         <div>

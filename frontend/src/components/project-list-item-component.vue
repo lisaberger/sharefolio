@@ -30,7 +30,7 @@ const customCard = ref({
             <template #header>
                 <img
                     class="h-40 w-full rounded-t-3xl object-cover"
-                    :src="props.project.image"
+                    :src="props.project.teaserImage"
                     alt="Projektbild"
                 />
             </template>

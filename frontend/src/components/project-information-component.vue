@@ -1,91 +1,52 @@
 <script setup lang="ts">
-defineProps({
-    project: {
-        type: Object,
-        required: true,
-    },
-    projectName: {
-        type: String,
-        required: true,
-    },
-    projectSubline: {
-        type: String,
-        required: true,
-    },
-    projectDescription: {
-        type: String,
-        required: true,
-    },
-    projectTools: {
-        type: String,
-        required: true,
-    },
-    projectCategory: {
-        type: String,
-        required: true,
-    },
-    projectAuthor: {
-        type: String,
-        required: true,
-    },
-    projectParticipants: {
-        type: String,
-        required: true,
-    },
-    projectLink: {
-        type: String,
-        required: true,
-    },
-});
+interface Props {
+    project: Project;
+}
+const props = defineProps<Props>();
 </script>
 
 <template>
-    <nav class="border-b-2 border-gray-100 bg-white px-4 py-2">
-        <ul class="flex items-center justify-between">
-            <li>
-                <router-link :to="{ name: 'Home' }">
-                    <logo-component />
-                </router-link>
-            </li>
-            <li>
-                <prime-icon-field icon-position="left">
-                    <prime-input-icon>
-                        <font-awesome-icon
-                            :icon="['fas', 'magnifying-glass']"
-                        />
-                    </prime-input-icon>
-                    <prime-input-text placeholder="Search" />
-                </prime-icon-field>
-            </li>
-            <li>
-                <div v-if="!userLoggedIn">
-                    <router-link :to="{ name: 'Login' }">
-                        <prime-button label="Login" rounded text size="small" />
-                    </router-link>
-                </div>
-                <div v-if="userLoggedIn && user">
-                    <prime-button
-                        label="Abmelden"
-                        rounded
-                        text
-                        @click="$emit('logout')"
-                    />
+    <section class="m-8 flex gap-4">
+        <div class="w-2/3 flex-auto">
+            <h1 class="text-3xl font-bold">{{ props.project.name }}</h1>
+            <p class="mb-2 text-lg">{{ props.project.kind }}</p>
+            <p>{{ props.project.description }}</p>
+
+            <prime-button label="Demo" rounded class="mt-2" />
+        </div>
+        <div clas="w-1/3 flex-auto">
+            <div class="mb-2 text-sm">
+                <h5 class="font-semibold">Ersteller</h5>
+                <div>
                     <router-link
-                        class="link"
-                        :to="{
-                            name: 'Profile',
-                            params: { username: user.username },
-                        }"
+                        :to="'/profile/' + props.project.name + '/'"
+                        class="flex items-center"
                     >
-                        {{ user.username }}
+                        <prime-avatar shape="circle" />
+                        <p class="ml-2">{{ props.project.creator }}</p>
                     </router-link>
-                    <img
-                        class="login__picture"
-                        :src="'http://localhost:3000/' + user.image"
-                        alt="Profile Picture"
-                    />
                 </div>
-            </li>
-        </ul>
-    </nav>
+            </div>
+            <div class="mb-2 text-sm">
+                <h5 class="font-semibold">Tools</h5>
+                <p>{{ projectTools }}</p>
+            </div>
+            <div class="mb-2 text-sm">
+                <h5 class="font-semibold">Kategorie</h5>
+                <p>{{ props.project.category }}</p>
+            </div>
+            <div class="mb-2 text-sm" v-if="props.project.contributors">
+                <h5 class="font-semibold">Mitwirkende</h5>
+                <prime-avatar-group class="ml-4">
+                    <prime-avatar
+                        shape="circle"
+                        v-for="(
+                            author, index
+                        ) in props.project.contributors.split(', ')"
+                        :key="index"
+                    />
+                </prime-avatar-group>
+            </div>
+        </div>
+    </section>
 </template>
