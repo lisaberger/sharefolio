@@ -2,16 +2,18 @@
 import ProjectInformationComponent from '@/components/project-information-component.vue';
 import { useRoute } from 'vue-router';
 import { onBeforeMount, ref } from 'vue';
+import Project from '@/models/project';
 
 import ProjectApi from '@/api/project-api';
 
-const project = ref({});
+const project = ref<Project>(null);
 const route = useRoute();
 
 const projectApi = ProjectApi.getInstance();
 
 const fetchProjectByName = async (name: string): Promise<void> => {
-    project.value = projectApi.getProjectByName(name)[0];
+    const projectResponse = await projectApi.getProjectByName(name);
+    console.log(projectResponse);
 };
 
 onBeforeMount(() => fetchProjectByName(route.params.name));
@@ -33,13 +35,13 @@ onBeforeMount(() => fetchProjectByName(route.params.name));
             <img
                 id="b1"
                 class="mt-2 rounded-3xl"
-                :src="project.bild1"
+                :src="project.image1"
                 alt="Project Picture"
             />
             <img
                 id="b2"
                 class="mt-2 rounded-3xl"
-                :src="project.bild2"
+                :src="project.image2"
                 alt="Project Picture"
             />
         </div>
