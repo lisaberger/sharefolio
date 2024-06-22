@@ -16,7 +16,7 @@ const getUserByName = async (req, res, next) => {
     try {
         const user = await Account.findOne({
             where: {
-                username: name
+                username: username
             }
         });
 
