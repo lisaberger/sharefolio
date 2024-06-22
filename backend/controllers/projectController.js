@@ -22,9 +22,9 @@ const getProjectByName = (req, res, next) => {
         FROM 
             project 
         JOIN 
-            enum_category ON project.kategorie_id = enum_category.id 
+            enum_category ON project.category_id = enum_category.id 
         JOIN 
-            account ON project.ersteller_id = account.id 
+            account ON project.creator_id = account.id 
         WHERE 
             LOWER(REPLACE(project.name, ' ', '-')) = $1`, [projectName])
         .then((response) => {
