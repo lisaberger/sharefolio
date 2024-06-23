@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Project from '@/models/project';
+
 interface Props {
     project: Project;
 }
@@ -29,7 +31,7 @@ const props = defineProps<Props>();
             </div>
             <div class="mb-2 text-sm">
                 <h5 class="font-semibold">Tools</h5>
-                <p>{{ projectTools }}</p>
+                <p>{{ props.project.tools }}</p>
             </div>
             <div class="mb-2 text-sm">
                 <h5 class="font-semibold">Kategorie</h5>

@@ -1,6 +1,7 @@
 import Account from '../models/userModel.js';
 import EnumCategory from '../models/categoryModel.js';
 import Project from '../models/projectModel.js';
+import { Op, Sequelize } from 'sequelize';
 
 const getProjects = async (req, res, next) => {
     try {
@@ -15,10 +16,14 @@ const getProjects = async (req, res, next) => {
 
 const getProjectByName = async (req, res, next) => {
     const projectName = req.params.name;
+    const requestName = projectName.toLowerCase().replace('-', ' ');
+
     try {
         const project = await Project.findOne({
             where: {
-                name: projectName
+                [Op.and]: [
+                    Sequelize.where(Sequelize.fn('lower', Sequelize.col('Project.name')), requestName)
+                ]
             },
             include: [
                 { model: EnumCategory, as: 'category', attributes: ['name'] },

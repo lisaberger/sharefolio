@@ -32,7 +32,6 @@ class ProjectApi {
         }
     }
     public async getProjectByName(name: string): Promise<Project> {
-        console.log(name);
         try {
             const response: AxiosResponse<Project> = await axios.get(
                 `http://localhost:4000/projects/${name}`

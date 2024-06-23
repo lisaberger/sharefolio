@@ -6,42 +6,42 @@ import Project from '@/models/project';
 
 import ProjectApi from '@/api/project-api';
 
-const project = ref<Project>(null);
+const project = ref<Project | null>(null);
 const route = useRoute();
 
 const projectApi = ProjectApi.getInstance();
 
 const fetchProjectByName = async (name: string): Promise<void> => {
     const projectResponse = await projectApi.getProjectByName(name);
-    console.log(projectResponse);
+    project.value = projectResponse;
 };
 
-onBeforeMount(() => fetchProjectByName(route.params.name));
+onBeforeMount(() => fetchProjectByName(route.params.name as string));
 </script>
 
 <template>
     <section>
         <img
-            :src="project.teaserImage"
+            :src="project?.teaserImage"
             alt="Projektbild"
             class="h-80 w-full rounded-b-3xl object-cover drop-shadow-sm"
         />
     </section>
 
-    <project-information-component :project="project" />
+    <project-information-component :project="project ? project : []" />
 
     <section>
         <div>
             <img
                 id="b1"
                 class="mt-2 rounded-3xl"
-                :src="project.image1"
+                :src="project?.image1"
                 alt="Project Picture"
             />
             <img
                 id="b2"
                 class="mt-2 rounded-3xl"
-                :src="project.image2"
+                :src="project?.image2"
                 alt="Project Picture"
             />
         </div>

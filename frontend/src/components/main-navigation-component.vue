@@ -9,7 +9,11 @@ interface Props {
 
 const props = defineProps<Props>();
 
-defineEmits(['logout']);
+type Emits = {
+    logout: [];
+};
+
+const emit = defineEmits<Emits>();
 </script>
 
 <template>
@@ -41,7 +45,7 @@ defineEmits(['logout']);
                         label="Abmelden"
                         rounded
                         text
-                        @click="$emit('logout')"
+                        @click="emit('logout')"
                     />
                     <router-link
                         class="link"

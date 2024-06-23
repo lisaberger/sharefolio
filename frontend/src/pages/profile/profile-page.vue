@@ -23,7 +23,6 @@ onBeforeMount(() => {
         .get(`http://localhost:4000/users/${route.params.user}`)
         .then((response) => {
             account.value = response.data[0];
-            console.log(account.value);
             isLoading.value = false;
         });
 
