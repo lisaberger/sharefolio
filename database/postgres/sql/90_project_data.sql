@@ -13,7 +13,7 @@ INSERT INTO
         "tools",
         "contributors",
         "category_id",
-        "teaserImage",
+        "teaser_image",
         "image1",
         "image2",
         "demo"

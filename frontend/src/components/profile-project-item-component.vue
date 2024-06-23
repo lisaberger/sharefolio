@@ -1,35 +1,27 @@
+<script setup lang="ts">
+import Project from '@/models/project';
+
+interface Props {
+    project: Project;
+}
+
+const props = defineProps<Props>();
+</script>
+
 <template>
     <div>
         <img
             class="projectProfile__Img"
-            :src="projectPicture"
+            :src="props.project.teaserImage"
             alt="Projektbild"
         />
         <div>
-            <h4>{{ projectName }}</h4>
-            <p class="project__sub">{{ projectSubline }}</p>
-            <p>{{ projectDesctiption }}</p>
-            <router-link :to="'/project/' + projectLink">
-                <Button
-                    type="button"
-                    label="Projektdetails"
-                    theme="secondary__btn"
-                />
+            <h4>{{ props.project.name }}</h4>
+            <p class="project__sub">{{ props.project.kind }}</p>
+            <p>{{ props.project.description }}</p>
+            <router-link :to="'/project/' + props.project.name">
+                <prime-button label="Projektdetails" severity="secondary" />
             </router-link>
         </div>
     </div>
 </template>
-
-<script setup lang="ts">
-import Button from '@/components/form/button.vue';
-
-interface Props {
-    projectName: string;
-    projectSubline: string;
-    projectDesctiption: string;
-    projectPicture: string;
-    projectLink: string;
-}
-
-defineProps<Props>();
-</script>

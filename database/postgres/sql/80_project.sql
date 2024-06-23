@@ -11,7 +11,7 @@
 CREATE TABLE project
 ("id"           UUID          DEFAULT gen_random_uuid(),
  "creator_id"   UUID,
- "teaserImage"  VARCHAR       DEFAULT '/public/projects/images_placeholder.jpg',
+ "teaser_image"  VARCHAR       DEFAULT '/public/projects/images_placeholder.jpg',
  "name"         D_UNTAINTED   NOT NULL,
  "description"  TEXT,
  "kind"         D_UNTAINTED   NOT NULL,

@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import ProfileProjectItem from '@/components/profile-project-item-component.vue';
-import Button from '@/components/form/button.vue';
 import UploadButton from '@/components/form/upload-button.vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 import { onBeforeMount, ref } from 'vue';
+import User from '@/models/user';
+import Project from '@/models/project';
 
 /* Define Props */
-const account = ref({});
-const projects = ref([]);
+const account = ref<User | null>(null);
+const projects = ref<Array<Project> | null>(null);
 const route = useRoute();
 const isLoading = ref(true);
 
@@ -44,11 +45,11 @@ function linkify(nameString) {
         <section class="profile">
             <img
                 id="pfp"
-                :src="'http://localhost:3000/' + account.image"
+                :src="'http://localhost:4000/' + account.image"
                 alt="Profile Picture"
             />
             <div class="profile__info">
-                <h1>{{ account.firstname }} {{ account.name }}</h1>
+                <h1>{{ account.firstname }} {{ account.lastname }}</h1>
                 <p>{{ account.job }}</p>
                 <p>
                     {{ account.description }}
@@ -61,12 +62,9 @@ function linkify(nameString) {
                         />
                         <h5>{{ account.location }}</h5>
                     </span>
-                    <a :href="'mailto:' + account.email"
-                        ><Button
-                            type="button"
-                            label="Kontakt"
-                            theme="primary__btn"
-                    /></a>
+                    <a :href="'mailto:' + account.email">
+                        <prime-button label="Kontakt" />
+                    </a>
                 </div>
             </div>
         </section>
@@ -80,12 +78,7 @@ function linkify(nameString) {
                     <ProfileProjectItem
                         v-for="project in projects"
                         :key="project.id"
-                        class="project"
-                        :project-name="project.name"
-                        :project-subline="project.art"
-                        :project-desctiption="project.description"
-                        :project-picture="project.titelbild"
-                        :project-link="linkify(project.name)"
+                        :project="project"
                     >
                     </ProfileProjectItem>
                 </div>
@@ -93,7 +86,3 @@ function linkify(nameString) {
         </section>
     </div>
 </template>
-
-<style scoped lang="scss">
-// @import '@/assets/css/views/Profilepage.scss';
-</style>

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import Textfield from '../../components/form/textfield.vue';
-import Button from '../../components/form/button.vue';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { onBeforeMount, ref } from 'vue';
@@ -129,25 +127,25 @@ onBeforeMount(() => {
                 <h4>Projektinfos</h4>
                 <div class="wrapper__form">
                     <div class="first__row">
-                        <Textfield
+                        <input
                             id="project_title"
                             v-model="projectData.title"
                             label="Projekttitel"
                             placeholder="projekt"
                         />
-                        <Textfield
+                        <input
                             id="type"
                             v-model="art"
                             label="Art"
                             placeholder="Webanwendung"
                         />
-                        <Textfield
+                        <input
                             id="link"
                             v-model="projectData.link"
                             label="Link zur Anwendung"
                             placeholder="https://test.de"
                         />
-                        <Textfield
+                        <input
                             id="tools"
                             v-model="projectData.tools"
                             label="Tools"
@@ -224,16 +222,8 @@ onBeforeMount(() => {
                         </select>
                     </div>
                 </div>
-                <Button
-                    type="submit"
-                    label="Projekt anlegen"
-                    theme="primary__btn"
-                />
+                <prime-button type="submit" label="Projekt anlegen" />
             </form>
         </section>
     </div>
 </template>
-
-<style scoped lang="scss">
-// @import '@/assets/css/views/Newproject.scss';
-</style>
