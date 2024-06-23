@@ -1,7 +1,3 @@
-<template>
-    <input :value="label" :type="type" :class="theme" @click="click" />
-</template>
-
 <script>
 export default {
     name: 'Button',
@@ -19,6 +15,10 @@ export default {
     },
 };
 </script>
+
+<template>
+    <input :value="label" :type="type" :class="theme" @click="click" />
+</template>
 
 <style scoped lang="scss">
 // @import '/css/components/form/Button.scss';

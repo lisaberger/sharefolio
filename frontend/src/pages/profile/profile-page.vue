@@ -1,14 +1,15 @@
-<script setup>
-import ProfileProjectItem from '../../components/ProfileProjectItem.vue';
-import Button from '../../components/form/Button.vue';
-import UploadButton from '../../components/form/UploadButton.vue';
+<script setup lang="ts">
+import ProfileProjectItem from '@/components/profile-project-item-component.vue';
+import UploadButton from '@/components/form/upload-button.vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 import { onBeforeMount, ref } from 'vue';
+import User from '@/models/user';
+import Project from '@/models/project';
 
 /* Define Props */
-const account = ref({});
-const projects = ref([]);
+const account = ref<User | null>(null);
+const projects = ref<Array<Project> | null>(null);
 const route = useRoute();
 const isLoading = ref(true);
 
@@ -19,17 +20,15 @@ const isLoading = ref(true);
 onBeforeMount(() => {
     /* API Request for user data */
     axios
-        .get(`http://localhost:4000s/${route.params.user}`)
+        .get(`http://localhost:4000/users/${route.params.user}`)
         .then((response) => {
             account.value = response.data[0];
-            console.log(account.value);
             isLoading.value = false;
-            d;
         });
 
     /* API Request for projects associated with the user */
     axios
-        .get(`http://localhost:4000/usesr/${route.params.user}/projects`)
+        .get(`http://localhost:4000/users/${route.params.user}/projects`)
         .then((response) => {
             projects.value = response.data;
         });
@@ -45,14 +44,14 @@ function linkify(nameString) {
         <section class="profile">
             <img
                 id="pfp"
-                :src="'http://localhost:3000/' + account.profilbild"
+                :src="'http://localhost:4000/' + account.image"
                 alt="Profile Picture"
             />
             <div class="profile__info">
-                <h1>{{ account.vorname }} {{ account.name }}</h1>
-                <p>{{ account.jobtitel }}</p>
+                <h1>{{ account.firstname }} {{ account.lastname }}</h1>
+                <p>{{ account.job }}</p>
                 <p>
-                    {{ account.beschreibung }}
+                    {{ account.description }}
                 </p>
                 <div class="location__container">
                     <span class="location">
@@ -60,14 +59,11 @@ function linkify(nameString) {
                             src="../../assets/links/Locoation Icon.svg"
                             alt=""
                         />
-                        <h5>{{ account.ort }}</h5>
+                        <h5>{{ account.location }}</h5>
                     </span>
-                    <a :href="'mailto:' + account.email"
-                        ><Button
-                            type="button"
-                            label="Kontakt"
-                            theme="primary__btn"
-                    /></a>
+                    <a :href="'mailto:' + account.email">
+                        <prime-button label="Kontakt" />
+                    </a>
                 </div>
             </div>
         </section>
@@ -81,12 +77,7 @@ function linkify(nameString) {
                     <ProfileProjectItem
                         v-for="project in projects"
                         :key="project.id"
-                        class="project"
-                        :project-name="project.name"
-                        :project-subline="project.art"
-                        :project-desctiption="project.beschreibung"
-                        :project-picture="project.titelbild"
-                        :project-link="linkify(project.name)"
+                        :project="project"
                     >
                     </ProfileProjectItem>
                 </div>
@@ -94,7 +85,3 @@ function linkify(nameString) {
         </section>
     </div>
 </template>
-
-<style scoped lang="scss">
-// @import '@/assets/css/views/Profilepage.scss';
-</style>

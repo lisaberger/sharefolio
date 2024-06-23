@@ -7,7 +7,7 @@ const Account = sequelize.define('Account', {
         defaultValue: sequelize.literal('gen_random_uuid()'),
         primaryKey: true
     },
-    name: {
+    lastname: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -39,23 +39,23 @@ const Account = sequelize.define('Account', {
         allowNull: false,
         defaultValue: false
     },
-    vorname: {
+    firstname: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    jobtitel: {
+    job: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    ort: {
+    location: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    beschreibung: {
+    description: {
         type: DataTypes.TEXT,
         allowNull: true
     },
-    profilbild: {
+    image: {
         type: DataTypes.STRING,
         defaultValue: '/public/profile/avatar_placeholder.png'
     }

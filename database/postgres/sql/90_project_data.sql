@@ -7,16 +7,16 @@ BEGIN;
 INSERT INTO
     project (
         "name",
-        "ersteller_id",
-        "beschreibung",
-        "art",
+        "creator_id",
+        "description",
+        "kind",
         "tools",
-        "mitwirkende",
-        "kategorie_id",
-        "titelbild",
-        "bild1",
-        "bild2",
-        "demolink"
+        "contributors",
+        "category_id",
+        "teaser_image",
+        "image1",
+        "image2",
+        "demo"
     )
 VALUES
     (

@@ -1,3 +1,21 @@
+<script setup lang="ts">
+import Project from '@/models/project';
+import { computed } from 'vue';
+
+interface Props {
+    titleProject: Project;
+}
+
+const props = defineProps<Props>();
+
+// throws an error for unknown reasons but works anyways
+const linkify = (name: string): string => {
+    return name.replace(/ /g, '-').trim().toLowerCase();
+};
+
+const projectLink = computed(() => linkify(props.titleProject.name));
+</script>
+
 <template>
     <router-link
         :to="{ name: 'Project', params: { name: projectLink } }"
@@ -5,7 +23,7 @@
     >
         <img
             class="h-80 w-full rounded-b-3xl object-cover drop-shadow-sm"
-            :src="projectPicture"
+            :src="props.titleProject.teaserImage"
             alt="Zufälliges Projektbild"
         />
         <div
@@ -14,8 +32,10 @@
             <div class="py-2">
                 <h5 class="mb-2 text-sm font-semibold">Aus den Portfolios</h5>
 
-                <p class="text-xs font-semibold">{{ projectName }}</p>
-                <p class="text-xs">{{ projectSubline }}</p>
+                <p class="text-xs font-semibold">
+                    {{ props.titleProject.name }}
+                </p>
+                <p class="text-xs">{{ props.titleProject.kind }}</p>
             </div>
             <div>
                 <p class="text-xs">lisaberger</p>
@@ -24,24 +44,3 @@
         </div>
     </router-link>
 </template>
-
-<script setup lang="ts">
-defineProps({
-    projectName: {
-        type: String,
-        required: true,
-    },
-    projectSubline: {
-        type: String,
-        required: true,
-    },
-    projectPicture: {
-        type: String,
-        required: true,
-    },
-    projectLink: {
-        type: String,
-        required: true,
-    },
-});
-</script>

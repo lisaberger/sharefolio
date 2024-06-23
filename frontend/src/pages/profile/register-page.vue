@@ -1,3 +1,71 @@
+<script setup lang="ts">
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+
+/* Define props */
+const router = useRouter();
+const file = ref();
+const pfp = ref();
+
+/* User data object */
+const userData = ref({
+    userName: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    job: '',
+    location: '',
+    descr: '',
+    password: '',
+    passwordConf: '',
+});
+
+/* methods */
+/* upload function */
+const selectFile = () => {
+    file.value = pfp.value.files[0];
+};
+
+/* submit */
+const onSubmit = () => {
+    /* append file and set name */
+    const fd = new FormData();
+    let tempFileName = '';
+    if (file.value) {
+        tempFileName =
+            new Date().toISOString().replace(/:/g, '-') + file.value.name;
+        fd.append('profilePic', file.value, tempFileName);
+    } else {
+        tempFileName = 'avatar_placeholder.png';
+    }
+
+    /* fill user data */
+    const tempUserData = {
+        userName: userData.value.userName,
+        firstName: userData.value.firstName,
+        lastName: userData.value.lastName,
+        email: userData.value.email,
+        job: userData.value.job,
+        location: userData.value.location,
+        descr: userData.value.descr,
+        password: userData.value.password,
+        passwordConf: userData.value.passwordConf,
+        profilePic: 'profile/' + tempFileName,
+    };
+
+    console.log(tempUserData);
+
+    /* append to Form Data */
+    fd.append('userData', JSON.stringify(tempUserData));
+
+    axios.post('http://localhost:4000/users/create', fd).then(async (res) => {
+        /* redirect to login */
+        await router.push({ path: '/login' });
+    });
+};
+</script>
+
 <template>
     <section class="mt-8">
         <prime-panel header="Registrieren">
@@ -66,12 +134,12 @@
                             <label id="register__label" for="profilepic"
                                 >+</label
                             >
-                            <span class="label">Profilbild</span>
+                            <span class="label">image</span>
                             <p v-if="file" id="upload__name">{{ file.name }}</p>
                         </div> -->
 
                         <div class="mb-2 flex flex-col gap-2">
-                            <label for="first-name">Vorname</label>
+                            <label for="first-name">firstname</label>
                             <prime-input-text
                                 id="first-name"
                                 v-model="userData.firstName"
@@ -106,7 +174,7 @@
 
                         <div>
                             <div class="mb-2 flex flex-col gap-2">
-                                <label for="description">Beschreibung</label>
+                                <label for="description">description</label>
                                 <prime-text-area
                                     id="description"
                                     v-model="userData.descr"
@@ -134,71 +202,3 @@
         </prime-panel>
     </section>
 </template>
-
-<script setup lang="ts">
-import axios from 'axios';
-import { useRouter } from 'vue-router';
-import { ref } from 'vue';
-
-/* Define props */
-const router = useRouter();
-const file = ref();
-const pfp = ref();
-
-/* User data object */
-const userData = ref({
-    userName: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    job: '',
-    location: '',
-    descr: '',
-    password: '',
-    passwordConf: '',
-});
-
-/* methods */
-/* upload function */
-const selectFile = () => {
-    file.value = pfp.value.files[0];
-};
-
-/* submit */
-const onSubmit = () => {
-    /* append file and set name */
-    const fd = new FormData();
-    let tempFileName = '';
-    if (file.value) {
-        tempFileName =
-            new Date().toISOString().replace(/:/g, '-') + file.value.name;
-        fd.append('profilePic', file.value, tempFileName);
-    } else {
-        tempFileName = 'avatar_placeholder.png';
-    }
-
-    /* fill user data */
-    const tempUserData = {
-        userName: userData.value.userName,
-        firstName: userData.value.firstName,
-        lastName: userData.value.lastName,
-        email: userData.value.email,
-        job: userData.value.job,
-        location: userData.value.location,
-        descr: userData.value.descr,
-        password: userData.value.password,
-        passwordConf: userData.value.passwordConf,
-        profilePic: 'profile/' + tempFileName,
-    };
-
-    console.log(tempUserData);
-
-    /* append to Form Data */
-    fd.append('userData', JSON.stringify(tempUserData));
-
-    axios.post('http://localhost:4000/users/create', fd).then(async (res) => {
-        /* redirect to login */
-        await router.push({ path: '/login' });
-    });
-};
-</script>

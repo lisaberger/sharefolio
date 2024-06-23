@@ -1,6 +1,7 @@
 import Account from '../models/userModel.js';
 import EnumCategory from '../models/categoryModel.js';
 import Project from '../models/projectModel.js';
+import { Op, Sequelize } from 'sequelize';
 
 const getProjects = async (req, res, next) => {
     try {
@@ -15,14 +16,18 @@ const getProjects = async (req, res, next) => {
 
 const getProjectByName = async (req, res, next) => {
     const projectName = req.params.name;
+    const requestName = projectName.toLowerCase().replace('-', ' ');
+
     try {
         const project = await Project.findOne({
             where: {
-                name: projectName
+                [Op.and]: [
+                    Sequelize.where(Sequelize.fn('lower', Sequelize.col('Project.name')), requestName)
+                ]
             },
             include: [
                 { model: EnumCategory, as: 'category', attributes: ['name'] },
-                { model: Account, as: 'creator', attributes: ['name', 'username'] }
+                { model: Account, as: 'creator', attributes: ['lastname', 'username'] }
             ]
         });
 
@@ -42,16 +47,16 @@ const createProject = async (req, res, next) => {
 
     try {
         const newProject = await Project.create({
-            ersteller_id: projectData.creatorId,
-            titelbild: projectData.headerPath,
+            creator_id: projectData.creatorId,
+            teaserImage: projectData.headerPath,
             name: projectData.title,
-            beschreibung: projectData.descr,
-            art: projectData.art,
+            desciption: projectData.descr,
+            kind: projectData.art,
             tools: projectData.tools,
-            kategorie_id: projectData.category,
-            demolink: projectData.link,
-            bild1: projectData.pic1Path,
-            bild2: projectData.pic2Path
+            category_id: projectData.category,
+            demo: projectData.link,
+            image1: projectData.pic1Path,
+            image2: projectData.pic2Path
         });
 
         res.sendStatus(201); // 201 Created

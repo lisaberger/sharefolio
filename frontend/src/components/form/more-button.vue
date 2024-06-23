@@ -1,7 +1,3 @@
-<template>
-    <input :value="label" :type="type" class="more__btn" @click="click" />
-</template>
-
 <script>
 export default {
     name: 'Button',
@@ -17,6 +13,10 @@ export default {
     },
 };
 </script>
+
+<template>
+    <input :value="label" :type="type" class="more__btn" @click="click" />
+</template>
 
 <style scoped lang="scss">
 // @import '/css/components/form/MoreButton.scss';

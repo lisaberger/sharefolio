@@ -9,7 +9,7 @@ const Project = sequelize.define('Project', {
         defaultValue: sequelize.literal('gen_random_uuid()'),
         primaryKey: true
     },
-    ersteller_id: {
+    creator_id: {
         type: DataTypes.UUID,
         allowNull: true,
         references: {
@@ -17,7 +17,7 @@ const Project = sequelize.define('Project', {
             key: 'id'
         }
     },
-    titelbild: {
+    teaserImage: {
         type: DataTypes.STRING,
         defaultValue: '/public/projects/images_placeholder.jpg'
     },
@@ -25,11 +25,11 @@ const Project = sequelize.define('Project', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    beschreibung: {
+    description: {
         type: DataTypes.TEXT,
         allowNull: true
     },
-    art: {
+    kind: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -37,7 +37,7 @@ const Project = sequelize.define('Project', {
         type: DataTypes.STRING,
         allowNull: true 
     },
-    kategorie_id: {
+    category_id: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
@@ -45,19 +45,19 @@ const Project = sequelize.define('Project', {
             key: 'id'
         }
     },
-    demolink: {
+    demo: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    bild1: {
+    image1: {
         type: DataTypes.STRING,
         defaultValue: '/public/projects/images_placeholder.jpg'
     },
-    bild2: {
+    image2: {
         type: DataTypes.STRING,
         defaultValue: '/public/projects/images_placeholder.jpg'
     },
-    mitwirkende: {
+    contributors: {
         type: DataTypes.STRING,
         allowNull: true
     }
@@ -67,7 +67,7 @@ const Project = sequelize.define('Project', {
     underscored: true
 });
 
-Project.belongsTo(Account, { foreignKey: 'ersteller_id', as: 'creator' });
-Project.belongsTo(EnumCategory, { foreignKey: 'kategorie_id', as: 'category' });
+Project.belongsTo(Account, { foreignKey: 'creator_id', as: 'creator' });
+Project.belongsTo(EnumCategory, { foreignKey: 'category_id', as: 'category' });
 
 export default Project;

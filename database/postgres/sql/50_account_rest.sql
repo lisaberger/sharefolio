@@ -21,7 +21,7 @@ BEGIN
   RETURN QUERY
   SELECT rest_helper -- $1 = _id, $2 = _data
          ('INSERT INTO "account"("name", "user", "email", "password", "isAdmin")
-           VALUES(json_attr_value_d_untainted($2, ''name'',  NULL),
+           VALUES(json_attr_value_d_untainted($2, ''lastname'',  NULL),
                   json_attr_value_d_untainted($2, ''user'',  NULL),
                   json_attr_value_d_untainted($2, ''email'', NULL),
                   ($2->>''password'')::TEXT, 
@@ -42,7 +42,7 @@ BEGIN
   RETURN QUERY
   SELECT rest_helper -- $1 = _id, $2 = _data
          ('UPDATE "account" a
-           SET    "name"     = json_attr_value_d_untainted($2, ''name'',  NULL),
+           SET    "lastname"     = json_attr_value_d_untainted($2, ''lastname'',  NULL),
                   "user"     = json_attr_value_d_untainted($2, ''user'',  NULL),
                   "email"    = json_attr_value_d_untainted($2, ''email'', NULL),
                   "password" = COALESCE(($2->>''password'')::TEXT, a."password"),
@@ -63,7 +63,7 @@ BEGIN
   RETURN QUERY
   SELECT rest_helper -- $1 = _id, $2 = _data
          ('UPDATE "account" a
-           SET    "name"     = json_attr_value_d_untainted($2, ''name'',     a."name"),
+           SET    "lastname"     = json_attr_value_d_untainted($2, ''lastname'',     a."lastname"),
                   "user"     = json_attr_value_d_untainted($2, ''user'',     a."user"),
                   "email"    = json_attr_value_d_untainted($2, ''email'',    a."email"),
                   "password" = json_attr_value_not_null   ($2, ''password'', a."password")::TEXT,

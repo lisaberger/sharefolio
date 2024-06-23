@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomePage from '@/pages/Home.page.vue';
-import NewProjectPage from '@/pages/project/NewProject.page.vue';
-import ProjectPage from '@/pages/project/Project.page.vue';
-import LoginPage from '@/pages/profile/Login.page.vue';
-import RegisterPage from '@/pages/profile/Register.page.vue';
-import ProfilePage from '@/pages/profile/Profile.page.vue';
-import ErrorPage from '@/pages/Error.page.vue';
+import HomePage from '@/pages/home-page.vue';
+import NewProjectPage from '@/pages/project/new-project-page.vue';
+import ProjectPage from '@/pages/project/project-page.vue';
+import LoginPage from '@/pages/profile/login-page.vue';
+import RegisterPage from '@/pages/profile/register-page.vue';
+import ProfilePage from '@/pages/profile/profile-page.vue';
+import ErrorPage from '@/pages/error-page.vue';
 import Cookies from 'js-cookie';
 
 const router = createRouter({

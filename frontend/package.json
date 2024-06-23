@@ -7,7 +7,10 @@
         "build": "vite build",
         "preview": "vite preview --port 4173",
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-        "lint:style": "stylelint '**/*.scss'"
+        "lint:style": "stylelint '**/*.scss'",
+        "test": "vitest --dom",
+        "coverage": "vitest run --coverage",
+        "cy:open": "cypress open"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -15,17 +18,26 @@
         "@fortawesome/free-regular-svg-icons": "^6.5.1",
         "@fortawesome/free-solid-svg-icons": "^6.5.1",
         "@fortawesome/vue-fontawesome": "^3.0.6",
+        "@vuelidate/core": "^2.0.3",
+        "@vuelidate/validators": "^2.0.4",
         "axios": "^1.6.7",
+        "happy-dom": "^6.0.4",
         "js-cookie": "^3.0.5",
         "pinia": "^2.1.7",
         "primevue": "^3.49.1",
         "vue": "^3.4.21",
+        "vue-i18n": "^9.13.1",
         "vue-router": "^4.3.0"
     },
     "devDependencies": {
+        "@intlify/unplugin-vue-i18n": "^4.0.0",
+        "@typescript-eslint/eslint-plugin": "^7.13.1",
+        "@typescript-eslint/parser": "^7.13.1",
         "@vitejs/plugin-vue": "^5.0.4",
         "@vue/eslint-config-prettier": "^9.0.0",
+        "@vue/test-utils": "^2.4.6",
         "autoprefixer": "^10.4.18",
+        "cypress": "^13.12.0",
         "eslint": "^8.57.0",
         "eslint-plugin-vue": "^9.22.0",
         "postcss": "^8.4.35",
@@ -34,7 +46,8 @@
         "stylelint": "^16.2.1",
         "stylelint-config-standard": "^36.0.0",
         "tailwindcss": "^3.4.1",
-        "typescript": "^5.4.2",
-        "vite": "^5.1.5"
+        "typescript": "^5.5.2",
+        "vite": "^5.1.5",
+        "vitest": "^1.6.0"
     }
 }

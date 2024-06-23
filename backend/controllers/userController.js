@@ -12,11 +12,11 @@ const getUsers = async (req, res, next) => {
 };
 
 const getUserByName = async (req, res, next) => {
-    const { name } = req.params;
+    const { username } = req.params;
     try {
         const user = await Account.findOne({
             where: {
-                username: name
+                username: username
             }
         });
 
@@ -48,13 +48,13 @@ const getUserById = async (req, res, next) => {
 };
 
 const getUsersProjects = async (req, res, next) => {
-    const { name } = req.params;
+    const { username } = req.params;
     try {
         const projects = await Project.findAll({
             include: [{
                 model: Account,
                 as: 'creator',
-                where: { username: name },
+                where: { username: username },
                 attributes: []
             }]
         });

@@ -1,11 +1,3 @@
-<template>
-    <div class="upload">
-        <input id="fileInput" type="file" @change="handleFileUpload" />
-        <label for="fileInput">+</label>
-        <span class="label">{{ label }}</span>
-    </div>
-</template>
-
 <script>
 export default {
     name: 'UploadButton',
@@ -20,6 +12,14 @@ export default {
     },
 };
 </script>
+
+<template>
+    <div class="upload">
+        <input id="fileInput" type="file" @change="handleFileUpload" />
+        <label for="fileInput">+</label>
+        <span class="label">{{ label }}</span>
+    </div>
+</template>
 
 <style scoped lang="scss">
 // @import '/css/components/form/UploadButton.scss';
