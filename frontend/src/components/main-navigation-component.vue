@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import LogoComponent from '@/components/logo-component.vue';
-import axios from 'axios';
-import { onBeforeMount, ref } from 'vue';
+import User from '@/models/user';
 
 interface Props {
     userLoggedIn: boolean;
@@ -9,15 +8,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
-const projects = ref([]);
-
-onBeforeMount(() => {
-    /* API Request */
-    axios.get('http://localhost:4000/projects').then((response) => {
-        projects.value = response.data;
-    });
-});
 
 defineEmits(['logout']);
 </script>
@@ -57,14 +47,14 @@ defineEmits(['logout']);
                         class="link"
                         :to="{
                             name: 'Profile',
-                            params: { username: currentUser.username },
+                            params: { username: currentUser?.username },
                         }"
                     >
-                        {{ currentUser.username }}
+                        {{ currentUser?.username }}
                     </router-link>
                     <img
                         class="login__picture"
-                        :src="'http://localhost:3000/' + currentUser.image"
+                        :src="'http://localhost:3000/' + currentUser?.image"
                         alt="Profile Picture"
                     />
                 </div>
