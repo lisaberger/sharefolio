@@ -1,4 +1,5 @@
 import Account from "../models/userModel.js";
+import passport from "passport";
 
 const loginUser = (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {

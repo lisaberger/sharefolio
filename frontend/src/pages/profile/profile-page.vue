@@ -6,6 +6,7 @@ import { useRoute } from 'vue-router';
 import { onBeforeMount, ref } from 'vue';
 import User from '@/models/user';
 import Project from '@/models/project';
+import { RouteName } from '@/router/enum/route';
 
 /* Define Props */
 const account = ref<User | null>(null);
@@ -69,7 +70,7 @@ function linkify(nameString) {
         </section>
         <hr />
         <section class="personal__projects">
-            <router-link to="/new">
+            <router-link :to="{ name: RouteName.NewProject }">
                 <UploadButton label="Neues Projekt" />
             </router-link>
             <section class="projects">

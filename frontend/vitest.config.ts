@@ -14,7 +14,7 @@ export default mergeConfig(
             coverage: {
                 provider: 'istanbul', // or 'v8'
             },
-            setupFiles: ['./src/utils/test-utils/vitest.setup.ts'],
+            setupFiles: ['./src/utils/test-utils/vitest-setup.ts'],
         },
     })
 );

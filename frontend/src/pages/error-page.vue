@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouteName } from '@/router/enum/route';
 import { useI18n } from 'vue-i18n';
 
 interface Props {
@@ -23,7 +24,7 @@ const { t } = useI18n();
         </p>
         <p class="mb-8">{{ t('error.message') }}</p>
 
-        <router-link :to="{ name: 'Home' }">
+        <router-link :to="{ name: RouteName.Home }">
             <prime-button :label="t('button.home')" outlined size="small" />
         </router-link>
     </section>

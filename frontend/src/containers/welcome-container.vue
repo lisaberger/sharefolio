@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import User from '@/models/user';
+import { RouteName } from '@/router/enum/route';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -30,13 +31,6 @@ const welcomeText = computed(() => ({
         </h1>
         <p class="mb-4 text-lg">{{ welcomeText.subTitle }}</p>
         <p class="mb-2 text-sm">{{ welcomeText.description }}</p>
-
-        <router-link to="Login">
-            <prime-button :label="t('action.login')" rounded class="mb-4" />
-        </router-link>
-        <router-link to="Register">
-            <div class="text-sm">{{ t('action.register') }}</div>
-        </router-link>
     </section>
 </template>
 

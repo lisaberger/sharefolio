@@ -3,7 +3,7 @@ import { loginUser, logoutUser } from '../controllers/authenticationController.j
 
 const router = express.Router();
 
-router.get('logout', logoutUser);
-router.post('login', loginUser);
+router.get('/logout', logoutUser);
+router.post('/login', loginUser);
 
 export default router;

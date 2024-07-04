@@ -9,6 +9,7 @@ import User from '@/models/user';
 
 import ProjectApi from '@/api/project-api';
 import UserApi from '@/api/user-api';
+import { RouteName } from '@/router/enum/route';
 
 const projectApi = ProjectApi.getInstance();
 const userApi = UserApi.getInstance();
@@ -73,7 +74,7 @@ onBeforeMount(() => {
             <project-list-container :projects="projects" />
 
             <div class="mt-4 flex justify-center">
-                <router-link :to="{ name: 'NewProject' }">
+                <router-link :to="{ name: RouteName.NewProject }">
                     <prime-button label="Neues Projekt" rounded outlined>
                         <template #icon>
                             <font-awesome-icon
