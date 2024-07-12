@@ -33,6 +33,16 @@ class User {
         this.description = description;
         this.image = image;
     }
+
+    get fullname() {
+        return `${this.firstname} ${this.lastname}`;
+    }
+
+    set fullname(name) {
+        const nameParts = name.split(' ');
+        this.firstname = nameParts[0];
+        this.lastname = nameParts[1];
+    }
 }
 
 export default User;

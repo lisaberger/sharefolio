@@ -5,16 +5,17 @@ import { onBeforeMount, ref } from 'vue';
 import { RouterView, useRouter } from 'vue-router';
 import MainNavigationComponent from '@/components/main-navigation-component.vue';
 import FooterComponent from '@/components/footer-component.vue';
+import type User from './models/user';
 
 const userLoggedIn = ref(false);
-const userID = ref();
-const user = ref({});
+const userId = ref<string>();
+const user = ref<User>();
 const router = useRouter();
 
 onBeforeMount(() => {
     if (Cookies.get('isLoggedIn')) {
         userLoggedIn.value = true;
-        userID.value = Cookies.get('isLoggedIn');
+        userId.value = Cookies.get('isLoggedIn');
         axios
             .get(`http://localhost:4000/users/id/${userID.value}`)
             .then((response) => {
@@ -34,7 +35,7 @@ const logoutUser = () => {
     <header class="flex-none">
         <main-navigation-component
             :user-logged-in="userLoggedIn"
-            :user="user"
+            :current-user="user"
             @logout="logoutUser"
         />
     </header>

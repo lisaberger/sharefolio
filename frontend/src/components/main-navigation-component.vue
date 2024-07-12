@@ -14,8 +14,9 @@ interface Props {
     userLoggedIn: boolean;
     currentUser?: User;
 }
-
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+    currentUser: undefined,
+});
 
 const { t } = useI18n();
 const router = useRouter();
@@ -44,13 +45,13 @@ const userMenuItems = ref([
 
 const projectApi = ProjectApi.getInstance();
 
-const value = ref<Project | undefined>();
-const items = ref<Array<Project>>([]);
+const selectedProject = ref<Project>();
+const filteredProjects = ref<Array<Project>>();
 
 const search = async (event: Event): Promise<void> => {
-    let _projects = await projectApi.getProjects();
+    const allProjects = await projectApi.getProjects();
 
-    items.value = _projects.filter((project) =>
+    filteredProjects.value = allProjects.filter((project) =>
         project.name.toLowerCase().includes(event.query.toLowerCase())
     );
 };
@@ -74,15 +75,23 @@ const emit = defineEmits<Emits>();
             <li class="z-30 mx-4 flex-1 md:mx-8">
                 <prime-auto-complete
                     :placeholder="t('searchPlaceholder')"
-                    v-model="value"
-                    pt:root:class="w-full"
-                    :pt:input:style="{ width: '100%' }"
-                    pt:drowdown:class="bg-white"
-                    :suggestions="items"
+                    v-model="selectedProject"
+                    :pt="{
+                        root: {
+                            class: ['w-full'],
+                        },
+                        input: {
+                            style: {
+                                width: '100%',
+                                fontSize: '0.85rem',
+                            },
+                        },
+                    }"
+                    :suggestions="filteredProjects"
                     option-label="name"
                     @complete="debouncedSearch"
                 >
-                    <template #loadingIcon>
+                    <template #loading-icon>
                         <font-awesome-icon
                             :icon="['fas', 'magnifying-glass']"
                         />
@@ -94,23 +103,22 @@ const emit = defineEmits<Emits>();
                     v-if="!props.userLoggedIn && !props.currentUser"
                     class="flex items-center"
                 >
-                    <router-link
-                        :to="{ name: RouteName.Register }"
+                    <prime-button
                         class="hidden md:block"
-                    >
-                        <prime-button
-                            :label="t('button.register')"
-                            rounded
-                            severity="secondary"
-                            text
-                            size="small"
-                        />
-                    </router-link>
+                        :label="t('button.register')"
+                        data-testid="register-button"
+                        rounded
+                        severity="secondary"
+                        text
+                        size="small"
+                        @click="router.push({ name: RouteName.Register })"
+                    />
                     <prime-button
                         text
                         rounded
                         severity="secondary"
                         size="small"
+                        data-testid="login-button"
                     >
                         <template #icon>
                             <font-awesome-icon
@@ -122,20 +130,20 @@ const emit = defineEmits<Emits>();
                 <div
                     v-else
                     class="flex items-center hover:cursor-pointer"
+                    data-testid="profile-element"
                     aria-haspopup="true"
                     aria-controls="options"
                     @click="toggle"
                 >
                     <div class="mr-3 hidden text-right text-sm md:block">
-                        <p>
-                            {{ currentUser?.firstname
-                            }}{{ currentUser?.lastname }}
-                            Test User
-                        </p>
-                        <p class="text-xs">test</p>
+                        <p>{{ props.currentUser?.fullname }}</p>
+                        <p class="text-xs">{{ props.currentUser?.username }}</p>
                     </div>
                     <prime-avatar
-                        :image="'http://localhost:3000/' + currentUser?.image"
+                        data-testid="avatar-element"
+                        :image="
+                            'http://localhost:3000/' + props.currentUser?.image
+                        "
                         shape="circle"
                     />
                     <prime-menu
@@ -155,15 +163,9 @@ const emit = defineEmits<Emits>();
     </nav>
 </template>
 
-<style>
-.p-autocomplete-panel {
-    @apply bg-white;
-}
-</style>
-
 <i18n lang="yaml">
 de:
-    searchPlaceholder: Suche nach spannenden Arbeiten oder Künstler ...
+    searchPlaceholder: Suche nach kreativen Arbeiten ...
     button:
         login: Anmelden
         register: Registrieren

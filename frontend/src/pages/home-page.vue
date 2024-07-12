@@ -14,23 +14,12 @@ import { RouteName } from '@/router/enum/route';
 const projectApi = ProjectApi.getInstance();
 const userApi = UserApi.getInstance();
 
-const projects = ref<Array<Project>>([]);
-const titleProject = ref<Project>({});
+const projects = ref<Array<Project>>();
+const titleProject = ref<Project>();
 const isLoading = ref<boolean>(false);
-const userLoggedIn = ref<boolean>(false);
-const userId = ref<string>('');
-const user = ref<User>({
-    id: '',
-    lastname: '',
-    username: '',
-    email: '',
-    isAdmin: false,
-    firstname: '',
-    job: '',
-    location: '',
-    description: '',
-    image: '',
-});
+const userLoggedIn = ref<boolean>();
+const userId = ref<string>();
+const user = ref<User>();
 
 const fetchProjects = async (): Promise<void> => {
     projects.value = await projectApi.getProjects();
@@ -41,10 +30,11 @@ const fetchUserById = async (id: string): Promise<void> => {
 };
 
 const setTitleProject = (): void => {
-    const numberProjects = projects.value.length;
-    const randomIndex = Math.floor(Math.random() * numberProjects);
-
-    titleProject.value = projects.value[randomIndex];
+    if (projects.value) {
+        const numberProjects = projects.value.length;
+        const randomIndex = Math.floor(Math.random() * numberProjects);
+        titleProject.value = projects.value[randomIndex];
+    }
 };
 
 onBeforeMount(() => {

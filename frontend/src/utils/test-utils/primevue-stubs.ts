@@ -1,3 +1,4 @@
+import AutoComplete from 'primevue/autocomplete';
 import Avatar from 'primevue/avatar';
 import AvatarGroup from 'primevue/avatargroup';
 import Button from 'primevue/button';
@@ -6,6 +7,7 @@ import FileUpload from 'primevue/fileupload';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
+import Menu from 'primevue/menu';
 import Message from 'primevue/message';
 import Panel from 'primevue/panel';
 import Password from 'primevue/password';
@@ -25,6 +27,8 @@ export const PrimeComponents = {
     PrimeMessage: Message,
     PrimeFileUpload: FileUpload,
     PrimeTextArea: Textarea,
+    PrimeAutoComplete: AutoComplete,
+    PrimeMenu: Menu,
 };
 
 export const PrimeDirectives = {
