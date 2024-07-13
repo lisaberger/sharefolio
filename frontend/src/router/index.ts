@@ -6,74 +6,55 @@ import LoginPage from '@/pages/profile/login-page.vue';
 import RegisterPage from '@/pages/profile/register-page.vue';
 import ProfilePage from '@/pages/profile/profile-page.vue';
 import ErrorPage from '@/pages/error-page.vue';
-import Cookies from 'js-cookie';
+import { RouteName } from '@/router/enum/route';
+import { authGuard } from '@/router/guards/auth-guard';
+
+const routes = [
+    {
+        path: '/',
+        name: RouteName.Home,
+        component: HomePage,
+    },
+    {
+        path: '/login',
+        name: RouteName.Login,
+        component: LoginPage,
+        beforeEnter: authGuard,
+    },
+    {
+        path: '/register',
+        name: RouteName.Register,
+        component: RegisterPage,
+        beforeEnter: authGuard,
+    },
+    {
+        path: '/profile/:user',
+        name: RouteName.Profile,
+        component: ProfilePage,
+    },
+    {
+        path: '/project/:name',
+        name: RouteName.Project,
+        component: ProjectPage,
+    },
+    {
+        path: '/new',
+        name: RouteName.NewProject,
+        component: NewProjectPage,
+        beforeEnter: authGuard,
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: RouteName.Error,
+        component: ErrorPage,
+    },
+];
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [
-        {
-            path: '/',
-            name: 'Home',
-            component: HomePage,
-        },
-        {
-            path: '/login',
-            name: 'Login',
-            component: LoginPage,
-            beforeEnter(to, from, next) {
-                isLoggedOut(next);
-            },
-        },
-        {
-            path: '/register',
-            name: 'Register',
-            component: RegisterPage,
-            beforeEnter(to, from, next) {
-                isLoggedOut(next);
-            },
-        },
-        {
-            path: '/profile/:user',
-            name: 'Profile',
-            component: ProfilePage,
-        },
-        {
-            path: '/project/:name',
-            name: 'Project',
-            component: ProjectPage,
-        },
-        {
-            path: '/new',
-            name: 'NewProject',
-            component: NewProjectPage,
-            beforeEnter(to, from, next) {
-                isLoggedIn(next);
-            },
-        },
-        { path: '/:pathMatch(.*)*', name: 'Error', component: ErrorPage },
-    ],
+    routes,
 });
 
+export { routes };
+
 export default router;
-
-const isLoggedIn = (next) => {
-    if (Cookies.get('isLoggedIn')) {
-        next();
-    } else {
-        next({
-            path: '/login',
-            replace: true,
-        });
-    }
-};
-
-const isLoggedOut = (next) => {
-    if (Cookies.get('isLoggedIn')) {
-        next({
-            path: '/',
-            replace: true,
-        });
-    } else {
-        next();
-    }
-};

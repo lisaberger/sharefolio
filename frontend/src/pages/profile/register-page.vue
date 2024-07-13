@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { RouteName } from '@/router/enum/route';
 
 /* Define props */
 const router = useRouter();
@@ -196,7 +197,7 @@ const onSubmit = () => {
                 Du hast bereits ein Profil bei Sharefolio?<br />
                 Dann logge dich hier ein!
             </p>
-            <router-link :to="{ name: 'Login' }">
+            <router-link :to="{ name: RouteName.Login }">
                 <prime-button label="Anmelden" outlined rounded />
             </router-link>
         </prime-panel>

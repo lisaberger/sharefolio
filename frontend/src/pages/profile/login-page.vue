@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { RouteName } from '@/router/enum/route';
 
 /* Login Data */
 const loginData = ref({ email: '', password: '' });
@@ -75,7 +76,7 @@ const login = () => {
             <p class="mb-2 mt-8 text-sm">
                 Noch kein Profil? Dann registriere dich kostenlos!
             </p>
-            <router-link :to="{ name: 'Register' }">
+            <router-link :to="{ name: RouteName.Register }">
                 <prime-button label="Registrieren" rounded outlined />
             </router-link>
         </prime-panel>

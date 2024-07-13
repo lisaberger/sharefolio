@@ -9,7 +9,13 @@ import Lara from '@/theme';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+    faMagnifyingGlass,
+    faPlus,
+    faRightFromBracket,
+    faRightToBracket,
+    faUser,
+} from '@fortawesome/free-solid-svg-icons';
 
 import Button from 'primevue/button';
 import IconField from 'primevue/iconfield';
@@ -23,10 +29,12 @@ import Password from 'primevue/password';
 import Message from 'primevue/message';
 import FileUpload from 'primevue/fileupload';
 import Textarea from 'primevue/textarea';
+import Menu from 'primevue/menu';
 
 import messages from '@intlify/unplugin-vue-i18n/messages';
 
 import '@/assets/css/style.css';
+import AutoComplete from 'primevue/autocomplete';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -47,7 +55,13 @@ app.use(PrimeVue, {
 
 app.use(i18n);
 
-library.add(faMagnifyingGlass, faPlus);
+library.add(
+    faMagnifyingGlass,
+    faPlus,
+    faRightToBracket,
+    faUser,
+    faRightFromBracket
+);
 app.component('font-awesome-icon', FontAwesomeIcon);
 
 app.component('PrimeButton', Button);
@@ -62,5 +76,7 @@ app.component('PrimePassword', Password);
 app.component('PrimeMessage', Message);
 app.component('PrimeFileUpload', FileUpload);
 app.component('PrimeTextArea', Textarea);
+app.component('PrimeMenu', Menu);
+app.component('PrimeAutoComplete', AutoComplete);
 
 app.mount('#app');

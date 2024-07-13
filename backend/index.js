@@ -9,24 +9,24 @@ import sequelize from './db/db.js'; // adjust path as per your project structure
 
 import userRoutes from './routes/userRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';
-import authenticationRoutes from './routes/authenticationRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 import { swaggerSpec, swaggerUi } from './swagger.js';
 
 const app = express();
 const port = 4000;
 
-/* Start cookie session and append passport */
-app.use(
-    cookieSession({
-        name: 'mysession',
-        keys: ['randomkey'],
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
-    })
-);
+// /* Start cookie session and append passport */
+// app.use(
+//     cookieSession({
+//         name: 'mysession',
+//         keys: ['randomkey'],
+//         maxAge: 24 * 60 * 60 * 1000, // 24 hours
+//     })
+// );
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 /* prevent CORS errors */
 app.use(cors());
@@ -60,7 +60,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 /* User */
 app.use('/users', userRoutes)
 /* Auth */
-app.use('/auth', authenticationRoutes);
+app.use('/auth', authRoutes);
 /* Projects */
 app.use('/projects', projectRoutes);
 
@@ -71,28 +71,28 @@ app.get('/categories', (req, res) => {
     });
 });
 
-passport.use(
-    new LocalStrategy(
-        {
-            usernameField: 'email',
-            passwordField: 'password',
-        },
-        (username, password, done) => {
-            client
-                .query(`SELECT check_password('${username}', '${password}')`)
-                .then((res) => {
-                    console.log(res.rows);
-                    if (res.rows[0].check_password) {
-                        done(null, username);
-                    } else {
-                        done(null, false, {
-                            message: 'Incorrect username or password',
-                        });
-                    }
-                });
-        }
-    )
-);
+// passport.use(
+//     new LocalStrategy(
+//         {
+//             usernameField: 'email',
+//             passwordField: 'password',
+//         },
+//         (username, password, done) => {
+//             client
+//                 .query(`SELECT check_password('${username}', '${password}')`)
+//                 .then((res) => {
+//                     console.log(res.rows);
+//                     if (res.rows[0].check_password) {
+//                         done(null, username);
+//                     } else {
+//                         done(null, false, {
+//                             message: 'Incorrect username or password',
+//                         });
+//                     }
+//                 });
+//         }
+//     )
+// );
 
 /*****************/
 /*    Console    */

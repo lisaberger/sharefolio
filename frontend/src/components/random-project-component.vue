@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Project from '@/models/project';
+import { RouteName } from '@/router/enum/route';
 import { computed } from 'vue';
 
 interface Props {
@@ -18,8 +19,8 @@ const projectLink = computed(() => linkify(props.titleProject.name));
 
 <template>
     <router-link
-        :to="{ name: 'Project', params: { name: projectLink } }"
-        class="relative"
+        :to="{ name: RouteName.Project, params: { name: projectLink } }"
+        class="z-1 relative"
     >
         <img
             class="h-80 w-full rounded-b-3xl object-cover drop-shadow-sm"
