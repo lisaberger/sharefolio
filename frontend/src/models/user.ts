@@ -43,6 +43,15 @@ class User {
         this.firstname = nameParts[0];
         this.lastname = nameParts[1];
     }
+
+    get initials() {
+        const firstCharOfFirstname = this.firstname.slice(0, 1);
+        const firstCharOfLastname = this.lastname.slice(0, 1);
+
+        return `
+        ${firstCharOfFirstname.toUpperCase()}${firstCharOfLastname.toUpperCase()}
+        `;
+    }
 }
 
 export default User;

@@ -1,6 +1,6 @@
 import type User from '@/models/user';
 
-export const mockUser: User = {
+const mockUser: User = {
     id: 'test id',
     firstname: 'John',
     lastname: 'Doe',
@@ -11,5 +11,8 @@ export const mockUser: User = {
     job: 'Mediengestalter',
     location: 'Augsburg',
     description: 'Ich bin leidenschaftlicher Mediengestalter Digital und Print',
-    fullname: 'avatar.jpg',
+    fullname: 'John Doe',
+    initials: 'JD',
 };
+
+export default mockUser;

@@ -3,7 +3,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { onBeforeMount, ref } from 'vue';
 import { RouterView, useRouter } from 'vue-router';
-import MainNavigationComponent from '@/components/main-navigation-component.vue';
+import NavigationContainer from '@/containers/navigation-container.vue';
 import FooterComponent from '@/components/footer-component.vue';
 import type User from './models/user';
 
@@ -33,7 +33,7 @@ const logoutUser = () => {
 
 <template>
     <header class="flex-none">
-        <main-navigation-component
+        <navigation-container
             :user-logged-in="userLoggedIn"
             :current-user="user"
             @logout="logoutUser"
