@@ -75,6 +75,7 @@ const debouncedSearch = debounce(search, 300);
                         severity="secondary"
                         size="small"
                         data-testid="login-button"
+                        @click="router.push({ name: RouteName.Login })"
                     >
                         <template #icon>
                             <font-awesome-icon

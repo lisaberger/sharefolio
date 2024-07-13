@@ -40,7 +40,7 @@ const logoutUser = () => {
         />
     </header>
 
-    <main class="mx-auto max-w-screen-xl flex-1 p-8 pt-0">
+    <main class="flex-1p-8 mx-auto max-w-screen-xl pt-0">
         <router-view />
     </main>
 

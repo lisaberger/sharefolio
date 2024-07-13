@@ -20,7 +20,7 @@ $$
 BEGIN 
   RETURN QUERY
   SELECT rest_helper -- $1 = _id, $2 = _data
-         ('INSERT INTO "account"("name", "user", "email", "password", "isAdmin")
+         ('INSERT INTO "account"("name", "user", "email", "password", "is_admin")
            VALUES(json_attr_value_d_untainted($2, ''lastname'',  NULL),
                   json_attr_value_d_untainted($2, ''user'',  NULL),
                   json_attr_value_d_untainted($2, ''email'', NULL),
@@ -46,7 +46,7 @@ BEGIN
                   "user"     = json_attr_value_d_untainted($2, ''user'',  NULL),
                   "email"    = json_attr_value_d_untainted($2, ''email'', NULL),
                   "password" = COALESCE(($2->>''password'')::TEXT, a."password"),
-                  "isAdmin"  = COALESCE(($2->>''isAdmin'')::BOOLEAN, false)
+                  "is_admin"  = COALESCE(($2->>''is_admin'')::BOOLEAN, false)
            WHERE  a."id" = $1
           ', 
           _id => _id, _data => _data, _constraint => 'account_exists'
@@ -67,7 +67,7 @@ BEGIN
                   "user"     = json_attr_value_d_untainted($2, ''user'',     a."user"),
                   "email"    = json_attr_value_d_untainted($2, ''email'',    a."email"),
                   "password" = json_attr_value_not_null   ($2, ''password'', a."password")::TEXT,
-                  "isAdmin"  = json_attr_value_not_null   ($2, ''isAdmin'',  a."isAdmin"::TEXT)::TEXT::BOOLEAN
+                  "is_admin"  = json_attr_value_not_null   ($2, ''is_admin'',  a."is_admin"::TEXT)::TEXT::BOOLEAN
            WHERE  a."id" = $1
           ', 
           _id => _id, _data => _data, _constraint => 'account_exists'

@@ -11,7 +11,7 @@ INSERT INTO
         "username",
         "email",
         "password",
-        "isAdmin",
+        "is_admin",
         "firstname",
         "job",
         "location",

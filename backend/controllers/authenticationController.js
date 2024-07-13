@@ -1,42 +1,35 @@
+// import bcrypt from "bcrypt";
+// import jwt from "jsonwebtoken";
 import Account from "../models/userModel.js";
-import passport from "passport";
 
-const loginUser = (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if (err) {
-            return next(err);
-        }
+const JWT_SECRET = "your_jwt_secret";
+
+const loginUser = async (req, res, next) => {
+    const { username, password } = req.body;
+
+    try {
+        const user = await Account.findOne({ where: { username } });
 
         if (!user) {
-            return res.status(400).send([user, 'Cannot log in', info]);
+            return res.status(400).send(['Cannot log in', 'User not found']);
         }
 
-        req.login(user, async (err) => {
-            if (err) {
-                return next(err);
-            }
-            
-            try {
-                const loggedInUser = await Account.findOne({
-                    where: { id: user.id } // Adjust this based on your user identifier (e.g., username)
-                });
-                
-                if (!loggedInUser) {
-                    throw new Error('User not found in database');
-                }
-                
-                res.send(loggedInUser);
-            } catch (error) {
-                next(error);
-            }
-        });
-    })(req, res, next);
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordValid) {
+            return res.status(400).send(['Cannot log in', 'Invalid password']);
+        }
+
+        const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, { expiresIn: '1h' });
+
+        res.send({ token, user });
+    } catch (error) {
+        next(error);
+    }
 };
 
 const logoutUser = (req, res, next) => {
-    req.logout();
-    console.log('logged out');
-    res.send();
+    res.send({ message: 'Logged out' });
 };
 
 export { loginUser, logoutUser };

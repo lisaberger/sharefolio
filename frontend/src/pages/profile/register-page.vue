@@ -11,9 +11,9 @@ const pfp = ref();
 
 /* User data object */
 const userData = ref({
-    userName: '',
-    firstName: '',
-    lastName: '',
+    username: '',
+    firstname: '',
+    lastNname: '',
     email: '',
     job: '',
     location: '',
@@ -43,9 +43,9 @@ const onSubmit = () => {
 
     /* fill user data */
     const tempUserData = {
-        userName: userData.value.userName,
-        firstName: userData.value.firstName,
-        lastName: userData.value.lastName,
+        username: userData.value.username,
+        firstname: userData.value.firstname,
+        lastname: userData.value.lastname,
         email: userData.value.email,
         job: userData.value.job,
         location: userData.value.location,
@@ -80,7 +80,7 @@ const onSubmit = () => {
                             <label for="username">Benutzername</label>
                             <prime-input-text
                                 id="username"
-                                v-model="userData.userName"
+                                v-model="userData.username"
                                 aria-describedby="username-help"
                             />
                         </div>
@@ -143,7 +143,7 @@ const onSubmit = () => {
                             <label for="first-name">firstname</label>
                             <prime-input-text
                                 id="first-name"
-                                v-model="userData.firstName"
+                                v-model="userData.firstname"
                                 aria-describedby="firstname-help"
                             />
                         </div>
@@ -152,7 +152,7 @@ const onSubmit = () => {
                             <label for="last-name">Nachname</label>
                             <prime-input-text
                                 id="last-name"
-                                v-model="userData.lastName"
+                                v-model="userData.lastname"
                                 aria-describedby="lastname-help"
                             />
                         </div>

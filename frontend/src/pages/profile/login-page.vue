@@ -6,26 +6,25 @@ import axios from 'axios';
 import { RouteName } from '@/router/enum/route';
 
 /* Login Data */
-const loginData = ref({ email: '', password: '' });
+const loginData = ref({ username: '', password: '' });
 const errorData = ref('');
 
 /* redirect */
 const router = useRouter();
 
-/* Login functionality */
 const login = () => {
     /* Send post request with Login Data */
     axios
         .post('http://localhost:4000/auth/login', loginData.value)
         .then((res) => {
+            console.log('res', res);
             /* set "logged in" - cookie to user is */
-            Cookies.set('isLoggedIn', res.data.id, {
-                expires: 1,
-                sameSite: 'Lax',
-            });
+            // Cookies.set('isLoggedIn', res.data.id, {
+            //     expires: 1,
+            //     sameSite: 'Lax',
+            // });
             /* redirect */
-            router.push({ path: '/' });
-            router.go('/');
+            router.push({ name: RouteName.Home });
         })
         .catch((err) => {
             /* Display error for false login data */
@@ -45,7 +44,7 @@ const login = () => {
                     <label for="username">Benutzername</label>
                     <prime-input-text
                         id="username"
-                        v-model="loginData.email"
+                        v-model="loginData.username"
                         aria-describedby="username-help"
                     />
                     <!-- <small id="username-help"

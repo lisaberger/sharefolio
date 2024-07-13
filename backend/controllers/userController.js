@@ -66,11 +66,11 @@ const getUsersProjects = async (req, res, next) => {
     }
 };
 
-// Function to create a new user
 const createUser = async (req, res, next) => {
-    const userData = req.body.userData;
+    const { username, firstname, lastname, email, job, location, descr, password, profilePic } = req.body.userData;
+
     try {
-        const newUser = await Account.create(userData);
+        const newUser = await Account.create({ username, firstname, lastname, email, job, location, descr, password, profilePic });
         res.sendStatus(201);
     } catch (error) {
         console.error(error);

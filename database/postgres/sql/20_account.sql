@@ -24,7 +24,7 @@ CREATE TABLE account
  "username"      D_UNTAINTED,
  "email"         D_EMAIL,
  "password"      VARCHAR,
- "isAdmin"       BOOLEAN      NOT NULL DEFAULT false,
+ "is_admin"      BOOLEAN      DEFAULT false,
  "job"           D_UNTAINTED,
  "location"      D_UNTAINTED,
  "description"   TEXT,
@@ -84,7 +84,7 @@ LANGUAGE plpgsql
 AS
 $$
   BEGIN
-    IF NOT EXISTS (SELECT * FROM "account" WHERE "isAdmin" = true)
+    IF NOT EXISTS (SELECT * FROM "account" WHERE "is_admin" = true)
       THEN RAISE EXCEPTION 'account_one_admin_exists';
     END IF;
     RETURN NULL;
@@ -105,7 +105,7 @@ AFTER UPDATE
 ON account
 NOT DEFERRABLE
 FOR EACH ROW
-  WHEN (OLD."isAdmin" = true AND NEW."isAdmin" = false)
+  WHEN (OLD."is_admin" = true AND NEW."is_admin" = false)
   EXECUTE PROCEDURE one_admin_exists_function()
 ;  
 

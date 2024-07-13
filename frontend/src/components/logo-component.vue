@@ -37,9 +37,10 @@ withDefaults(defineProps<Props>(), {
             class="ml-1 hidden text-2xl md:block"
             :class="colored ? 'text-primary-200' : 'fill-white'"
         >
-            <strong :class="colored ? 'text-primary-500' : 'fill-white'">
-                share </strong
-            >folio
+            <strong :class="colored ? 'text-primary-500' : 'fill-white'"
+                >share</strong
+            >
+            <span>folio</span>
         </h1>
     </router-link>
 </template>

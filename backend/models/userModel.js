@@ -34,9 +34,8 @@ const Account = sequelize.define('Account', {
             notEmpty: true
         }
     },
-    isAdmin: {
+    is_admin: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
         defaultValue: false
     },
     firstname: {
@@ -57,6 +56,7 @@ const Account = sequelize.define('Account', {
     },
     image: {
         type: DataTypes.STRING,
+        allowNull: true,
         defaultValue: '/public/profile/avatar_placeholder.png'
     }
 }, {
