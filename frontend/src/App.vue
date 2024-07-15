@@ -32,7 +32,7 @@ const logoutUser = () => {
 </script>
 
 <template>
-    <header class="flex-none">
+    <header class="mb-16 flex-none">
         <navigation-container
             :user-logged-in="userLoggedIn"
             :current-user="user"
@@ -40,7 +40,7 @@ const logoutUser = () => {
         />
     </header>
 
-    <main class="mx-auto max-w-screen-xl flex-1 p-8 pt-0">
+    <main class="mx-auto max-w-screen-2xl flex-1 p-4 pt-0 md:p-8 md:pt-0">
         <router-view />
     </main>
 

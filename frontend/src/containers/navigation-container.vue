@@ -10,7 +10,10 @@ import Project from '@/models/project';
 import { debounce } from '@/utils/debounce';
 import NavigationAvatarComponent from '@/components/navigation-avatar-component.vue';
 import navigationSearchbarComponent from '@/components/navigation-searchbar-component.vue';
-import type { AutoCompleteCompleteEvent } from 'primevue/autocomplete';
+import type {
+    AutoCompleteCompleteEvent,
+    AutoCompleteOptionSelectEvent,
+} from 'primevue/autocomplete';
 
 interface Props {
     userLoggedIn: boolean;
@@ -25,7 +28,6 @@ const router = useRouter();
 
 const projectApi = ProjectApi.getInstance();
 
-const selectedProject = ref<Project>();
 const filteredProjects = ref<Array<Project>>();
 
 const search = async (event: AutoCompleteCompleteEvent): Promise<void> => {
@@ -37,22 +39,34 @@ const search = async (event: AutoCompleteCompleteEvent): Promise<void> => {
 };
 
 const debouncedSearch = debounce(search, 300);
+
+const handleSelect = (event: AutoCompleteOptionSelectEvent) => {
+    router.push({
+        name: RouteName.Project,
+        params: { name: event.value.name },
+    });
+};
 </script>
 
 <template>
     <nav
-        class="border-surface-500 fixed z-10 w-full border-b bg-white px-4 py-2"
+        class="border-surface-300 fixed z-10 h-16 w-full border-b bg-white px-4 py-3 md:px-8"
     >
         <ul class="flex items-center justify-between">
             <li class="flex-0">
                 <logo-component />
             </li>
             <li class="z-30 mx-4 flex-1 md:mx-8">
-                <navigation-searchbar-component
-                    :suggestions="filteredProjects"
-                    v-model:selected-project="selectedProject"
-                    @complete="debouncedSearch"
-                />
+                <prime-input-group>
+                    <prime-input-group-addon>
+                        <span class="material-icons">search</span>
+                    </prime-input-group-addon>
+                    <navigation-searchbar-component
+                        :suggestions="filteredProjects"
+                        @complete="debouncedSearch"
+                        @option-select="handleSelect"
+                    />
+                </prime-input-group>
             </li>
             <li class="flex-0 flex">
                 <div
@@ -63,7 +77,6 @@ const debouncedSearch = debounce(search, 300);
                         class="hidden md:block"
                         :label="t('button.register')"
                         data-testid="register-button"
-                        rounded
                         severity="secondary"
                         text
                         size="small"
@@ -71,15 +84,13 @@ const debouncedSearch = debounce(search, 300);
                     />
                     <prime-button
                         text
-                        rounded
                         severity="secondary"
                         size="small"
                         data-testid="login-button"
+                        @click="router.push({ name: RouteName.Login })"
                     >
                         <template #icon>
-                            <font-awesome-icon
-                                :icon="['fas', 'right-to-bracket']"
-                            />
+                            <span class="material-icons">login</span>
                         </template>
                     </prime-button>
                 </div>
@@ -96,7 +107,7 @@ const debouncedSearch = debounce(search, 300);
 de:
     button:
         login: Anmelden
-        register: Registrieren
+        register: Noch kein Profil?
 en:
     button:
         login: Sign in

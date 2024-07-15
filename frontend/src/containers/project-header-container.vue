@@ -10,7 +10,7 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-    <section>
+    <section class="my-4">
         <random-project-component :title-project="props.titleProject" />
     </section>
 </template>

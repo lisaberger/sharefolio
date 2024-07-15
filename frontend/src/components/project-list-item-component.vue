@@ -16,7 +16,7 @@ const linkify = (name: string): string => {
 const customCard = ref({
     content: 'py-0',
     root: {
-        class: ['rounded-xl'],
+        class: ['rounded-lg'],
     },
 });
 </script>
@@ -29,7 +29,7 @@ const customCard = ref({
         >
             <template #header>
                 <img
-                    class="h-40 w-full rounded-t-3xl object-cover"
+                    class="h-40 w-full rounded-t-lg object-cover"
                     :src="props.project.teaserImage"
                     alt="Projektbild"
                 />
