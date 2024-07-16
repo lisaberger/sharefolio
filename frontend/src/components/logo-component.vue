@@ -3,10 +3,12 @@ import { RouteName } from '@/router/enum/route';
 
 interface Props {
     colored?: boolean;
+    extended?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
     colored: true,
+    extended: true,
 });
 </script>
 
@@ -34,6 +36,7 @@ withDefaults(defineProps<Props>(), {
             />
         </svg>
         <h1
+            v-if="extended"
             class="ml-1 hidden text-2xl md:block"
             :class="colored ? 'text-primary-200' : 'fill-white'"
         >
