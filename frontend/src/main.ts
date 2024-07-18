@@ -39,6 +39,13 @@ import AutoComplete from 'primevue/autocomplete';
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import MegaMenu from 'primevue/megamenu';
+import Stepper from 'primevue/stepper';
+import StepList from 'primevue/steplist';
+import StepPanels from 'primevue/steppanels';
+import StepItem from 'primevue/stepitem';
+import Step from 'primevue/step';
+import StepPanel from 'primevue/steppanel';
+import Divider from 'primevue/divider';
 
 import '@/assets/css/style.css';
 
@@ -104,11 +111,18 @@ app.component('PrimePanel', Panel);
 app.component('PrimePassword', Password);
 app.component('PrimeMessage', Message);
 app.component('PrimeFileUpload', FileUpload);
-app.component('PrimeTextArea', Textarea);
+app.component('PrimeTextarea', Textarea);
 app.component('PrimeMenu', Menu);
 app.component('PrimeAutoComplete', AutoComplete);
 app.component('PrimeInputGroup', InputGroup);
 app.component('PrimeInputGroupAddon', InputGroupAddon);
 app.component('PrimeMegaMenu', MegaMenu);
+app.component('PrimeStepper', Stepper);
+app.component('PrimeStepList', StepList);
+app.component('PrimeStepPanels', StepPanels);
+app.component('PrimeStepPanel', StepPanel);
+app.component('PrimeStepItem', StepItem);
+app.component('PrimeStep', Step);
+app.component('PrimeDivider', Divider);
 
 app.mount('#app');
