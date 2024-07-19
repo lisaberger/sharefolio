@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ProfileProjectItem from '@/components/profile-project-item-component.vue';
-import UploadButton from '@/components/form/upload-button.vue';
+// import UploadButton from '@/components/form/upload-button.vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 import { onBeforeMount, ref } from 'vue';
@@ -70,9 +70,9 @@ function linkify(nameString) {
         </section>
         <hr />
         <section class="personal__projects">
-            <router-link :to="{ name: RouteName.NewProject }">
+            <!-- <router-link :to="{ name: RouteName.NewProject }">
                 <UploadButton label="Neues Projekt" />
-            </router-link>
+            </router-link> -->
             <section class="projects">
                 <div class="projects__info">
                     <ProfileProjectItem
