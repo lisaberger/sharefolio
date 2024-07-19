@@ -81,7 +81,6 @@ const emit = defineEmits<Emits>();
             id="options"
             :model="userMenuItems"
             :popup="true"
-            class="bg-white"
         >
             <template #itemicon="{ item }">
                 <font-awesome-icon :icon="item.icon" class="mr-2" />

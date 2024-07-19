@@ -8,6 +8,7 @@ import { useRouter } from 'vue-router';
 import ProjectApi from '@/api/project-api';
 import Project from '@/models/project';
 import { debounce } from '@/utils/debounce';
+import NavigationLanguageComponent from '@/components/navigation-language-component.vue';
 import NavigationAvatarComponent from '@/components/navigation-avatar-component.vue';
 import navigationSearchbarComponent from '@/components/navigation-searchbar-component.vue';
 import type {
@@ -99,6 +100,8 @@ const handleSelect = (event: AutoCompleteOptionSelectEvent) => {
                     :user="props.currentUser"
                 />
             </li>
+            <prime-divider layout="vertical" />
+            <navigation-language-component />
         </ul>
     </nav>
 </template>
