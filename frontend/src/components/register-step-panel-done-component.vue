@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import { DotLottieVue } from '@lottiefiles/dotlottie-vue';
 
 const { t } = useI18n();
 
 type Emit = {
-    submit: [];
+    done: [];
 };
 
 const emit = defineEmits<Emit>();
 
-const submit = () => emit('submit');
+const handleDone = () => emit('done');
 </script>
 
 <template>
@@ -18,22 +19,18 @@ const submit = () => emit('submit');
         value="4"
         class="flex w-full flex-col items-center"
     >
-        <div class="mt-8 w-full md:w-2/3"></div>
+        <div class="mt-8 flex w-full justify-center md:w-2/3">
+            <DotLottieVue class="h-32 w-32" autoplay src="check.lottie" />
+        </div>
         <div class="flex justify-between pt-6">
-            <prime-button
-                label="cancel"
-                severity="secondary"
-                icon="pi pi-arrow-left"
-                @click="activateCallback('2')"
-            />
             <prime-button
                 :label="t('button.submit')"
                 severity="primary"
                 icon-pos="right"
-                @click="submit"
+                @click="handleDone"
             >
                 <template #icon>
-                    <span class="material-icons">arrow_right</span>
+                    <span class="material-icons">check</span>
                 </template>
             </prime-button>
         </div>

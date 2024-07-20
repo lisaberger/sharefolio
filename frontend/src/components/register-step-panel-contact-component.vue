@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
-const firstname = ref('');
-const lastname = ref('');
-const email = ref('');
-const location = ref('');
-const job = ref('');
-const description = ref('');
+type ContactForm = {
+    firstname: string;
+    lastname: string;
+    email: string;
+    location: string;
+    job: string;
+    description: string;
+};
+
+const contactForm = defineModel<ContactForm>('contact', { required: true });
 </script>
 
 <template>
@@ -27,7 +30,7 @@ const description = ref('');
                     </prime-input-group-addon>
                     <prime-input-text
                         id="firstname"
-                        v-model="firstname"
+                        v-model="contactForm.firstname"
                         aria-describedby="firstname-help"
                     />
                 </prime-input-group>
@@ -40,7 +43,7 @@ const description = ref('');
                     </prime-input-group-addon>
                     <prime-input-text
                         id="lastname"
-                        v-model="lastname"
+                        v-model="contactForm.lastname"
                         aria-describedby="lastname-help"
                     />
                 </prime-input-group>
@@ -54,7 +57,7 @@ const description = ref('');
                     </prime-input-group-addon>
                     <prime-input-text
                         id="email"
-                        v-model="email"
+                        v-model="contactForm.email"
                         aria-describedby="email-help"
                     />
                 </prime-input-group>
@@ -67,7 +70,7 @@ const description = ref('');
                     </prime-input-group-addon>
                     <prime-input-text
                         id="job"
-                        v-model="job"
+                        v-model="contactForm.job"
                         aria-describedby="job-help"
                     />
                 </prime-input-group>
@@ -80,7 +83,7 @@ const description = ref('');
                     </prime-input-group-addon>
                     <prime-input-text
                         id="location"
-                        v-model="location"
+                        v-model="contactForm.location"
                         aria-describedby="location-help"
                     />
                 </prime-input-group>
@@ -95,18 +98,23 @@ const description = ref('');
                         id="description"
                         fluid
                         :row="3"
-                        v-model="description"
+                        v-model="contactForm.description"
                         aria-describedby="description-help"
                     />
                 </prime-input-group>
             </div>
             <div class="flex justify-between pt-6">
                 <prime-button
-                    label="Back"
                     severity="secondary"
                     @click="activateCallback('1')"
-                />
-                <prime-button label="Next" @click="activateCallback('3')" />
+                >
+                    <span class="material-icons text-sm">arrow_back</span>
+                    {{ t('button.back') }}
+                </prime-button>
+                <prime-button @click="activateCallback('3')">
+                    {{ t('button.next') }}
+                    <span class="material-icons text-sm">arrow_forward</span>
+                </prime-button>
             </div>
         </form>
     </prime-step-panel>
@@ -121,6 +129,9 @@ de:
         job: Jobbeschreibung
         location: Ort
         description: Beschreibung
+    button:
+        back: Zurück
+        next: Weiter
 en:
     label:
         firstname: Firstname
@@ -129,4 +140,7 @@ en:
         job: Job description
         location: Location
         description: Description
+    button:
+        back: Back
+        next: Next
 </i18n>

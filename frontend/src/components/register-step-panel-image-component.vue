@@ -2,6 +2,12 @@
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
+
+type ProfileImage = {
+    file: File;
+};
+
+const file = defineModel<ProfileImage>('file');
 </script>
 
 <template>
@@ -15,7 +21,7 @@ const { t } = useI18n();
                 name="avatar"
                 :show-upload-button="false"
                 :show-cancel-button="false"
-                @select="console.log('select', $event)"
+                @select="file = $event"
                 :multiple="false"
                 accept="image/*"
                 :maxFileSize="1000000"
@@ -32,13 +38,18 @@ const { t } = useI18n();
                 </template>
             </prime-file-upload>
 
-            <div class="flex w-full justify-between pt-6">
+            <div class="flex justify-between pt-6">
                 <prime-button
-                    label="Back"
                     severity="secondary"
                     @click="activateCallback('2')"
-                />
-                <prime-button label="Next" @click="activateCallback('4')" />
+                >
+                    <span class="material-icons text-sm">arrow_back</span>
+                    {{ t('button.back') }}
+                </prime-button>
+                <prime-button @click="activateCallback('4')">
+                    {{ t('button.next') }}
+                    <span class="material-icons text-sm">arrow_forward</span>
+                </prime-button>
             </div>
         </div>
     </prime-step-panel>
@@ -48,7 +59,13 @@ const { t } = useI18n();
 de:
     fileUpload:
         empty: Lade ein Profilbild.
+    button:
+        back: Zurück
+        next: Weiter
 en:
     fileUpload:
         empty: Drag and drop a profile image here.
+    button:
+        back: Back
+        next: Next
 </i18n>

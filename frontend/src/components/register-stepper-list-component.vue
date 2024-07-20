@@ -35,24 +35,13 @@ const stepperOptions = ref<StepperListOption[]>([
         icon: 'check',
     },
 ]);
-
-const nextStep = (
-    currentStep: string | number,
-    totalSteps: number
-): string | number => {
-    if (+currentStep < totalSteps) {
-        return `${+currentStep + 1}`;
-    }
-
-    return currentStep;
-};
 </script>
 
 <template>
     <prime-step-list>
         <prime-step
             v-for="(step, index) in stepperOptions"
-            v-slot="{ activateCallback, value, a11yAttrs }"
+            v-slot="{ activateCallback, a11yAttrs }"
             asChild
             :value="step.value"
         >
@@ -66,10 +55,12 @@ const nextStep = (
                     v-bind="a11yAttrs.header"
                 >
                     <span
-                        class="border-surface-200 dark:border-surface-700 inline-flex h-8 w-8 items-center justify-center rounded border-2"
+                        class="material-icons inline-flex h-8 w-8 items-center justify-center rounded border-2"
+                        :class="{
+                            'text-primary-500': step.value <= props.activeStep,
+                        }"
+                        >{{ step.icon }}</span
                     >
-                        <span class="material-icons">{{ step.icon }}</span>
-                    </span>
                 </button>
                 <span class="hidden text-sm font-medium md:block">
                     {{ step.name }}

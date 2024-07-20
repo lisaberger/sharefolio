@@ -6,6 +6,7 @@ import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import { definePreset } from '@primevue/themes';
 import { i18n } from '@/i18n/i18n';
+import { DotLottieVue } from '@lottiefiles/dotlottie-vue';
 
 /**
  * Icons
@@ -99,6 +100,8 @@ library.add(
     faRightFromBracket
 );
 app.component('font-awesome-icon', FontAwesomeIcon);
+
+app.component('dotlottie-vue', DotLottieVue);
 
 app.component('PrimeButton', Button);
 app.component('PrimeCard', Card);

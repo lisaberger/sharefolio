@@ -1,31 +1,25 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import useVuelidate from '@vuelidate/core';
-import { required, minLength, sameAs } from '@/i18n/validators/i18n-validators';
+import {
+    required,
+    minLength,
+    sameAs,
+    hasLowercase,
+    hasNumeric,
+    hasUppercase,
+} from '@/i18n/validators/i18n-validators';
 import TextInputFieldComponent from '@/components/shared/text-input-field-component.vue';
+import PasswordInputFieldComponent from '@/components/shared/password-input-field-component.vue';
 
 const { t } = useI18n();
 
-const username = ref('');
-const password = ref('');
-const passwordRepeat = ref('');
+type LoginForm = {
+    username: string;
+    password: string;
+    passwordRepeat: string;
+};
 
-const rules = computed(() => ({
-    password: {
-        required,
-    },
-    passwordRepeat: {
-        required,
-        sameAs: sameAs(password),
-    },
-}));
-
-const $v = useVuelidate(
-    rules,
-    { passwordRepeat, password },
-    { $lazy: true, $autoDirty: true }
-);
+const loginForm = defineModel<LoginForm>('login', { required: true });
 </script>
 
 <template>
@@ -39,62 +33,42 @@ const $v = useVuelidate(
                 id="username"
                 field="username"
                 icon="person"
-                v-model:model-value="username"
+                v-model:model-value="loginForm.username"
                 :validators="{ required, minLength: minLength(3) }"
                 :label="t('label.username')"
             />
-            <div class="mb-4 flex flex-col gap-2 text-sm">
-                <label for="password">{{ t('label.password') }}</label>
-                <prime-input-group>
-                    <prime-input-group-addon>
-                        <span class="material-icons">lock</span>
-                    </prime-input-group-addon>
-                    <prime-password
-                        id="password"
-                        v-model="password"
-                        fluid
-                        toggleMask
-                        :invalid="$v.password.$error"
-                    />
-                </prime-input-group>
-                <small
-                    v-for="error in $v.password.$errors"
-                    :key="error.$uid"
-                    id="username-help"
-                    class="text-red-500"
-                >
-                    {{ error.$message }}
-                </small>
-            </div>
-            <div class="mb-4 flex flex-col gap-2 text-sm">
-                <label for="passwordRepeat">{{
-                    t('label.passwordRepeat')
-                }}</label>
-                <prime-input-group>
-                    <prime-input-group-addon>
-                        <span class="material-icons">lock</span>
-                    </prime-input-group-addon>
-                    <prime-password
-                        id="passwordRepeat"
-                        v-model="passwordRepeat"
-                        fluid
-                        toggleMask
-                        :feedback="false"
-                        :invalid="$v.passwordRepeat.$error"
-                    />
-                </prime-input-group>
-                <small
-                    v-for="error in $v.passwordRepeat.$errors"
-                    :key="error.$uid"
-                    id="username-help"
-                    class="text-red-500"
-                >
-                    {{ error.$message }}
-                </small>
-            </div>
+            <password-input-field-component
+                id="password"
+                field="password"
+                icon="lock"
+                v-model:model-value="loginForm.password"
+                :validators="{
+                    required,
+                    hasLowercase,
+                    hasUppercase,
+                    hasNumeric,
+                    minLength: minLength(8),
+                }"
+                :label="t('label.password')"
+            />
+            <password-input-field-component
+                id="passwordRepeat"
+                field="passwordRepeat"
+                icon="lock"
+                :feedback="false"
+                v-model:model-value="loginForm.passwordRepeat"
+                :validators="{
+                    required,
+                    sameAs: sameAs(loginForm.password),
+                }"
+                :label="t('label.passwordRepeat')"
+            />
         </form>
         <div class="flex justify-end pt-6">
-            <prime-button label="Next" @click="activateCallback('2')" />
+            <prime-button label="Next" @click="activateCallback('2')">
+                {{ t('button.next') }}
+                <span class="material-icons text-sm">arrow_forward</span>
+            </prime-button>
         </div>
     </prime-step-panel>
 </template>
@@ -105,9 +79,13 @@ de:
         username: Benutzername
         password: Passwort
         passwordRepeat: Passwort wiederholen
+    button:
+        next: Weiter
 en:
     label:
         username: Username
         password: Password
         passwordRepeat: Repeat password
+    button:
+        next: Next
 </i18n>

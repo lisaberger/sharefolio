@@ -42,9 +42,11 @@ const { t } = useI18n();
                 </div>
             </template>
             <register-stepper-container />
-            <p class="mb-2 mt-4 text-sm">
-                {{ t('panel.loginHint') }}
-            </p>
+            <div class="mb-8 mt-4 flex justify-center">
+                <p class="text-sm">
+                    {{ t('panel.loginHint') }}
+                </p>
+            </div>
         </prime-panel>
     </section>
 </template>
