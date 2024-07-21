@@ -5,12 +5,12 @@ import { DotLottieVue } from '@lottiefiles/dotlottie-vue';
 const { t } = useI18n();
 
 type Emit = {
-    done: [];
+    submit: [];
 };
 
 const emit = defineEmits<Emit>();
 
-const handleDone = () => emit('done');
+const handleDone = () => emit('submit');
 </script>
 
 <template>

@@ -47,6 +47,7 @@ import StepItem from 'primevue/stepitem';
 import Step from 'primevue/step';
 import StepPanel from 'primevue/steppanel';
 import Divider from 'primevue/divider';
+import Carousel from 'primevue/carousel';
 
 import '@/assets/css/style.css';
 
@@ -101,7 +102,7 @@ library.add(
 );
 app.component('font-awesome-icon', FontAwesomeIcon);
 
-app.component('dotlottie-vue', DotLottieVue);
+app.component('DotLottieVue', DotLottieVue);
 
 app.component('PrimeButton', Button);
 app.component('PrimeCard', Card);
@@ -127,5 +128,6 @@ app.component('PrimeStepPanel', StepPanel);
 app.component('PrimeStepItem', StepItem);
 app.component('PrimeStep', Step);
 app.component('PrimeDivider', Divider);
+app.component('PrimeCarousel', Carousel);
 
 app.mount('#app');

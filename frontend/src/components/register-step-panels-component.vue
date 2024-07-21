@@ -3,7 +3,7 @@ import RegisterStepPanelLoginComponent from '@/components/register-step-panel-lo
 import RegisterStepPanelContactComponent from '@/components/register-step-panel-contact-component.vue';
 import RegisterStepPanelImageComponent from '@/components/register-step-panel-image-component.vue';
 import RegisterStepPanelDoneComponent from '@/components/register-step-panel-done-component.vue';
-import { reactive, ref, watch } from 'vue';
+import { reactive, ref, shallowReactive, toRefs, watch } from 'vue';
 
 type LoginForm = {
     username: string;
@@ -35,16 +35,22 @@ const contactForm = reactive<ContactForm>({
     description: '',
 });
 
-const profileImage = ref();
+const profileImage = ref<File>();
 
-const registerFormData = ref({ ...loginForm, ...contactForm });
+const registerFormData = shallowReactive({
+    ...toRefs(loginForm),
+    ...toRefs(contactForm),
+    profileImage,
+});
 </script>
 
 <template>
     <prime-step-panels>
         <register-step-panel-login-component v-model:login="loginForm" />
         <register-step-panel-contact-component v-model:contact="contactForm" />
-        <register-step-panel-image-component v:model:file="file" />
-        <register-step-panel-done-component />
+        <register-step-panel-image-component v:model:file="profileImage" />
+        <register-step-panel-done-component
+            @submit="console.log(registerFormData)"
+        />
     </prime-step-panels>
 </template>
