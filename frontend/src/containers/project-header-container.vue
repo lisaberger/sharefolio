@@ -1,16 +1,42 @@
 <script setup lang="ts">
-import RandomProjectComponent from '@/components/random-project-component.vue';
+import TeaserCarouselComponent from '@/components/teaser-carousel-component.vue';
+import { onBeforeMount, ref } from 'vue';
+import ProjectApi from '@/api/project-api';
 import Project from '@/models/project';
 
-interface Props {
-    titleProject: Project;
-}
+const projectApi = ProjectApi.getInstance();
 
-const props = defineProps<Props>();
+const allProjects = ref<Project[]>([]);
+const teaserProjects = ref<Project[]>([]);
+const numTeaserProjects = 3;
+
+const fetchProjects = async (): Promise<void> => {
+    allProjects.value = await projectApi.getProjects();
+};
+
+const setTeaserProjects = (): void => {
+    if (allProjects.value) {
+        const numberProjects = allProjects.value.length;
+
+        let randomProjects = [];
+
+        for (let i = 0; i <= numTeaserProjects; i++) {
+            const randomIndex = Math.floor(Math.random() * numberProjects);
+            randomProjects.push(allProjects.value[randomIndex]);
+        }
+
+        teaserProjects.value = randomProjects;
+    }
+};
+
+onBeforeMount(async () => {
+    await fetchProjects();
+    setTeaserProjects();
+});
 </script>
 
 <template>
     <section class="my-4">
-        <random-project-component :title-project="props.titleProject" />
+        <teaser-carousel-component :projects="teaserProjects" />
     </section>
 </template>

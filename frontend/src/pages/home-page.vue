@@ -53,7 +53,7 @@ onBeforeMount(() => {
 
 <template>
     <div v-if="!isLoading">
-        <project-header-container :title-project="titleProject" />
+        <project-header-container />
         <welcome-container
             :user-logged-in="userLoggedIn"
             :current-user="user"

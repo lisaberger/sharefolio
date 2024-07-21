@@ -13,11 +13,7 @@ const { t } = useI18n();
 
 <template>
     <section class="flex h-full flex-col items-center justify-center">
-        <img
-            src="@/assets/links/sadlogo.png"
-            alt="Error Logo"
-            class="mb-4 w-32"
-        />
+        <dot-lottie-vue autoplay src="error-not-found.lottie" class="w-64" />
         <h1 class="text-2xl font-bold">{{ t('error.title') }}</h1>
         <p class="mb-2 text-sm font-semibold">
             {{ t('error.code', { code: props.error?.name || '' }) }}
