@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomePage from '@/pages/home-page.vue';
-import NewProjectPage from '@/pages/project/new-project-page.vue';
-import ProjectPage from '@/pages/project/project-page.vue';
-import LoginPage from '@/pages/profile/login-page.vue';
-import RegisterPage from '@/pages/profile/register-page.vue';
-import ProfilePage from '@/pages/profile/profile-page.vue';
-import ErrorPage from '@/pages/error-page.vue';
-import { RouteName } from '@/router/enum/route';
-import { authGuard } from '@/router/guards/auth-guard';
+import HomePage from '@/features/common/ui/pages/home-page.vue';
+import NewProjectPage from '@/features/project/project-new/new-project-page.vue';
+import ProjectPage from '@/features/project/project-detail/ui/pages/project-page.vue';
+import LoginPage from '@/features/auth/ui/pages/login-page.vue';
+import RegisterPage from '@/features/auth/ui/pages/register-page.vue';
+import ProfilePage from '@/features/profile/ui/pages/profile-page.vue';
+import ErrorPage from '@/features/common/ui/pages/error-page.vue';
+import { RouteName } from '@/router/enums/route';
+import { authGuard } from '@/features/auth/guards/auth-guard';
 
 const routes = [
     {
