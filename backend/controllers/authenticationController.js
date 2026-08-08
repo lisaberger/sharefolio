@@ -1,42 +1,43 @@
-import Account from "../models/userModel.js";
-import passport from "passport";
+import sequelize from '../db/db.js';
+import Account from '../models/userModel.js';
+import { Op } from 'sequelize';
 
-const loginUser = (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if (err) {
-            return next(err);
+/* stateless login: verifies credentials via the database check_password function */
+const loginUser = async (req, res, next) => {
+    const { username, password } = req.body ?? {};
+
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Username and password required' });
+    }
+
+    try {
+        const [rows] = await sequelize.query(
+            'SELECT check_password(:usr, :pw) AS valid',
+            {
+                replacements: { usr: username, pw: password },
+            }
+        );
+
+        if (!rows[0]?.valid) {
+            return res
+                .status(401)
+                .json({ error: 'Incorrect username or password' });
         }
 
-        if (!user) {
-            return res.status(400).send([user, 'Cannot log in', info]);
-        }
-
-        req.login(user, async (err) => {
-            if (err) {
-                return next(err);
-            }
-            
-            try {
-                const loggedInUser = await Account.findOne({
-                    where: { id: user.id } // Adjust this based on your user identifier (e.g., username)
-                });
-                
-                if (!loggedInUser) {
-                    throw new Error('User not found in database');
-                }
-                
-                res.send(loggedInUser);
-            } catch (error) {
-                next(error);
-            }
+        const user = await Account.findOne({
+            where: {
+                [Op.or]: [{ username }, { email: username }],
+            },
         });
-    })(req, res, next);
+
+        return res.status(200).json(user);
+    } catch (error) {
+        return next(error);
+    }
 };
 
-const logoutUser = (req, res, next) => {
-    req.logout();
-    console.log('logged out');
-    res.send();
+const logoutUser = (req, res) => {
+    res.sendStatus(200);
 };
 
 export { loginUser, logoutUser };

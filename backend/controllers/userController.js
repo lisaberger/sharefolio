@@ -1,81 +1,72 @@
 import Account from '../models/userModel.js';
 import Project from '../models/projectModel.js';
 
+const UUID_PATTERN =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 const getUsers = async (req, res, next) => {
     try {
         const users = await Account.findAll();
         res.status(200).json(users);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        next(error);
     }
 };
 
-const getUserByName = async (req, res, next) => {
-    const { username } = req.params;
+/* resolves a single user by id (UUID) or username */
+const getUser = async (req, res, next) => {
+    const { name } = req.params;
+
     try {
         const user = await Account.findOne({
-            where: {
-                username: username
-            }
+            where: UUID_PATTERN.test(name)
+                ? { id: name }
+                : { username: name },
         });
 
         if (!user) {
-            res.status(404).json({ error: 'User not found' });
-        } else {
-            res.status(200).json(user);
+            return res.status(404).json({ error: 'User not found' });
         }
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-};
 
-const getUserById = async (req, res, next) => {
-    const { id } = req.params;
-    try {
-        const user = await Account.findByPk(id);
-
-        if (!user) {
-            res.status(404).json({ error: 'User not found' });
-        } else {
-            res.status(200).json(user);
-        }
+        return res.status(200).json(user);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        return next(error);
     }
 };
 
 const getUsersProjects = async (req, res, next) => {
-    const { username } = req.params;
+    const { name } = req.params;
+
     try {
+        const user = await Account.findOne({
+            where: UUID_PATTERN.test(name)
+                ? { id: name }
+                : { username: name },
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
         const projects = await Project.findAll({
-            include: [{
-                model: Account,
-                as: 'creator',
-                where: { username: username },
-                attributes: []
-            }]
+            where: { creator_id: user.id },
         });
 
         res.status(200).json(projects);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        next(error);
     }
 };
 
-// Function to create a new user
 const createUser = async (req, res, next) => {
     const userData = req.body.userData;
+
     try {
-        const newUser = await Account.create(userData);
+        await Account.create(userData);
         res.sendStatus(201);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'User could not be created' });
+        next(error);
     }
 };
 
-export { getUsers, getUserByName, getUserById, getUsersProjects, createUser };
+export { getUsers, getUser, getUsersProjects, createUser };

@@ -1,18 +1,10 @@
 import express from 'express';
-import multer from 'multer';
-import { createUser, getUserById, getUserByName, getUsers, getUsersProjects } from '../controllers/userController.js';
-
-/* Upload handlers */
-const pfpStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, '../public/profile');
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.originalname);
-    },
-});
-
-const pfpUpload = multer({ storage: pfpStorage });
+import {
+    createUser,
+    getUser,
+    getUsers,
+    getUsersProjects,
+} from '../controllers/userController.js';
 
 const router = express.Router();
 
@@ -50,15 +42,15 @@ router.route('/').get(getUsers);
  * @openapi
  * /users/{name}:
  *   get:
- *     summary: Get user by name
- *     description: Fetches a user by their name.
+ *     summary: Get a user by name or id
+ *     description: Fetches a user by their username or UUID.
  *     tags:
  *       - Users
  *     parameters:
  *       - name: name
  *         in: path
  *         required: true
- *         description: Name of the user.
+ *         description: Username or UUID of the user.
  *         schema:
  *           type: string
  *     responses:
@@ -81,7 +73,7 @@ router.route('/').get(getUsers);
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get('/:name', getUserByName);
+router.get('/:name', getUser);
 
 /**
  * @openapi
@@ -95,7 +87,7 @@ router.get('/:name', getUserByName);
  *       - name: name
  *         in: path
  *         required: true
- *         description: Name of the user.
+ *         description: Username or UUID of the user.
  *         schema:
  *           type: string
  *     responses:
@@ -122,43 +114,6 @@ router.get('/:name', getUserByName);
  */
 router.get('/:name/projects', getUsersProjects);
 
-/**
- * @openapi
- * /users/{id}:
- *   get:
- *     summary: Get user by ID
- *     description: Fetches a user by their ID.
- *     tags:
- *       - Users
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         description: ID of the user.
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: A user object
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *       404:
- *         description: User not found
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get('/:id', getUserById);
-
 /*****************/
 /* POST REQUESTS */
 /*****************/
@@ -168,23 +123,18 @@ router.get('/:id', getUserById);
  * /users/create:
  *   post:
  *     summary: Create a new user
- *     description: Creates a new user with an optional profile picture.
+ *     description: Creates a new user.
  *     tags:
  *       - Users
  *     requestBody:
  *       required: true
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               profilePic:
- *                 type: string
- *                 format: binary
- *                 description: Profile picture of the user
- *               otherField:
- *                 type: string
- *                 description: Other field related to user creation
+ *               userData:
+ *                 $ref: '#/components/schemas/UserCreate'
  *     responses:
  *       201:
  *         description: User created successfully
@@ -201,6 +151,6 @@ router.get('/:id', getUserById);
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post('/create', pfpUpload.single('profilePic'), createUser);
+router.post('/create', createUser);
 
 export default router;

@@ -8,8 +8,7 @@ const getProjects = async (req, res, next) => {
         const projects = await Project.findAll();
         res.status(200).json(projects);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        next(error);
     }
 };
 
@@ -37,32 +36,39 @@ const getProjectByName = async (req, res, next) => {
             res.status(200).json(project);
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        next(error);
     }
 };
 
 const createProject = async (req, res, next) => {
-    const projectData = req.body.projectData;
+    let projectData;
+    try {
+        projectData =
+            typeof req.body.projectData === 'string'
+                ? JSON.parse(req.body.projectData)
+                : req.body.projectData ?? {};
+    } catch (error) {
+        return res.status(400).json({ error: 'Invalid project data' });
+    }
 
     try {
         const newProject = await Project.create({
-            creator_id: projectData.creatorId,
+            creator_id: projectData.creatorId ?? null,
             teaserImage: projectData.headerPath,
             name: projectData.title,
-            desciption: projectData.descr,
+            description: projectData.descr,
             kind: projectData.art,
             tools: projectData.tools,
-            category_id: projectData.category,
+            category_id: projectData.category || null,
             demo: projectData.link,
             image1: projectData.pic1Path,
-            image2: projectData.pic2Path
+            image2: projectData.pic2Path,
+            contributors: projectData.collabs,
         });
 
-        res.sendStatus(201); // 201 Created
+        res.status(201).json(newProject);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        next(error);
     }
 };
 

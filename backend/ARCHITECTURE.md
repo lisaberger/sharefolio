@@ -85,11 +85,22 @@ Responsibilities, in order of execution:
    - `/users` → `userRoutes`
    - `/auth` → `authRoutes`
    - `/projects` → `projectRoutes`
-   - `/categories` → inline route
-5. **Start the server** on port 4000.
+   - `/categories` → inline route (`EnumCategory.findAll()`)
+5. **Start the server** on `PORT` (default 4000).
 
-> **Note:** The Passport / cookie-session middleware and the local strategy are
-> currently commented out (auth is work-in-progress). See "Known Issues".
+## Authentication
+
+Auth is **stateless** — no session middleware. Login verifies credentials
+against the database and returns the user record; the frontend keeps its own
+cookie (`isLoggedIn`) with the user id.
+
+- `POST /auth/login` takes `{ username, password }` (username **or** email),
+  calls the PostgreSQL function `check_password(usr, pw)` via a raw query, and
+  returns the user (without `password`) on success.
+- Failed login → `401`, missing credentials → `400`.
+- Password hashing/verification lives **in the database** (pgcrypto `crypt`,
+  bcrypt blowfish). The account table has a `BEFORE INSERT OR UPDATE` trigger
+  that hashes new passwords. The app never sees plain hashes.
 
 ## Router Layer (`routes/`)
 
@@ -100,19 +111,18 @@ the spec served at `/docs`.
 | Route | Method | Handler | Purpose |
 | ----- | ------ | ------- | ------- |
 | `/users` | GET | `getUsers` | List all users |
-| `/users/:name` | GET | `getUserByName` | Get a user by username |
-| `/users/:name/projects` | GET | `getUsersProjects` | Projects of a user |
-| `/users/:id` | GET | `getUserById` | Get a user by UUID |
-| `/users/create` | POST | `createUser` | Create a user (multipart, optional profile pic) |
+| `/users/:name` | GET | `getUser` | Get a user by username **or UUID** |
+| `/users/:name/projects` | GET | `getUsersProjects` | Projects of a user (by name or UUID) |
+| `/users/create` | POST | `createUser` | Create a user (JSON `{ userData }`) |
 | `/projects` | GET | `getProjects` | List all projects |
 | `/projects/:name` | GET | `getProjectByName` | Get a project by name (case-insensitive) |
-| `/projects/create` | POST | `createProject` | Create a project (multipart, `pics[]`) |
-| `/auth/login` | POST | `loginUser` | Log in (Passport local) |
-| `/auth/logout` | GET | `logoutUser` | Log out |
+| `/projects/create` | POST | `createProject` | Create a project (multipart: `pics[]` + `projectData` JSON string) |
+| `/auth/login` | POST | `loginUser` | Log in (stateless, DB-verified) |
+| `/auth/logout` | GET | `logoutUser` | Log out (no server state) |
 | `/categories` | GET | inline | List categories |
 
-Upload handling lives in the routers: `multer` with disk storage writes profile
-pictures to `../public/profile` and project pictures to `../public/projects`.
+Upload handling lives in the project router: `multer` with disk storage writes
+project pictures to `../public/projects`.
 
 ## Controller Layer (`controllers/`)
 
@@ -125,18 +135,18 @@ const handler = async (req, res, next) => {
         if (!result) res.status(404).json({ error: '...' });
         else res.status(200).json(result);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        next(error); // central error middleware
     }
 };
 ```
 
 Controllers **do not** build SQL directly — they use Sequelize query methods
-(`findAll`, `findOne`, `findByPk`, `create`) on the models.
+(`findAll`, `findOne`, `findByPk`, `create`) on the models. The only raw query
+is `check_password` in the auth controller.
 
 | Controller | Functions |
 | ---------- | --------- |
-| `userController.js` | `getUsers`, `getUserByName`, `getUserById`, `getUsersProjects`, `createUser` |
+| `userController.js` | `getUsers`, `getUser`, `getUsersProjects`, `createUser` |
 | `projectController.js` | `getProjects`, `getProjectByName`, `createProject` |
 | `authenticationController.js` | `loginUser`, `logoutUser` |
 
@@ -144,7 +154,8 @@ Controllers **do not** build SQL directly — they use Sequelize query methods
 
 Sequelize models mirror the database schema. All models set
 `underscored: true`, so attribute `isAdmin` maps to the column `is_admin`
-(camelCase → snake_case).
+(camelCase → snake_case). The database uses snake_case consistently
+(`is_admin`, `teaser_image`, `creator_id`, ...).
 
 ### Account (`userModel.js`)
 
@@ -157,8 +168,8 @@ never returned by `findAll`/`findOne` unless explicitly requested.
 | `lastname` | STRING | required |
 | `username` | STRING | required, unique |
 | `email` | STRING | required, unique, isEmail |
-| `password` | STRING | required, hashed in `beforeCreate`/`beforeUpdate` hooks |
-| `isAdmin` | BOOLEAN | default `false` |
+| `password` | STRING | required, hashed by a **DB trigger** (pgcrypto) |
+| `isAdmin` | BOOLEAN | default `false`, column `is_admin` |
 | `firstname` | STRING | optional |
 | `job` | STRING | optional |
 | `location` | STRING | optional |
@@ -173,7 +184,7 @@ Table: `project`.
 | --------- | ---- | ----- |
 | `id` | UUID | PK, default `gen_random_uuid()` |
 | `creator_id` | UUID | FK → `account.id` |
-| `teaserImage` | STRING | default placeholder |
+| `teaserImage` | STRING | default placeholder, column `teaser_image` |
 | `name` | STRING | required |
 | `description` | TEXT | optional |
 | `kind` | STRING | required |
@@ -208,6 +219,23 @@ Creates a single Sequelize instance from environment variables:
 This lets the same image run in every environment (dev/staging/prod) without
 code changes.
 
+## Database (SQL in `../database/postgres`)
+
+The schema is created from ordered SQL files during the Postgres image build
+(`custom-entrypoint.sh`). Password hashing is enforced in the database:
+
+- `00_domains.sql` — `D_UNTAINTED`, `D_EMAIL` check domains.
+- `20_account.sql` — `account` table, `encrpyt_password_function` trigger
+  (hashes `password` with `crypt(..., gen_salt('bf', 12))` on insert/change),
+  `one_admin_exists` constraint trigger.
+- `30_account_data.sql` — seed users (plaintext passwords, hashed on insert).
+- `40_account_functions.sql` — `check_password(usr, pw)` used by `/auth/login`.
+- `60/70_enum_category*.sql`, `80_project.sql`, `90_project_data.sql` — schema
+  and seed data for categories and projects.
+
+The legacy SQL REST layer (`rest_helper`, `post_account`, ...) has been
+removed — the Express app talks to the database exclusively through Sequelize.
+
 ## Swagger (`swagger.js`)
 
 - OpenAPI 3.0.0 spec generated from `routes/*.js` JSDoc annotations.
@@ -225,24 +253,8 @@ code changes.
 
 | Target | Command | Use |
 | ------ | ------- | --- |
-| `dev` | `npm run dev` (nodemon, live reload) | development / staging |  |
+| `dev` | `npm run dev` (nodemon, live reload) | development / staging |
 | `prod` | `npm run run` (plain `node index.js`) | production |
 
 `docker-compose.yml` sets `DB_*`, `SWAGGER_SERVER_URL` and
 `SWAGGER_SERVER_DESCRIPTION` per environment.
-
-## Known Issues
-
-- **Passport auth is inactive.** `cookie-session`, `passport.initialize()`,
-  `passport.session()` and the `LocalStrategy` registration are commented out
-  in `index.js`. `/auth/login` and `/auth/logout` therefore have no working
-  session handling.
-- **`/users/:name` and `/projects/:name` return 500.** Because
-  `underscored: true` queries `is_admin`/`teaser_image`, but the actual
-  database columns are `isAdmin`/`teaserImage`. The model attributes need to
-  be mapped to the real column names (`field:`).
-- **`/categories` uses an undefined `client`.** The inline route calls
-  `client.query(...)` but no `pg` client is defined — it throws when called.
-  Prefer a Sequelize query (`EnumCategory.findAll()`).
-- **`createProject` maps `description` to `desciption`** (typo), so the
-  description is never persisted.
