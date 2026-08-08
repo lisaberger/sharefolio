@@ -39,11 +39,14 @@ const handleSelect = (event: AutoCompleteOptionSelectEvent): void => {
         :empty-search-message="t('emptySearchMessage')"
         :pt="{
             root: {
-                class: ['w-full'],
+                class: ['w-full!'],
             },
             pcInput: {
                 root: {
-                    class: ['w-full !text-sm'],
+                    class: [
+                        'w-full !rounded-full !text-sm',
+                        'focus:!shadow-none focus:!border-primary-300',
+                    ],
                 },
             },
         }"
@@ -53,16 +56,16 @@ const handleSelect = (event: AutoCompleteOptionSelectEvent): void => {
         @option-select="handleSelect"
     >
         <template #option="slotProps">
-            <div class="align-center my-2 flex w-full">
+            <div class="my-1 flex w-full items-center gap-3 px-1">
                 <img
-                    class="mr-2 h-10 w-12 rounded-md border object-cover"
+                    class="border-surface-100 h-10 w-12 shrink-0 rounded-md border object-cover"
                     :src="slotProps.option.teaserImage"
                 />
-                <div>
-                    <h4 class="font-bold">
+                <div class="min-w-0">
+                    <h4 class="truncate text-sm font-semibold">
                         {{ slotProps.option.name }}
                     </h4>
-                    <div class="text-surface-600 text-xs">
+                    <div class="text-surface-500 truncate text-xs">
                         {{ slotProps.option.kind }}
                     </div>
                 </div>
@@ -77,5 +80,5 @@ de:
     emptySearchMessage: Kein Projekt gefunden
 en:
     searchPlaceholder: Search a project ...
-    emptySearchMessage: No selected item
+    emptySearchMessage: No project found
 </i18n>

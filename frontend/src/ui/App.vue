@@ -39,7 +39,7 @@ const logoutUser = async (): Promise<void> => {
 </script>
 
 <template>
-    <header class="mb-16 flex-none">
+    <header class="flex-none">
         <navigation-container
             :user-logged-in="userLoggedIn"
             :current-user="user"
@@ -47,7 +47,7 @@ const logoutUser = async (): Promise<void> => {
         />
     </header>
 
-    <main class="mx-auto max-w-screen-2xl flex-1 p-4 pt-0 md:p-8 md:pt-0">
+    <main class="mx-auto max-w-screen-2xl flex-1 p-4 pt-20 md:p-8 md:pt-24">
         <router-view />
     </main>
 

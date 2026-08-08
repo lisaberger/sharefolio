@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { User } from '@core/user';
 import { RouteName } from '@ui/router/enums/route';
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -20,7 +20,7 @@ const toggle = (event: MouseEvent): void => {
     menu.value.toggle(event);
 };
 
-const userMenuItems = ref([
+const userMenuItems = computed(() => [
     {
         label: t('menu.profile'),
         icon: 'fa-solid fa-user',
@@ -37,13 +37,7 @@ const userMenuItems = ref([
     },
 ]);
 
-const avatarImagePath = computed(() => {
-    if (props.user.image) {
-        return props.user.image;
-    }
-
-    return undefined;
-});
+const avatarImagePath = computed(() => props.user.image ?? undefined);
 
 type Emits = {
     logout: [];
@@ -53,40 +47,50 @@ const emit = defineEmits<Emits>();
 
 <template>
     <div
-        class="flex items-center hover:cursor-pointer"
+        class="hover:bg-primary-50 flex cursor-pointer items-center gap-2 rounded-full py-1 pl-2 pr-1 transition-colors"
         data-testid="profile-element"
         aria-haspopup="true"
         aria-controls="options"
         @click="toggle"
     >
-        <div class="mr-3 hidden text-right text-sm md:block">
-            <p>{{ props.user?.fullname }}</p>
-            <p class="text-xs">{{ props.user?.username }}</p>
+        <div class="hidden text-right text-sm lg:block">
+            <p class="text-surface-800 font-semibold leading-tight">
+                {{ props.user.fullname }}
+            </p>
+            <p class="text-surface-400 text-xs leading-tight">
+                @{{ props.user.username }}
+            </p>
         </div>
+
         <prime-avatar
-            v-if="user.image"
+            v-if="props.user.image"
             data-testid="avatar-element"
             :image="avatarImagePath"
             shape="circle"
         />
         <prime-avatar
             v-else
-            :label="user.initials || 'U'"
+            :label="props.user.initials || 'U'"
             shape="circle"
             style="background-color: #dee9fc; color: #1a2551"
         />
-
-        <prime-menu
-            id="options"
-            ref="menu"
-            :model="userMenuItems"
-            :popup="true"
-        >
-            <template #itemicon="{ item }">
-                <font-awesome-icon :icon="item.icon" class="mr-2" />
-            </template>
-        </prime-menu>
     </div>
+
+    <prime-menu id="options" ref="menu" :model="userMenuItems" :popup="true">
+        <template #start>
+            <div class="border-surface-100 border-b px-5 py-3">
+                <p class="text-surface-800 text-sm font-semibold">
+                    {{ props.user.fullname }}
+                </p>
+                <p class="text-surface-400 text-xs">
+                    {{ props.user.email }}
+                </p>
+            </div>
+        </template>
+        <template #itemicon="{ item }">
+            <font-awesome-icon :icon="item.icon" class="mr-2" />
+        </template>
+    </prime-menu>
 </template>
 
 <i18n lang="yaml">
