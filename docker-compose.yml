@@ -1,42 +1,110 @@
-version: '3'
+# Base compose configuration.
+#
+# Environment-specific values live in the override files:
+#   dev      -> docker-compose.override.yml (auto-loaded by `docker compose up`)
+#   staging  -> docker-compose.staging.yml
+#   prod     -> docker-compose.prod.yml
+#
+# Usage:
+#   docker compose up                                          # development
+#   docker compose -f docker-compose.yml -f docker-compose.staging.yml up   # staging
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up      # production
 
 services:
+    traefik:
+        image: traefik:latest
+        command:
+            - '--providers.docker=true'
+            - '--providers.docker.exposedbydefault=false'
+            - '--entrypoints.web.address=:80'
+            - '--entrypoints.traefik.address=:8080'
+            - '--api.dashboard=true'
+            - '--api.insecure=true'
+            - '--log.level=INFO'
+        ports:
+            - 80:80
+            - 8080:8080
+        volumes:
+            - ${DOCKER_SOCKET:-/var/run/docker.sock}:/var/run/docker.sock:ro
+        networks:
+            - traefik-public
+
     postgres:
-        container_name: 'sharefolio_postgres'
         build:
             context: ./database/postgres
             args:
-                WEB_DB: ${WEB_DB}
-        ports:
-            - 5432:5432
+                WEB_DB: ${WEB_DB:-sharefolio}
+        environment:
+            WEB_DB: ${WEB_DB:-sharefolio}
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U postgres -d postgres']
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        networks:
+            - internal
 
     adminer:
-        container_name: 'sharefolio_adminer'
         build:
             context: ./database/adminer
-        ports:
-            - 11000:8080
-
-    api:
-        container_name: 'sharefolio_api'
-        build:
-            context: ./backend
-        ports:
-            - 4000:4000
-        volumes:
-            - ./backend:/app
-            - /app/node_modules
         depends_on:
             - postgres
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.docker.network=sharefolio_traefik'
+            - 'traefik.http.routers.adminer.rule=Host(`${ADMINER_HOST:-adminer.sharefolio.local}`)'
+            - 'traefik.http.services.adminer.loadbalancer.server.port=8080'
+        networks:
+            - traefik-public
+            - internal
+
+    api:
+        build:
+            context: ./backend
+            target: ${API_TARGET:-dev}
+        environment:
+            DB_HOST: postgres
+            DB_NAME: ${WEB_DB:-sharefolio}
+            DB_USER: web
+            DB_PASSWORD: web
+            DB_PORT: 5432
+        depends_on:
+            postgres:
+                condition: service_healthy
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.docker.network=sharefolio_traefik'
+            - 'traefik.http.routers.api.rule=Host(`${API_HOST:-api.sharefolio.local}`)'
+            - 'traefik.http.services.api.loadbalancer.server.port=4000'
+        networks:
+            - traefik-public
+            - internal
 
     ui:
-        container_name: 'sharefolio_ui'
         build:
             context: ./frontend
-        ports:
-            - 5173:5173
-        volumes:
-            - ./frontend:/app
-            - /app/node_modules
+            target: ${UI_TARGET:-dev}
+            args:
+                VITE_BACKEND_URL: ${BACKEND_URL:-http://api.sharefolio.local}
+        environment:
+            VITE_BACKEND_URL: ${BACKEND_URL:-http://api.sharefolio.local}
         depends_on:
             - api
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.docker.network=sharefolio_traefik'
+            - 'traefik.http.routers.ui.rule=Host(`${UI_HOST:-ui.sharefolio.local}`)'
+            - 'traefik.http.services.ui.loadbalancer.server.port=5173'
+        networks:
+            - traefik-public
+
+networks:
+    traefik-public:
+        name: sharefolio_traefik
+    internal:
+        internal: true
+
+volumes:
+    pgdata:

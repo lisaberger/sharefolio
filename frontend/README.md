@@ -1,58 +1,26 @@
-# Sharefolio
+# Sharefolio Frontend
 
-A student project for Interactive Media at the University of Applied Sciences Augsburg using Vuejs
+Vue 3 + TypeScript application for Sharefolio (see the [root README](../README.md)).
 
-## Setup
-
-Run
+## Commands
 
 ```sh
-npm install
+npm install      # install dependencies
+npm run dev      # start Vite dev server (port 5173)
+npm run build    # type-check + production build
+npm run type-check
+npm run lint     # ESLint (auto-fix)
+npm run test:nowatch
 ```
 
-In both the root directory and the /backend folder to acquire all dependencies.
+## Source Layout
 
-To run the dev script you require _nodemon_, so run
-
-```sh
-npm install -g nodemon --save
+```
+src/
+├── api/        # HTTP repositories + global error mapping
+├── config/     # Dependency injection / wiring
+├── core/       # Domain models, contracts, error taxonomy
+└── ui/         # Vue components, pages, router, i18n
 ```
 
-Otherwise, use the _run_ script
-
-### Start up Database and REST Api
-
-```sh
-cd backend
-npm install
-docker compose up
-npm run dev
-```
-
-This starts the database development server and the REST API. You may use
-
-```sh
-npm run serve
-```
-
-instead of
-
-```sh
-docker compose up
-```
-
-The API request server runs on localhost:4000 using expressjs
-
-Uses <https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01> as basis, modified for this project.
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+The layers follow the project's layered architecture (see `ARCHITECTURE.md`).

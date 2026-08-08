@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router';
 import HomePage from '@ui/features/common/ui/pages/home-page.vue';
 import NewProjectPage from '@ui/features/project/project-new/new-project-page.vue';
 import ProjectPage from '@ui/features/project/project-detail/ui/pages/project-page.vue';
@@ -9,7 +10,7 @@ import ErrorPage from '@ui/features/common/ui/pages/error-page.vue';
 import { RouteName } from '@ui/router/enums/route';
 import { authGuard } from '@ui/features/auth/guards/auth-guard';
 
-const routes = [
+const routes: RouteRecordRaw[] = [
     {
         path: '/',
         name: RouteName.Home,

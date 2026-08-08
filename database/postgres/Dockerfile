@@ -1,6 +1,6 @@
 # https://github.com/docker-library/postgres/issues/661
 
-FROM postgres:latest AS builder
+FROM postgres:17-alpine AS builder
 
 ARG WEB_DB
 
@@ -29,7 +29,7 @@ ENTRYPOINT [ "custom-entrypoint.sh" ]
 CMD [ "-c", "max_locks_per_transaction=512" ]
 
 
-FROM postgres:latest
+FROM postgres:17-alpine
 
 ENV POSTGRES_USER     postgres
 ENV POSTGRES_PASSWORD postgres
@@ -40,4 +40,4 @@ VOLUME /var/lib/postgresql/data
 
 COPY --from=builder /var/lib/postgresql/custom /var/lib/postgresql/data
 
-HEALTHCHECK CMD ["CMD-SHELL", "pg_isready -U $DB_USER -d $DB_NAME"]
+HEALTHCHECK CMD pg_isready -U postgres -d postgres
