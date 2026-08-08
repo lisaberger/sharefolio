@@ -22,7 +22,7 @@ const handleSubmit = (): void => {
 
 <template>
     <prime-stepper v-model:value="activeStep" class="md:mx-8">
-        <register-stepper-list-component v-model:activeStep="activeStep" />
+        <register-stepper-list-component v-model:active-step="activeStep" />
         <register-step-panels
             v-model:login="loginForm"
             v-model:contact="contactForm"

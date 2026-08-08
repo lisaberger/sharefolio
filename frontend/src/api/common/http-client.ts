@@ -13,15 +13,17 @@ export const getHttpClient = (): AxiosInstance => {
         baseURL: EnvironmentController.apiBasePath,
     });
 
-    client.interceptors.request.use((config) => {
-        const token = Cookies.get('sharefolio_token');
+    if (client.interceptors.request.handlers.length === 0) {
+        client.interceptors.request.use((config) => {
+            const token = Cookies.get('sharefolio_token');
 
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
 
-        return config;
-    });
+            return config;
+        });
+    }
 
     return client;
 };

@@ -8,9 +8,7 @@ import type { User } from '@core/user';
 import type { LoginCredentials } from '../types/login-credentials';
 
 export type AuthRepositoryErrors =
-    | LocalConnectionError
-    | LocalPermissionError
-    | LocalValidationError;
+    LocalConnectionError | LocalPermissionError | LocalValidationError;
 
 export type AuthRepository = {
     login(

@@ -35,11 +35,7 @@ onBeforeMount(() => {
 <template>
     <div v-if="!isLoading">
         <section class="profile">
-            <img
-                id="pfp"
-                :src="account?.image"
-                alt="Profile Picture"
-            />
+            <img id="pfp" :src="account?.image" alt="Profile Picture" />
             <div class="profile__info">
                 <h1>{{ account?.firstname }} {{ account?.lastname }}</h1>
                 <p>{{ account?.job }}</p>

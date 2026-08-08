@@ -12,10 +12,21 @@ export function createRateLimiter(options: {
     key: (req: Request) => string;
 }): (req: Request, res: Response, next: NextFunction) => void {
     const buckets = new Map<string, Attempt>();
+    let lastPrune = Date.now();
 
     return (req: Request, res: Response, next: NextFunction): void => {
         const key = options.key(req);
         const now = Date.now();
+
+        if (now - lastPrune >= options.windowMs) {
+            for (const [bucketKey, bucket] of buckets) {
+                if (bucket.resetAt < now) {
+                    buckets.delete(bucketKey);
+                }
+            }
+            lastPrune = now;
+        }
+
         const bucket = buckets.get(key);
 
         if (!bucket || bucket.resetAt < now) {

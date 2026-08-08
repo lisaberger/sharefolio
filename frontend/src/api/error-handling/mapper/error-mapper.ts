@@ -8,9 +8,7 @@ import {
 import { HttpStatusErrorCode } from '../enums/http-status-error-code';
 
 export type MappedGlobalError =
-    | GlobalAuthenticationError
-    | GlobalNotFoundError
-    | GlobalUnknownError;
+    GlobalAuthenticationError | GlobalNotFoundError | GlobalUnknownError;
 
 /**
  * Maps errors coming from the backend (or the network layer) to typed
