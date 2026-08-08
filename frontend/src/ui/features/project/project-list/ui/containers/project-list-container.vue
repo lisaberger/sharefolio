@@ -6,13 +6,15 @@ interface Props {
     projects: Array<Project>;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 </script>
 
 <template>
-    <div class="flex flex-wrap justify-center gap-4">
+    <div
+        class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+    >
         <ProjectListItemComponent
-            v-for="project in props.projects"
+            v-for="project in projects"
             :key="project.id"
             :project="project"
         />

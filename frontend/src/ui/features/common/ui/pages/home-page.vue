@@ -10,7 +10,7 @@ import { projectRepository, userRepository } from '@config';
 import { RouteName } from '@ui/router/enums/route';
 import ProjectListContainer from '@ui/features/project/project-list/ui/containers/project-list-container.vue';
 
-const projects = ref<Array<Project>>();
+const projects = ref<Array<Project>>([]);
 const titleProject = ref<Project>();
 const isLoading = ref<boolean>(false);
 const userLoggedIn = ref<boolean>(false);
@@ -20,7 +20,7 @@ const user = ref<User>();
 const fetchProjects = async (): Promise<void> => {
     const result = await projectRepository.readAll();
 
-    projects.value = result.data;
+    projects.value = result.data ?? [];
 };
 
 const fetchUserById = async (id: string): Promise<void> => {
@@ -30,16 +30,15 @@ const fetchUserById = async (id: string): Promise<void> => {
 };
 
 const setTitleProject = (): void => {
-    if (projects.value) {
-        const numberProjects = projects.value.length;
-        const randomIndex = Math.floor(Math.random() * numberProjects);
+    if (projects.value.length > 0) {
+        const randomIndex = Math.floor(Math.random() * projects.value.length);
         titleProject.value = projects.value[randomIndex];
     }
 };
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
     isLoading.value = true;
-    fetchProjects();
+    await fetchProjects();
     setTitleProject();
     isLoading.value = false;
 
@@ -54,29 +53,39 @@ onBeforeMount(() => {
 </script>
 
 <template>
-    <div v-if="!isLoading">
-        <project-header-container :title-project="titleProject" />
+    <div v-if="!isLoading" class="space-y-16 md:space-y-20">
         <welcome-container
             :user-logged-in="userLoggedIn"
             :current-user="user"
         />
-        <hr class="border-grey-100 mb-4" />
 
-        <section class="mt-4 p-8">
-            <project-list-container :projects="projects ?? []" />
+        <section v-if="titleProject" class="mx-auto max-w-5xl">
+            <project-header-container :title-project="titleProject" />
+        </section>
 
-            <div class="mt-4 flex justify-center">
-                <router-link :to="{ name: RouteName.NewProject }">
-                    <prime-button label="Neues Projekt" rounded outlined>
-                        <template #icon>
-                            <font-awesome-icon
-                                :icon="['fas', 'plus']"
-                                class="mr-2"
-                            />
-                        </template>
-                    </prime-button>
+        <section class="mx-auto max-w-7xl">
+            <div class="mb-8 flex items-end justify-between gap-4">
+                <div>
+                    <h2
+                        class="text-surface-900 text-2xl font-bold tracking-tight"
+                    >
+                        Aus den Portfolios
+                    </h2>
+                    <p class="text-surface-500 mt-1 text-sm">
+                        Eine Auswahl aktueller Projekte der Community
+                    </p>
+                </div>
+
+                <router-link
+                    :to="{ name: RouteName.NewProject }"
+                    class="text-primary-500 hover:text-primary-600 inline-flex items-center gap-1 text-sm font-semibold"
+                >
+                    <span class="material-icons text-base">add</span>
+                    Neues Projekt
                 </router-link>
             </div>
+
+            <project-list-container :projects="projects" />
         </section>
     </div>
 </template>

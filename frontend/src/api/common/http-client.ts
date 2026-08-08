@@ -13,7 +13,7 @@ export const getHttpClient = (): AxiosInstance => {
         baseURL: EnvironmentController.apiBasePath,
     });
 
-    if (client.interceptors.request.handlers.length === 0) {
+    if ((client.interceptors.request.handlers ?? []).length === 0) {
         client.interceptors.request.use((config) => {
             const token = Cookies.get('sharefolio_token');
 

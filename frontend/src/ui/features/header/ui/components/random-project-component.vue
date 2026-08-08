@@ -9,7 +9,6 @@ interface Props {
 
 const props = defineProps<Props>();
 
-// throws an error for unknown reasons but works anyways
 const linkify = (name: string): string => {
     return name.replace(/ /g, '-').trim().toLowerCase();
 };
@@ -23,27 +22,39 @@ const projectLink = computed(() =>
     <router-link
         v-if="props.titleProject"
         :to="{ name: RouteName.Project, params: { name: projectLink } }"
-        class="z-1 relative mt-8"
+        class="group relative block overflow-hidden rounded-2xl shadow-lg transition-shadow duration-300 hover:shadow-xl"
     >
         <img
-            class="h-80 w-full rounded-lg object-cover drop-shadow-sm"
+            class="h-96 w-full object-cover transition-transform duration-500 group-hover:scale-105"
             :src="props.titleProject.teaserImage"
-            alt="Zufälliges Projektbild"
+            alt="Ausgewähltes Projekt"
         />
-        <div
-            class="from-primary-500 absolute bottom-0 flex h-40 w-full items-end justify-between rounded-b-lg bg-gradient-to-t to-95% px-8 py-2 text-white opacity-0 transition-opacity hover:opacity-100"
-        >
-            <div class="py-2">
-                <h5 class="mb-2 text-sm font-semibold">Aus den Portfolios</h5>
 
-                <p class="text-xs font-semibold">
-                    {{ props.titleProject.name }}
-                </p>
-                <p class="text-xs">{{ props.titleProject.kind }}</p>
-            </div>
-            <div>
-                <p class="text-xs">lisaberger</p>
-                <p>[Icons]</p>
+        <div
+            class="from-surface-950/90 absolute inset-0 flex flex-col justify-end bg-gradient-to-t via-transparent to-transparent p-8 md:p-10"
+        >
+            <span
+                class="bg-primary-500 mb-3 inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white"
+            >
+                {{ props.titleProject.kind }}
+            </span>
+
+            <h2 class="text-2xl font-bold text-white md:text-3xl">
+                {{ props.titleProject.name }}
+            </h2>
+
+            <p
+                class="mt-2 flex items-center gap-2 text-sm font-medium text-white/80"
+            >
+                <span class="material-icons text-base">auto_awesome</span>
+                Aus den Portfolios
+            </p>
+
+            <div
+                class="group-hover:text-primary-600 mt-6 flex w-fit items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm transition-colors group-hover:bg-white"
+            >
+                <span>Projekt ansehen</span>
+                <span class="material-icons text-base">arrow_forward</span>
             </div>
         </div>
     </router-link>
