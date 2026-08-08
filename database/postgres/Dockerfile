@@ -1,4 +1,8 @@
-# https://github.com/docker-library/postgres/issues/661
+# The database schema and seed data are managed by migrations inside the
+# backend (`backend/src/db/migrations`). The Postgres image only needs to:
+#  1. install pgcrypto (template1 so every new database inherits it)
+#  2. create the application user and database
+# The schema is applied by `npm run migrate` when the backend starts.
 
 FROM postgres:17-alpine AS builder
 
@@ -14,7 +18,6 @@ USER postgres
 
 COPY custom-entrypoint.sh /usr/local/bin/
 COPY init /docker-entrypoint-initdb.d/
-COPY sql  /tmp
 
 USER root
 
@@ -22,7 +25,7 @@ RUN chmod +x /usr/local/bin/custom-entrypoint.sh
 
 USER postgres
 
-RUN    mkdir "${PGDATA}" \ 
+RUN    mkdir "${PGDATA}" \
     && custom-entrypoint.sh postgres
 
 ENTRYPOINT [ "custom-entrypoint.sh" ]

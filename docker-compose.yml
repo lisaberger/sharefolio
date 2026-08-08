@@ -72,6 +72,9 @@ services:
             DB_PORT: 5432
             SWAGGER_SERVER_URL: ${BACKEND_URL:-http://api.sharefolio.local}
             SWAGGER_SERVER_DESCRIPTION: ${ENV_NAME:-Development}
+            UPLOAD_DIR: /app/public
+        volumes:
+            - uploads:/app/public
         depends_on:
             postgres:
                 condition: service_healthy
@@ -111,3 +114,4 @@ networks:
 
 volumes:
     pgdata:
+    uploads:

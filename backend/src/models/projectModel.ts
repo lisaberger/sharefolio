@@ -1,0 +1,93 @@
+import { DataTypes, Model } from 'sequelize';
+import Account from './userModel.js';
+import EnumCategory from './categoryModel.js';
+import sequelize from '../db/db.js';
+
+class Project extends Model {
+    declare id: string;
+    declare creator_id: string | null;
+    declare teaserImage: string;
+    declare name: string;
+    declare description: string | null;
+    declare kind: string;
+    declare tools: string | null;
+    declare category_id: number | null;
+    declare demo: string | null;
+    declare image1: string;
+    declare image2: string;
+    declare contributors: string | null;
+}
+
+Project.init(
+    {
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: sequelize.literal('gen_random_uuid()'),
+            primaryKey: true,
+        },
+        creator_id: {
+            type: DataTypes.UUID,
+            allowNull: true,
+            references: {
+                model: 'account',
+                key: 'id',
+            },
+        },
+        teaserImage: {
+            type: DataTypes.STRING,
+            defaultValue: '/public/projects/images_placeholder.jpg',
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        kind: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        tools: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        category_id: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: 'enum_category',
+                key: 'id',
+            },
+        },
+        demo: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        image1: {
+            type: DataTypes.STRING,
+            defaultValue: '/public/projects/images_placeholder.jpg',
+        },
+        image2: {
+            type: DataTypes.STRING,
+            defaultValue: '/public/projects/images_placeholder.jpg',
+        },
+        contributors: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+    },
+    {
+        sequelize,
+        modelName: 'Project',
+        tableName: 'project',
+        timestamps: false,
+        underscored: true,
+    }
+);
+
+Project.belongsTo(Account, { foreignKey: 'creator_id', as: 'creator' });
+Project.belongsTo(EnumCategory, { foreignKey: 'category_id', as: 'category' });
+
+export default Project;
