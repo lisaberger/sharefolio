@@ -74,8 +74,6 @@ This info might later be included in the CHANGELOG.md.
 - [ ] **icons**: The visual content of icons is also accessible to those who cannot see
 - [ ] **moving content**: Any moving content is stoppable
 
-[More information found here.](https://confluence.team23.de/pages/viewpage.action?pageId=122913951)
-
 
 ### Review by
 
