@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import { fileURLToPath } from 'node:url';
 import { configDefaults, defineConfig, mergeConfig } from 'vitest/config';
-import viteConfig from './vite.config.ts';
+import viteConfig from './vite.config';
 
 export default mergeConfig(
     viteConfig,
@@ -14,7 +14,7 @@ export default mergeConfig(
             coverage: {
                 provider: 'istanbul', // or 'v8'
             },
-            setupFiles: ['./src/utils/test-utils/vitest-setup.ts'],
+            setupFiles: ['./src/ui/test-utils/vitest-setup.ts'],
         },
     })
 );

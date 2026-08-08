@@ -15,6 +15,27 @@
         "paths": {
             "@/*": [
                 "./src/*"
+            ],
+            "@ui/*": [
+                "./src/ui/*"
+            ],
+            "@core": [
+                "./src/core/index.ts"
+            ],
+            "@core/*": [
+                "./src/core/*"
+            ],
+            "@config": [
+                "./src/config/index.ts"
+            ],
+            "@config/*": [
+                "./src/config/*"
+            ],
+            "@api": [
+                "./src/api/index.ts"
+            ],
+            "@api/*": [
+                "./src/api/*"
             ]
         }
     }

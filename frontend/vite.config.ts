@@ -11,7 +11,7 @@ export default defineConfig({
         VueI18nPlugin({
             include: resolve(
                 dirname(fileURLToPath(import.meta.url)),
-                './src/i18n/locales/**'
+                './src/**/*.vue'
             ),
             runtimeOnly: false, // This ensures runtime i18n support
         }),
@@ -19,10 +19,10 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),
-            config: fileURLToPath(
-                new URL('./src/assets/css/_variables.scss', import.meta.url)
-            ),
-            '/css': fileURLToPath(new URL('./src/assets/css', import.meta.url)),
+            '@ui': fileURLToPath(new URL('./src/ui', import.meta.url)),
+            '@core': fileURLToPath(new URL('./src/core', import.meta.url)),
+            '@config': fileURLToPath(new URL('./src/config', import.meta.url)),
+            '@api': fileURLToPath(new URL('./src/api', import.meta.url)),
         },
     },
     server: {
@@ -30,5 +30,8 @@ export default defineConfig({
         watch: {
             usePolling: true,
         },
+    },
+    build: {
+        target: 'esnext',
     },
 });

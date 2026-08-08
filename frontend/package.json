@@ -4,14 +4,19 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
+        "build": "npm run type-check && npm run build-only",
         "preview": "vite preview --port 4173",
-        "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+        "build-only": "vite build",
+        "type-check": "vue-tsc --build",
+        "lint": "eslint . --ext .js,.ts,.vue,.jsx,.tsx,.cjs,.mjs --fix",
+        "lint:nofix": "eslint . --ext .js,.ts,.vue,.jsx,.tsx,.cjs,.mjs",
         "lint:style": "stylelint '**/*.scss'",
         "format": "prettier --write src/",
         "test": "vitest",
+        "test:nowatch": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "e2e:open": "cypress open"
+        "test:e2e": "cypress run --e2e",
+        "test:e2e:dev": "cypress open --e2e"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.5.1",
