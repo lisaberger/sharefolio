@@ -48,38 +48,49 @@ const { t } = useI18n();
 </script>
 
 <template>
-    <section class="mt-8">
-        <prime-panel>
-            <template #header>
-                <div class="flex w-full flex-col items-center">
-                    <logo-component :extended="false" class="my-2" />
-                    <p class="mb-2 text-center text-sm">
-                        {{ t('panel.description') }}
-                    </p>
-                </div>
-            </template>
+    <section class="flex flex-col items-center px-4 py-16 md:py-20">
+        <div
+            class="border-surface-200 w-full max-w-2xl rounded-3xl border bg-white p-8 shadow-sm md:p-10"
+        >
+            <div class="mb-8 flex flex-col items-center text-center">
+                <logo-component :extended="false" class="mb-4" />
+                <h1
+                    class="text-surface-900 text-2xl font-extrabold tracking-tight"
+                >
+                    {{ t('panel.title') }}
+                </h1>
+                <p class="text-surface-500 mt-2 text-sm">
+                    {{ t('panel.description') }}
+                </p>
+            </div>
+
             <register-stepper-container
                 v-model:login="loginForm"
                 v-model:contact="contactForm"
                 v-model:file="profileImage"
                 @submit="submit"
             />
-            <div class="mb-8 mt-4 flex justify-center">
-                <p class="text-sm">
+
+            <div
+                class="border-surface-100 mt-8 border-t pt-6 text-center text-sm"
+            >
+                <p class="text-surface-600">
                     {{ t('panel.loginHint') }}
                 </p>
             </div>
-        </prime-panel>
+        </div>
     </section>
 </template>
 
 <i18n lang="yaml">
 de:
     panel:
+        title: Konto erstellen
         description: Erstelle ein eigenes Profil und teile dein Portfolio.
         loginHint: Du hast bereits ein Profil bei Sharefolio? Dann logge dich hier ein!
 en:
     panel:
+        title: Create account
         description: Create your own profile and showcase your portfolio.
         loginHint: Already have a Sharefolio profile? Sign in here!
 </i18n>

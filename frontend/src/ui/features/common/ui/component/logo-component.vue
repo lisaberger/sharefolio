@@ -41,9 +41,8 @@ withDefaults(defineProps<Props>(), {
             :class="colored ? 'text-primary-200' : 'fill-white'"
         >
             <strong :class="colored ? 'text-primary-500' : 'fill-white'">
-                share
-            </strong>
-            folio
+                share </strong
+            >folio
         </h1>
     </router-link>
 </template>

@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
 import HomePage from '@ui/features/common/ui/pages/home-page.vue';
+import AboutPage from '@ui/features/common/ui/pages/about-page.vue';
+import ImprintPage from '@ui/features/common/ui/pages/imprint-page.vue';
 import NewProjectPage from '@ui/features/project/project-new/new-project-page.vue';
 import ProjectPage from '@ui/features/project/project-detail/ui/pages/project-page.vue';
 import LoginPage from '@ui/features/auth/ui/pages/login-page.vue';
@@ -44,6 +46,16 @@ const routes: RouteRecordRaw[] = [
         component: NewProjectPage,
         beforeEnter: authGuard,
         meta: { requiresAuth: true },
+    },
+    {
+        path: '/about',
+        name: RouteName.About,
+        component: AboutPage,
+    },
+    {
+        path: '/imprint',
+        name: RouteName.Imprint,
+        component: ImprintPage,
     },
     {
         path: '/:pathMatch(.*)*',

@@ -5,5 +5,7 @@ export enum RouteName {
     Profile = 'profile',
     Project = 'project',
     NewProject = 'newProject',
+    About = 'about',
+    Imprint = 'imprint',
     Error = 'error',
 }

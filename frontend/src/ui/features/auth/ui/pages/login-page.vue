@@ -51,22 +51,32 @@ const login = async (): Promise<void> => {
 </script>
 
 <template>
-    <section>
-        <prime-panel class="mt-10">
-            <template #header>
-                <div class="flex w-full flex-col items-center">
-                    <logo-component :extended="false" class="my-2" />
-                    <p class="mb-2 text-center text-sm">
-                        {{ t('panel.description') }}
-                    </p>
-                </div>
-            </template>
-            <form @submit.prevent="login">
-                <div class="mb-3 flex flex-col gap-2 text-sm">
-                    <label for="username">{{ t('form.label.username') }}</label>
+    <section class="flex flex-col items-center px-4 py-16 md:py-24">
+        <div
+            class="border-surface-200 w-full max-w-md rounded-3xl border bg-white p-8 shadow-sm md:p-10"
+        >
+            <div class="mb-8 flex flex-col items-center text-center">
+                <logo-component :extended="false" class="mb-4" />
+                <h1
+                    class="text-surface-900 text-2xl font-extrabold tracking-tight"
+                >
+                    {{ t('panel.title') }}
+                </h1>
+                <p class="text-surface-500 mt-2 text-sm">
+                    {{ t('panel.description') }}
+                </p>
+            </div>
+
+            <form class="space-y-5" @submit.prevent="login">
+                <div class="flex flex-col gap-2 text-sm">
+                    <label for="username" class="text-surface-700 font-medium">
+                        {{ t('form.label.username') }}
+                    </label>
                     <prime-input-group>
                         <prime-input-group-addon>
-                            <span class="material-icons">person</span>
+                            <span class="material-icons text-surface-400">
+                                person
+                            </span>
                         </prime-input-group-addon>
                         <prime-input-text
                             id="username"
@@ -84,11 +94,16 @@ const login = async (): Promise<void> => {
                         {{ error.$message }}
                     </small>
                 </div>
-                <div class="mb-4 flex flex-col gap-2 text-sm">
-                    <label for="password">{{ t('form.label.password') }}</label>
+
+                <div class="flex flex-col gap-2 text-sm">
+                    <label for="password" class="text-surface-700 font-medium">
+                        {{ t('form.label.password') }}
+                    </label>
                     <prime-input-group>
                         <prime-input-group-addon>
-                            <span class="material-icons">lock</span>
+                            <span class="material-icons text-surface-400">
+                                lock
+                            </span>
                         </prime-input-group-addon>
                         <prime-password
                             id="password"
@@ -101,14 +116,20 @@ const login = async (): Promise<void> => {
                     </prime-input-group>
                     <small
                         v-for="error in $v.password.$errors"
-                        id="username-help"
+                        id="password-help"
                         :key="error.$uid"
                         class="text-red-500"
                     >
                         {{ error.$message }}
                     </small>
                 </div>
-                <p class="my-2 text-sm">{{ t('panel.forgotPassword') }}</p>
+
+                <div class="flex items-center justify-between text-sm">
+                    <p class="text-surface-500">
+                        {{ t('panel.forgotPassword') }}
+                    </p>
+                </div>
+
                 <prime-message
                     v-if="errorMessage"
                     severity="error"
@@ -118,42 +139,59 @@ const login = async (): Promise<void> => {
                 >
                     {{ errorMessage }}
                 </prime-message>
-                <prime-button type="submit" label="Login" class="mt-2 w-full" />
+
+                <prime-button
+                    type="submit"
+                    :label="t('panel.submit')"
+                    icon-pos="right"
+                    class="w-full"
+                >
+                    <template #icon>
+                        <span class="material-icons text-base"
+                            >arrow_forward</span
+                        >
+                    </template>
+                </prime-button>
             </form>
-            <div class="mb-2 flex w-full flex-col items-center text-sm">
-                <p class="mt-8">{{ t('panel.noProfile') }}</p>
-                <p>
-                    Dann
+
+            <div
+                class="border-surface-100 mt-8 border-t pt-6 text-center text-sm"
+            >
+                <p class="text-surface-600">
+                    {{ t('panel.noProfile') }}
                     <router-link
                         :to="{ name: RouteName.Register }"
-                        class="text-primary-500 underline"
+                        class="text-primary-600 font-semibold hover:underline"
                     >
-                        registriere
+                        {{ t('panel.doRegister') }}
                     </router-link>
-                    dich kostenlos!
                 </p>
             </div>
-        </prime-panel>
+        </div>
     </section>
 </template>
 
 <i18n lang="yaml">
 de:
     panel:
+        title: Willkommen zurück
         description: Logge dich ein, um dein Sharefolio zu verwalten.
         forgotPassword: Passwort vergessen?
         noProfile: Noch kein Profil?
-        doRegister: Dann registriere dich jetzt kostenlos.
+        doRegister: Jetzt kostenlos registrieren.
+        submit: Anmelden
     form:
         label:
             username: Benutzername
             password: Passwort
 en:
     panel:
+        title: Welcome back
         description: Login to manage your Sharefolio.
         forgotPassword: Forgot your password?
         noProfile: No profile yet?
-        doRegister: Register here.
+        doRegister: Register for free.
+        submit: Sign in
     form:
         label:
             username: Username

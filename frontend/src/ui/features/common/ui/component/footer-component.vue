@@ -1,12 +1,54 @@
+<script setup lang="ts">
+import { RouteName } from '@ui/router/enums/route';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+</script>
+
 <template>
-    <div class="mx-auto w-full p-4 md:px-8 md:py-8">
-        <hr
-            class="my-6 border-gray-200 sm:mx-auto lg:my-8 dark:border-gray-700"
-        />
-        <span
-            class="block text-sm text-gray-500 sm:text-center dark:text-gray-400"
-            >© 2024 <a href="#" class="hover:underline">Sharefolio™</a>. All
-            Rights Reserved.</span
+    <footer
+        class="border-surface-200 mx-auto w-full border-t bg-white px-4 py-8 md:px-8"
+    >
+        <div
+            class="flex flex-col items-center justify-between gap-4 md:flex-row"
         >
-    </div>
+            <span class="text-surface-400 text-sm">
+                © 2024 Sharefolio. {{ t('footer.rights') }}
+            </span>
+
+            <nav>
+                <ul class="flex items-center gap-6 text-sm">
+                    <li>
+                        <router-link
+                            :to="{ name: RouteName.About }"
+                            class="text-surface-600 hover:text-primary-600 transition-colors"
+                        >
+                            {{ t('footer.about') }}
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link
+                            :to="{ name: RouteName.Imprint }"
+                            class="text-surface-600 hover:text-primary-600 transition-colors"
+                        >
+                            {{ t('footer.imprint') }}
+                        </router-link>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
 </template>
+
+<i18n lang="yaml">
+de:
+    footer:
+        rights: Alle Rechte vorbehalten.
+        about: Über uns
+        imprint: Impressum
+en:
+    footer:
+        rights: All rights reserved.
+        about: About
+        imprint: Imprint
+</i18n>

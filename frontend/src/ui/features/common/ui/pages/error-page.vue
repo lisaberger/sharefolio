@@ -6,26 +6,39 @@ interface Props {
     error?: Error;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const { t } = useI18n();
 </script>
 
 <template>
-    <section class="flex h-full flex-col items-center justify-center">
-        <img
-            src="@/assets/links/sadlogo.png"
-            alt="Error Logo"
-            class="mb-4 w-32"
-        />
-        <h1 class="text-2xl font-bold">{{ t('error.title') }}</h1>
-        <p class="mb-2 text-sm font-semibold">
-            {{ t('error.code', { code: props.error?.name || '' }) }}
-        </p>
-        <p class="mb-8">{{ t('error.message') }}</p>
+    <section
+        class="flex flex-col items-center justify-center px-4 py-24 text-center"
+    >
+        <div
+            class="bg-primary-50 text-primary-500 mb-8 flex h-24 w-24 items-center justify-center rounded-3xl"
+        >
+            <span class="material-icons text-5xl">error_outline</span>
+        </div>
 
-        <router-link :to="{ name: RouteName.Home }">
-            <prime-button :label="t('button.home')" outlined size="small" />
+        <h1 class="text-surface-900 text-5xl font-extrabold tracking-tight">
+            404
+        </h1>
+
+        <h2 class="text-surface-700 mt-3 text-xl font-bold">
+            {{ t('error.title') }}
+        </h2>
+
+        <p class="text-surface-500 mt-2 max-w-md text-sm">
+            {{ t('error.message') }}
+        </p>
+
+        <router-link :to="{ name: RouteName.Home }" class="mt-8">
+            <prime-button :label="t('button.home')" icon-pos="right">
+                <template #icon>
+                    <span class="material-icons text-base">home</span>
+                </template>
+            </prime-button>
         </router-link>
     </section>
 </template>
@@ -33,16 +46,14 @@ const { t } = useI18n();
 <i18n lang="yaml">
 de:
     error:
-        title: Upps!
-        code: Fehlercode {code}
-        message: Die gesuchte Seite wurde nicht gefunden.
+        title: Upps, hier fehlt etwas!
+        message: Die gesuchte Seite wurde nicht gefunden oder ist nicht mehr verfügbar.
     button:
         home: Zur Startseite
 en:
     error:
-        title: Oops!
-        code: Error code {code}
-        message: We can't seem to find the page you're looking for.
+        title: Oops, something is missing!
+        message: The page you are looking for could not be found or is no longer available.
     button:
         home: Return to homepage
 </i18n>

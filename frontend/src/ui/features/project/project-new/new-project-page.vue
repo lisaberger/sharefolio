@@ -4,12 +4,13 @@ import { useRouter } from 'vue-router';
 import { Category } from '@core/project';
 import { User } from '@core/user';
 import { projectRepository, userRepository } from '@config';
+import { useI18n } from 'vue-i18n';
 
-/* define props */
 const router = useRouter();
 const categories = ref<Category[]>([]);
 const users = ref<User[]>([]);
 const isLoading = ref(true);
+const { t } = useI18n();
 
 /* Files */
 const files = ref<File[]>([]);
@@ -29,7 +30,6 @@ const projectData = ref({
     collabs: '',
 });
 
-/* methods */
 /* file uploads */
 const selectTitlePic = () => {
     if (titlePic.value?.files?.[0]) {
@@ -66,9 +66,6 @@ const onSubmit = async (): Promise<void> => {
         await router.push({ path: '/project/' + projectData.value.title });
     }
 };
-/*******************/
-/* Lifecycle Hooks */
-/*******************/
 
 onBeforeMount(async () => {
     const [categoriesResult, usersResult] = await Promise.all([
@@ -83,101 +80,199 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-    <div v-if="!isLoading" class="wrapper__overall">
-        <section class="new__project">
-            <h2>Neues Projekt</h2>
-            <form
-                class="input__fields"
-                enctype="multipart/form-data"
-                @submit.prevent="onSubmit"
-            >
-                <div class="upload">
-                    <input
-                        id="titlepic"
-                        ref="titlePic"
-                        class="file__input"
-                        type="file"
-                        @change="selectTitlePic"
-                    />
-                    <label for="titlepic">+</label>
-                    <span class="label">Titelbild</span>
-                    <p v-if="files[0]" class="file__name">
-                        {{ files[0].name }}
-                    </p>
-                </div>
-                <h4>Projektinfos</h4>
-                <div class="wrapper__form">
-                    <div class="first__row">
+    <div v-if="!isLoading" class="mx-auto max-w-3xl px-4 py-10 md:py-14">
+        <div class="mb-8 text-center">
+            <h1 class="text-surface-900 text-3xl font-extrabold tracking-tight">
+                {{ t('new.title') }}
+            </h1>
+            <p class="text-surface-500 mt-2 text-sm">
+                {{ t('new.subtitle') }}
+            </p>
+        </div>
+
+        <form
+            class="border-surface-200 space-y-8 rounded-3xl border bg-white p-6 shadow-sm md:p-10"
+            enctype="multipart/form-data"
+            @submit.prevent="onSubmit"
+        >
+            <!-- Uploads -->
+            <div>
+                <h2 class="text-surface-900 mb-4 text-lg font-bold">
+                    {{ t('new.images') }}
+                </h2>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                    <label
+                        class="border-surface-200 hover:border-primary-300 cursor-pointer rounded-2xl border-2 border-dashed p-6 text-center transition-colors"
+                        :class="{
+                            'border-primary-400 bg-primary-50': files[0],
+                        }"
+                    >
                         <input
+                            ref="titlePic"
+                            class="hidden"
+                            type="file"
+                            accept="image/*"
+                            @change="selectTitlePic"
+                        />
+                        <span class="material-icons text-surface-400 text-3xl">
+                            {{
+                                files[0]
+                                    ? 'check_circle'
+                                    : 'add_photo_alternate'
+                            }}
+                        </span>
+                        <p class="text-surface-600 mt-2 text-sm font-medium">
+                            {{ t('new.titleImage') }}
+                        </p>
+                        <p
+                            v-if="files[0]"
+                            class="text-surface-500 mt-1 truncate text-xs"
+                        >
+                            {{ files[0].name }}
+                        </p>
+                    </label>
+
+                    <label
+                        class="border-surface-200 hover:border-primary-300 cursor-pointer rounded-2xl border-2 border-dashed p-6 text-center transition-colors"
+                        :class="{
+                            'border-primary-400 bg-primary-50': files[1],
+                        }"
+                    >
+                        <input
+                            ref="pic1"
+                            class="hidden"
+                            type="file"
+                            accept="image/*"
+                            @change="selectPic1"
+                        />
+                        <span class="material-icons text-surface-400 text-3xl">
+                            {{
+                                files[1]
+                                    ? 'check_circle'
+                                    : 'add_photo_alternate'
+                            }}
+                        </span>
+                        <p class="text-surface-600 mt-2 text-sm font-medium">
+                            {{ t('new.image1') }}
+                        </p>
+                        <p
+                            v-if="files[1]"
+                            class="text-surface-500 mt-1 truncate text-xs"
+                        >
+                            {{ files[1].name }}
+                        </p>
+                    </label>
+
+                    <label
+                        class="border-surface-200 hover:border-primary-300 cursor-pointer rounded-2xl border-2 border-dashed p-6 text-center transition-colors"
+                        :class="{
+                            'border-primary-400 bg-primary-50': files[2],
+                        }"
+                    >
+                        <input
+                            ref="pic2"
+                            class="hidden"
+                            type="file"
+                            accept="image/*"
+                            @change="selectPic2"
+                        />
+                        <span class="material-icons text-surface-400 text-3xl">
+                            {{
+                                files[2]
+                                    ? 'check_circle'
+                                    : 'add_photo_alternate'
+                            }}
+                        </span>
+                        <p class="text-surface-600 mt-2 text-sm font-medium">
+                            {{ t('new.image2') }}
+                        </p>
+                        <p
+                            v-if="files[2]"
+                            class="text-surface-500 mt-1 truncate text-xs"
+                        >
+                            {{ files[2].name }}
+                        </p>
+                    </label>
+                </div>
+            </div>
+
+            <div class="border-surface-100 border-t pt-8">
+                <h2 class="text-surface-900 mb-4 text-lg font-bold">
+                    {{ t('new.details') }}
+                </h2>
+
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div class="flex flex-col gap-1.5">
+                        <label
+                            for="project_title"
+                            class="text-surface-700 text-sm font-medium"
+                        >
+                            {{ t('new.form.title') }}
+                        </label>
+                        <prime-input-text
                             id="project_title"
                             v-model="projectData.title"
-                            label="Projekttitel"
-                            placeholder="projekt"
+                            :placeholder="t('new.form.titlePlaceholder')"
                         />
-                        <input
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label
+                            for="type"
+                            class="text-surface-700 text-sm font-medium"
+                        >
+                            {{ t('new.form.kind') }}
+                        </label>
+                        <prime-input-text
                             id="type"
                             v-model="projectData.art"
-                            label="Art"
-                            placeholder="Webanwendung"
+                            :placeholder="t('new.form.kindPlaceholder')"
                         />
-                        <input
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label
+                            for="link"
+                            class="text-surface-700 text-sm font-medium"
+                        >
+                            {{ t('new.form.link') }}
+                        </label>
+                        <prime-input-text
                             id="link"
                             v-model="projectData.link"
-                            label="Link zur Anwendung"
-                            placeholder="https://test.de"
+                            :placeholder="t('new.form.linkPlaceholder')"
                         />
-                        <input
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label
+                            for="tools"
+                            class="text-surface-700 text-sm font-medium"
+                        >
+                            {{ t('new.form.tools') }}
+                        </label>
+                        <prime-input-text
                             id="tools"
                             v-model="projectData.tools"
-                            label="Tools"
-                            placeholder="HTML, CSS"
+                            :placeholder="t('new.form.toolsPlaceholder')"
                         />
-
-                        <div class="upload">
-                            <input
-                                id="pic1"
-                                ref="pic1"
-                                class="file__input"
-                                type="file"
-                                @change="selectPic1"
-                            />
-                            <label for="pic1">+</label>
-                            <span class="label">Projektbild 1</span>
-                            <p v-if="files[1]" class="file__name">
-                                {{ files[1].name }}
-                            </p>
-                        </div>
-                        <div class="upload">
-                            <input
-                                id="pic2"
-                                ref="pic2"
-                                class="file__input"
-                                type="file"
-                                @change="selectPic2"
-                            />
-                            <label for="pic2">+</label>
-                            <span class="label">Projektbild 2</span>
-                            <p v-if="files[2]" class="file__name">
-                                {{ files[2].name }}
-                            </p>
-                        </div>
                     </div>
-                    <div class="second__row">
-                        <label class="input__label">Projektbeschreibung</label>
-                        <textarea
-                            id="description"
-                            v-model="projectData.descr"
-                            type="text"
-                            placeholder="Im Projekt geht es um..."
-                            class="textarea"
-                        ></textarea>
 
-                        <label class="input__label">Kategorie</label>
-                        <select
-                            v-model="projectData.category"
-                            class="dropdown"
-                            name="Kategorie"
+                    <div class="flex flex-col gap-1.5">
+                        <label
+                            for="category"
+                            class="text-surface-700 text-sm font-medium"
                         >
+                            {{ t('new.form.category') }}
+                        </label>
+                        <select
+                            id="category"
+                            v-model="projectData.category"
+                            class="border-surface-300 text-surface-700 focus:border-primary-400 rounded-lg border px-3 py-2 text-sm outline-none transition-colors"
+                        >
+                            <option value="" disabled selected>
+                                {{ t('new.form.select') }}
+                            </option>
                             <option
                                 v-for="category in categories"
                                 :key="category.id"
@@ -186,13 +281,23 @@ onBeforeMount(async () => {
                                 {{ category.name }}
                             </option>
                         </select>
+                    </div>
 
-                        <label class="input__label">Mitwirkende</label>
-                        <select
-                            v-model="projectData.collabs"
-                            class="dropdown"
-                            name="mitwirkende"
+                    <div class="flex flex-col gap-1.5">
+                        <label
+                            for="collabs"
+                            class="text-surface-700 text-sm font-medium"
                         >
+                            {{ t('new.form.contributors') }}
+                        </label>
+                        <select
+                            id="collabs"
+                            v-model="projectData.collabs"
+                            class="border-surface-300 text-surface-700 focus:border-primary-400 rounded-lg border px-3 py-2 text-sm outline-none transition-colors"
+                        >
+                            <option value="" disabled selected>
+                                {{ t('new.form.select') }}
+                            </option>
                             <option
                                 v-for="user in users"
                                 :key="user.id"
@@ -203,8 +308,83 @@ onBeforeMount(async () => {
                         </select>
                     </div>
                 </div>
-                <prime-button type="submit" label="Projekt anlegen" />
-            </form>
-        </section>
+
+                <div class="mt-4 flex flex-col gap-1.5">
+                    <label
+                        for="description"
+                        class="text-surface-700 text-sm font-medium"
+                    >
+                        {{ t('new.form.description') }}
+                    </label>
+                    <prime-textarea
+                        id="description"
+                        v-model="projectData.descr"
+                        :placeholder="t('new.form.descriptionPlaceholder')"
+                        rows="4"
+                        auto-resize
+                    />
+                </div>
+            </div>
+
+            <div class="border-surface-100 border-t pt-6">
+                <prime-button type="submit" icon-pos="right" class="w-full">
+                    <template #icon>
+                        <span class="material-icons text-base">add</span>
+                    </template>
+                    {{ t('new.submit') }}
+                </prime-button>
+            </div>
+        </form>
     </div>
 </template>
+
+<i18n lang="yaml">
+de:
+    new:
+        title: Neues Projekt
+        subtitle: Teile deine kreative Arbeit mit der Community.
+        images: Projektbilder
+        titleImage: Titelbild
+        image1: Projektbild 1
+        image2: Projektbild 2
+        details: Projektinfos
+        submit: Projekt anlegen
+        form:
+            title: Projekttitel
+            titlePlaceholder: z.B. Mein Portfolio
+            kind: Art
+            kindPlaceholder: z.B. Webanwendung
+            link: Link zur Anwendung
+            linkPlaceholder: https://example.de
+            tools: Tools
+            toolsPlaceholder: HTML, CSS, JavaScript
+            category: Kategorie
+            contributors: Mitwirkende
+            description: Projektbeschreibung
+            descriptionPlaceholder: Worum geht es in deinem Projekt?
+            select: Bitte wählen ...
+en:
+    new:
+        title: New project
+        subtitle: Share your creative work with the community.
+        images: Project images
+        titleImage: Title image
+        image1: Project image 1
+        image2: Project image 2
+        details: Project details
+        submit: Create project
+        form:
+            title: Project title
+            titlePlaceholder: e.g. My portfolio
+            kind: Type
+            kindPlaceholder: e.g. Web app
+            link: Application link
+            linkPlaceholder: https://example.com
+            tools: Tools
+            toolsPlaceholder: HTML, CSS, JavaScript
+            category: Category
+            contributors: Contributors
+            description: Project description
+            descriptionPlaceholder: What is your project about?
+            select: Please select ...
+</i18n>
