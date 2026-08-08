@@ -103,8 +103,8 @@ describe('API Integration', () => {
         expect(res.status).toBe(400);
     });
 
-    it('GET /auth/logout succeeds', async () => {
-        const res = await request(app).get('/auth/logout');
+    it('POST /auth/logout succeeds', async () => {
+        const res = await request(app).post('/auth/logout');
         expect(res.status).toBe(200);
     });
 
@@ -166,5 +166,27 @@ describe('API Integration', () => {
             .post('/projects/create')
             .field('projectData', JSON.stringify({ art: 'Web' }));
         expect(res.status).toBe(400);
+    });
+
+    it('POST /projects/create rejects non-image files (400)', async () => {
+        const login = await request(app)
+            .post('/auth/login')
+            .send(SEED_CREDENTIALS);
+
+        const res = await request(app)
+            .post('/projects/create')
+            .field(
+                'projectData',
+                JSON.stringify({
+                    creatorId: login.body.id,
+                    title: 'No Image Project',
+                    art: 'Web',
+                    category: 1,
+                })
+            )
+            .attach('pics', Buffer.from('not an image'), 'evil.txt');
+
+        expect(res.status).toBe(400);
+        expect(res.body.error).toContain('Unsupported file type');
     });
 });

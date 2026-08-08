@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import path from 'node:path';
 
 import { env } from './config/env.js';
 import { swaggerSpec, swaggerUi } from './swagger.js';
@@ -20,7 +19,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 /* serve uploaded files */
-app.use('/public', express.static(path.join(env.UPLOAD_DIR, '..')));
+app.use('/public', express.static(env.UPLOAD_DIR));
 
 /* swagger */
 app.use(

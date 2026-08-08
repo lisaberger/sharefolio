@@ -51,7 +51,7 @@ router.post('/login', loginUser);
 /**
  * @openapi
  * /auth/logout:
- *   get:
+ *   post:
  *     summary: Log out the current user
  *     description: Ends the current session.
  *     tags:
@@ -60,6 +60,6 @@ router.post('/login', loginUser);
  *       200:
  *         description: Successfully logged out
  */
-router.get('/logout', logoutUser);
+router.post('/logout', logoutUser);
 
 export default router;

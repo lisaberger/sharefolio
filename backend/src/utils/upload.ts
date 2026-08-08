@@ -10,6 +10,20 @@ if (!existsSync(uploadsRoot)) {
     mkdirSync(uploadsRoot, { recursive: true });
 }
 
+export class UploadValidationError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = 'UploadValidationError';
+    }
+}
+
+const ALLOWED_MIME_TYPES = new Set([
+    'image/jpeg',
+    'image/png',
+    'image/webp',
+    'image/gif',
+]);
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, uploadsRoot),
     filename: (req, file, cb) => {
@@ -18,7 +32,23 @@ const storage = multer.diskStorage({
     },
 });
 
-export const projectUpload = multer({ storage });
+export const projectUpload = multer({
+    storage,
+    limits: {
+        fileSize: 10 * 1024 * 1024,
+        files: 3,
+    },
+    fileFilter: (req, file, cb) => {
+        if (!ALLOWED_MIME_TYPES.has(file.mimetype)) {
+            return cb(
+                new UploadValidationError(
+                    `Unsupported file type: ${file.mimetype}`
+                )
+            );
+        }
+        cb(null, true);
+    },
+});
 
 export const toPublicPath = (filename: string): string =>
     `/public/projects/${filename}`;

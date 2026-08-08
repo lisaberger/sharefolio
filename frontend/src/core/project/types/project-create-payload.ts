@@ -6,9 +6,6 @@ export type ProjectCreatePayload = {
     description?: string;
     category?: string;
     demo?: string;
-    teaserPath?: string;
-    image1Path?: string;
-    image2Path?: string;
     contributors?: string;
     files?: File[];
 };

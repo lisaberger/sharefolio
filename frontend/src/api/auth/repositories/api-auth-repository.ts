@@ -45,7 +45,7 @@ export class ApiAuthRepository implements AuthRepository {
 
     public async logout(): Promise<Result<void, AuthRepositoryErrors>> {
         try {
-            await getHttpClient().get('/auth/logout');
+            await getHttpClient().post('/auth/logout');
 
             return toDataResult(undefined);
         } catch (error) {

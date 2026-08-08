@@ -95,7 +95,6 @@ export class ApiProjectRepository implements ProjectRepository {
                 'projectData',
                 JSON.stringify({
                     creatorId: payload.creatorId,
-                    headerPath: payload.teaserPath,
                     title: payload.title,
                     art: payload.kind,
                     tools: payload.tools,
@@ -103,8 +102,6 @@ export class ApiProjectRepository implements ProjectRepository {
                     category: payload.category,
                     link: payload.demo,
                     collabs: payload.contributors,
-                    pic1Path: payload.image1Path,
-                    pic2Path: payload.image2Path,
                 })
             );
 

@@ -54,9 +54,6 @@ const selectPic2 = () => {
 const onSubmit = async (): Promise<void> => {
     const userId = Cookies.get('isLoggedIn');
 
-    const timestampedPath = (file: File): string =>
-        '/projects/' + new Date().toISOString().replace(/:/g, '-') + file.name;
-
     const result = await projectRepository.create({
         creatorId: userId,
         files: files.value,
@@ -67,15 +64,6 @@ const onSubmit = async (): Promise<void> => {
         category: projectData.value.category,
         demo: projectData.value.link,
         contributors: projectData.value.collabs,
-        teaserPath: files.value[0]
-            ? timestampedPath(files.value[0])
-            : undefined,
-        image1Path: files.value[1]
-            ? timestampedPath(files.value[1])
-            : undefined,
-        image2Path: files.value[2]
-            ? timestampedPath(files.value[2])
-            : undefined,
     });
 
     if (result.data) {
