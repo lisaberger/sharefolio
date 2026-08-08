@@ -39,6 +39,29 @@ Each environment has its own Postgres named volume (`pgdata_dev`,
 `pgdata_staging`, `pgdata_prod`) and its own database name (`WEB_DB` in the
 respective `.env.*`), so data is fully isolated.
 
+### Task Runner
+
+A `Makefile` wraps the Compose commands, so you never have to remember the
+`--env-file`/`-f` flags:
+
+```sh
+make dev           # start development
+make dev-stop      # stop development
+make staging       # start staging
+make staging-stop  # stop staging
+make prod          # start production
+make prod-stop     # stop production
+
+make start ENV=staging   # start any environment (dev|staging|prod)
+make stop  ENV=staging   # stop any environment
+make status              # show running services
+make logs ENV=dev        # follow logs (default ENV=dev)
+make psql ENV=dev        # open a psql shell
+make help                # list all targets
+```
+
+Run `make help` for the full list.
+
 ### Environment files
 
 | File | Purpose |
@@ -228,6 +251,11 @@ frontend always talks to the matching API instance.
 
 - **Backend auth is not functional yet.** The Passport local strategy in `backend/index.js` is commented out and `bcrypt` is missing from the backend dependencies. Login/registration will therefore fail.
 - **`/users` and `/projects` return 500.** The Sequelize models use `underscored: true`, so `isAdmin` is queried as `is_admin`, but the database column is `isAdmin` (same for `teaserImage`). The model field mappings need to be aligned with the actual schema.
+
+## Architecture
+
+- **Backend:** see [`backend/ARCHITECTURE.md`](backend/ARCHITECTURE.md) — layers, models, routes, env configuration and known issues.
+- **Frontend:** see [`ARCHITECTURE.md`](ARCHITECTURE.md) — the layered UI architecture (UI / Core / Config / API).
 
 ## Credits
 

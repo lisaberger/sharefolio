@@ -36,31 +36,13 @@ const router = express.Router();
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   name:
- *                     type: string
- *                     example: John Doe
- *                   email:
- *                     type: string
- *                     example: johndoe@example.com
- *                   created_at:
- *                     type: string
- *                     format: date-time
- *                     example: 2023-01-01T00:00:00Z
+ *                 $ref: '#/components/schemas/User'
  *       500:
  *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: Internal Server Error
+ *               $ref: '#/components/schemas/Error'
  */
 router.route('/').get(getUsers);
 
@@ -85,41 +67,19 @@ router.route('/').get(getUsers);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                   example: 1
- *                 name:
- *                   type: string
- *                   example: John Doe
- *                 email:
- *                   type: string
- *                   example: johndoe@example.com
- *                 created_at:
- *                   type: string
- *                   format: date-time
- *                   example: 2023-01-01T00:00:00Z
+ *               $ref: '#/components/schemas/User'
  *       404:
  *         description: User not found
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: User not found
+ *               $ref: '#/components/schemas/Error'
  *       500:
  *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: Internal Server Error
+ *               $ref: '#/components/schemas/Error'
  */
 router.get('/:name', getUserByName);
 
@@ -146,41 +106,19 @@ router.get('/:name', getUserByName);
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 101
- *                   name:
- *                     type: string
- *                     example: Project Alpha
- *                   user_id:
- *                     type: integer
- *                     example: 1
- *                   created_at:
- *                     type: string
- *                     format: date-time
- *                     example: 2023-01-01T00:00:00Z
+ *                 $ref: '#/components/schemas/Project'
  *       404:
  *         description: User or projects not found
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: User or projects not found
+ *               $ref: '#/components/schemas/Error'
  *       500:
  *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: Internal Server Error
+ *               $ref: '#/components/schemas/Error'
  */
 router.get('/:name/projects', getUsersProjects);
 
@@ -205,41 +143,19 @@ router.get('/:name/projects', getUsersProjects);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                   example: 1
- *                 name:
- *                   type: string
- *                   example: John Doe
- *                 email:
- *                   type: string
- *                   example: johndoe@example.com
- *                 created_at:
- *                   type: string
- *                   format: date-time
- *                   example: 2023-01-01T00:00:00Z
+ *               $ref: '#/components/schemas/User'
  *       404:
  *         description: User not found
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: User not found
+ *               $ref: '#/components/schemas/Error'
  *       500:
  *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: Internal Server Error
+ *               $ref: '#/components/schemas/Error'
  */
 router.get('/:id', getUserById);
 
@@ -272,44 +188,18 @@ router.get('/:id', getUserById);
  *     responses:
  *       201:
  *         description: User created successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                   example: 1
- *                 name:
- *                   type: string
- *                   example: John Doe
- *                 email:
- *                   type: string
- *                   example: johndoe@example.com
- *                 created_at:
- *                   type: string
- *                   format: date-time
- *                   example: 2023-01-01T00:00:00Z
  *       400:
  *         description: Bad request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: Bad request
+ *               $ref: '#/components/schemas/Error'
  *       500:
  *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: Internal Server Error
+ *               $ref: '#/components/schemas/Error'
  */
 router.post('/create', pfpUpload.single('profilePic'), createUser);
 

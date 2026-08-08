@@ -51,7 +51,18 @@ sequelize
         console.error('Error synchronizing database models:', error);
     });
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(
+    '/docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec, {
+        customSiteTitle: 'Sharefolio API Docs',
+    })
+);
+
+app.get('/docs-json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
 
 /*************/
 /* REST API  */

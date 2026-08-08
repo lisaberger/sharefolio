@@ -70,6 +70,8 @@ services:
             DB_USER: web
             DB_PASSWORD: web
             DB_PORT: 5432
+            SWAGGER_SERVER_URL: ${BACKEND_URL:-http://api.sharefolio.local}
+            SWAGGER_SERVER_DESCRIPTION: ${ENV_NAME:-Development}
         depends_on:
             postgres:
                 condition: service_healthy
@@ -90,6 +92,7 @@ services:
                 VITE_BACKEND_URL: ${BACKEND_URL:-http://api.sharefolio.local}
         environment:
             VITE_BACKEND_URL: ${BACKEND_URL:-http://api.sharefolio.local}
+            VITE_UI_HOSTS: ${UI_HOSTS:-ui.sharefolio.local,localhost}
         depends_on:
             - api
         labels:

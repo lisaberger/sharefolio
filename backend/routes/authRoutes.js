@@ -3,7 +3,56 @@ import { loginUser, logoutUser } from '../controllers/authenticationController.j
 
 const router = express.Router();
 
-router.get('/logout', logoutUser);
+/**
+ * @openapi
+ * /auth/login:
+ *   post:
+ *     summary: Log in a user
+ *     description: Authenticates a user with email and password and starts a session.
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LoginCredentials'
+ *     responses:
+ *       200:
+ *         description: Successfully logged in
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Invalid credentials
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post('/login', loginUser);
+
+/**
+ * @openapi
+ * /auth/logout:
+ *   get:
+ *     summary: Log out the current user
+ *     description: Ends the current session.
+ *     tags:
+ *       - Auth
+ *     responses:
+ *       200:
+ *         description: Successfully logged out
+ */
+router.get('/logout', logoutUser);
 
 export default router;

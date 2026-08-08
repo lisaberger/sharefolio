@@ -27,6 +27,9 @@ export default defineConfig({
     },
     server: {
         port: 5173,
+        allowedHosts: process.env.VITE_UI_HOSTS
+            ? process.env.VITE_UI_HOSTS.split(',')
+            : true,
         watch: {
             usePolling: true,
         },
