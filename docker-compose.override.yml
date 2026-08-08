@@ -16,6 +16,7 @@ services:
         volumes:
             - ./backend:/app
             - /app/node_modules
+            - ./frontend/public:/app/ui-public:ro
 
     ui:
         build:

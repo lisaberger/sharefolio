@@ -94,7 +94,6 @@ export class ApiProjectRepository implements ProjectRepository {
             formData.append(
                 'projectData',
                 JSON.stringify({
-                    creatorId: payload.creatorId,
                     title: payload.title,
                     art: payload.kind,
                     tools: payload.tools,

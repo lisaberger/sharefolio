@@ -4,6 +4,7 @@ import sequelize from '../db/db.js';
 import Account from '../models/userModel.js';
 import { Op } from 'sequelize';
 import { loginSchema } from '../schemas/authSchema.js';
+import { issueToken } from '../utils/token.js';
 
 /* stateless login: verifies credentials via the database check_password function */
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -36,7 +37,17 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
             },
         });
 
-        return res.status(200).json(user);
+        if (!user) {
+            return res
+                .status(401)
+                .json({ error: 'Incorrect username or password' });
+        }
+
+        const token = issueToken(user.id);
+
+        const { password: _password, ...safeUser } = user.toJSON();
+
+        return res.status(200).json({ ...safeUser, token });
     } catch (error) {
         return next(error);
     }

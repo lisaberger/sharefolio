@@ -3,8 +3,15 @@ import {
     loginUser,
     logoutUser,
 } from '../controllers/authenticationController.js';
+import { createRateLimiter } from '../middleware/rateLimiter.js';
 
 const router = Router();
+
+const loginLimiter = createRateLimiter({
+    windowMs: 15 * 60 * 1000,
+    max: 20,
+    key: (req) => req.ip ?? 'unknown',
+});
 
 /**
  * @openapi
@@ -46,7 +53,7 @@ const router = Router();
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post('/login', loginUser);
+router.post('/login', loginLimiter, loginUser);
 
 /**
  * @openapi

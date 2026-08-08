@@ -1,10 +1,12 @@
 import type { NextFunction, Request, Response } from 'express';
+import { unlink } from 'node:fs/promises';
 import { Op, Sequelize } from 'sequelize';
 import Account from '../models/userModel.js';
 import EnumCategory from '../models/categoryModel.js';
 import Project from '../models/projectModel.js';
 import { projectDataSchema } from '../schemas/projectSchema.js';
 import { toPublicPath } from '../utils/upload.js';
+import type { AuthenticatedRequest } from '../middleware/auth.js';
 
 const UUID_PATTERN =
     /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -75,7 +77,7 @@ const asFileArray = (
 };
 
 const createProject = async (
-    req: ProjectUploadRequest,
+    req: AuthenticatedRequest & ProjectUploadRequest,
     res: Response,
     next: NextFunction
 ) => {
@@ -109,7 +111,7 @@ const createProject = async (
 
     try {
         const newProject = await Project.create({
-            creator_id: data.creatorId ?? null,
+            creator_id: req.userId ?? null,
             teaserImage: teaser,
             name: data.title,
             description: data.descr,
@@ -124,6 +126,10 @@ const createProject = async (
 
         res.status(201).json(newProject);
     } catch (error) {
+        /* remove the uploaded files so they do not become orphaned */
+        await Promise.allSettled(
+            files.map((file) => unlink(file.path).catch(() => undefined))
+        );
         next(error);
     }
 };

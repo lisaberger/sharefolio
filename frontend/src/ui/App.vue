@@ -33,6 +33,7 @@ onBeforeMount(() => {
 const logoutUser = async (): Promise<void> => {
     await authRepository.logout();
     Cookies.remove('isLoggedIn');
+    Cookies.remove('sharefolio_token');
     router.go(0);
 };
 </script>

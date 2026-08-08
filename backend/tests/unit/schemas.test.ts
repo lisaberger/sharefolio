@@ -60,7 +60,6 @@ describe('userDataSchema', () => {
 describe('projectDataSchema', () => {
     it('accepts valid project data', () => {
         const result = projectDataSchema.safeParse({
-            creatorId: '67c65d60-31e9-4851-a86e-20f13fc53205',
             title: 'My Project',
             art: 'Web',
             tools: 'Vue',

@@ -13,13 +13,31 @@ import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
 
-/* prevent CORS errors */
-app.use(cors());
+/* restrict CORS to the configured frontend origin(s) */
+const allowedOrigins = env.CORS_ORIGIN.split(',').map((o) => o.trim());
+
+app.use(
+    cors({
+        origin(origin, callback) {
+            /* allow non-browser requests (curl, tests, server-to-server) */
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+                return;
+            }
+            /* no CORS headers for disallowed origins; the browser blocks it */
+            callback(null, false);
+        },
+    })
+);
 /* handler for the req / res body */
 app.use(bodyParser.json());
 
-/* serve uploaded files */
-app.use('/public', express.static(env.UPLOAD_DIR));
+/* serve uploaded files (and, if configured, the bundled UI seed images) */
+const staticDirs = env.SEED_UI_PUBLIC
+    ? [express.static(env.SEED_UI_PUBLIC), express.static(env.UPLOAD_DIR)]
+    : [express.static(env.UPLOAD_DIR)];
+
+app.use('/public', ...staticDirs);
 
 /* swagger */
 app.use(

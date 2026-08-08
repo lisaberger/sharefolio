@@ -73,8 +73,12 @@ services:
             SWAGGER_SERVER_URL: ${BACKEND_URL:-http://api.sharefolio.local}
             SWAGGER_SERVER_DESCRIPTION: ${ENV_NAME:-Development}
             UPLOAD_DIR: /app/public
+            SEED_UI_PUBLIC: /app/ui-public
+            CORS_ORIGIN: ${UI_URL:-http://ui.sharefolio.local}
+            SESSION_SECRET: ${SESSION_SECRET:-change-me-please-dev-secret}
         volumes:
             - uploads:/app/public
+            - ./frontend/public:/app/ui-public:ro
         depends_on:
             postgres:
                 condition: service_healthy

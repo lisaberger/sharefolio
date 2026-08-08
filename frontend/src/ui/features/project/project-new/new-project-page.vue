@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Cookies from 'js-cookie';
 import { onBeforeMount, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Category } from '@core/project';
@@ -52,10 +51,7 @@ const selectPic2 = () => {
 
 /* submit */
 const onSubmit = async (): Promise<void> => {
-    const userId = Cookies.get('isLoggedIn');
-
     const result = await projectRepository.create({
-        creatorId: userId,
         files: files.value,
         title: projectData.value.title,
         kind: projectData.value.art,

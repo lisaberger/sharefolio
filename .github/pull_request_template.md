@@ -1,33 +1,86 @@
-# Description
+### Changes description (technical view)
 
-Please include a summary of the changes and the related issue. Please also include relevant motivation and context. List any dependencies that are required for this change.
+<!-- Explain technical details of the changes in this MR to help reviewers understand your work. -->
 
-Fixes # (issue)
+- .
 
-## Type of change
+### **WIP**: Open Todos
 
-Please delete options that are not relevant.
+<!--
+Add/Explain open tasks that block this MR from being merged.
+Remove this whole section if empty.
+-->
 
-- [ ] Bug fix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] This change requires a documentation update
+- [ ] .
 
-# How Has This Been Tested?
+### Steps to manual test
 
-Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration
+<!-- Explain which path in the ui has to be taken to see the changes in this MR -->
 
-- [ ] Unit test
-- [ ] E2E test
+-
 
-# Checklist:
 
-- [ ] My code follows the style guidelines of this project
-- [ ] I have performed a self-review of my code
-- [ ] I have commented my code, particularly in hard-to-understand areas
-- [ ] I have made corresponding changes to the documentation
-- [ ] My changes generate no new warnings
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] New and existing unit tests pass locally with my changes
-- [ ] Any dependent changes have been merged and published in downstream modules
+### Impact of this merge request
 
+- [ ] Dependencies changed (needs `b5 ui:pnpm install --frozen-lockfile`)
+- [ ] Recommendation: Update setup (`b5 update`)
+
+### Notes
+
+<!--
+Any further helpful comments?
+**Example**: "You need to run a `b5 install` before testing or go crazy while figuring it out by yourself!"
+-->
+
+- .
+
+### Changelog (enduser facing)
+
+<!--
+Explain with one or more bulletpoints what this MR changed for the enduser.
+This info might later be included in the CHANGELOG.md.
+-->
+
+- .
+
+### Checklist ***[Mandatory]***
+
+- [ ] Acceptance criteria of JIRA ticket are fulfilled
+- [ ] MR title starts with Jira-ID (e.g. `XX-nnnn: <descriptive title>`)
+- [ ] Changelog section is filled out (or removed/empty if MR is not relevant for changelog)
+- [ ] Self review of this MR has been made
+- [ ] Implementation hat been refactored to be cleaner
+- [ ] Linting shows no issues (checked `b5 ui:lint`)
+- [ ] Existing tests still pass (checked `b5 ui:test:unit`)
+- [ ] Existing e2e test still pass (checked `b5 ui:test:e2e`)
+- [ ] New tests for the changes exist and pass
+
+### Checklist ***[Optional]***
+
+- [ ] If necessary: Technical documentation in git is added / updated
+- [ ] If necessary: Documentation in Confluence is added / updated
+- [ ] If necessary: Accessibility features were considered
+
+### Accessibility ***[Optional]***
+
+- [ ] **alt-tag**: All images were checked for the "alt" tag
+- [ ] **semantic**: HTML structure is semantic
+- [ ] **color**: The contrast between foreground and background colors is enough (e.g. 4.5/3 for AA)
+- [ ] **keyboard** operation: All elements can be accessed via "tab" and the order makes sense
+- [ ] **form**: All form fields have a description or a label
+- [ ] **heading** structure: The headings start with an h1 and a higher number is not under a lower number
+- [ ] **links & buttons**: Right purpose and meaningful description for links and buttons
+- [ ] **table**: Information from tables also clearly structured for screen readers and downloadable
+- [ ] **icons**: The visual content of icons is also accessible to those who cannot see
+- [ ] **moving content**: Any moving content is stoppable
+
+[More information found here.](https://confluence.team23.de/pages/viewpage.action?pageId=122913951)
+
+
+### Review by
+
+- @NotYourself
+
+/assign_reviewer @NotYourself
+/assign me
+/label ~UI

@@ -39,7 +39,7 @@ const userMenuItems = ref([
 
 const avatarImagePath = computed(() => {
     if (props.user.image) {
-        return 'http://localhost:3000/' + props.user.image;
+        return props.user.image;
     }
 
     return undefined;

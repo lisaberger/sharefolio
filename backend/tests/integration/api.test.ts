@@ -103,6 +103,15 @@ describe('API Integration', () => {
         expect(res.status).toBe(400);
     });
 
+    it('POST /auth/login returns a session token', async () => {
+        const res = await request(app)
+            .post('/auth/login')
+            .send(SEED_CREDENTIALS);
+        expect(res.status).toBe(200);
+        expect(typeof res.body.token).toBe('string');
+        expect(res.body.token.length).toBeGreaterThan(0);
+    });
+
     it('POST /auth/logout succeeds', async () => {
         const res = await request(app).post('/auth/logout');
         expect(res.status).toBe(200);
@@ -133,18 +142,25 @@ describe('API Integration', () => {
         expect(res.status).toBe(400);
     });
 
+    it('POST /projects/create requires authentication (401)', async () => {
+        const res = await request(app)
+            .post('/projects/create')
+            .field('projectData', JSON.stringify({ title: 'X', art: 'Web' }));
+        expect(res.status).toBe(401);
+    });
+
     it('POST /projects/create creates a project from form data', async () => {
         const login = await request(app)
             .post('/auth/login')
             .send(SEED_CREDENTIALS);
-        const creatorId = login.body.id;
+        const token = login.body.token;
 
         const res = await request(app)
             .post('/projects/create')
+            .set('Authorization', `Bearer ${token}`)
             .field(
                 'projectData',
                 JSON.stringify({
-                    creatorId,
                     title: 'Integration Project',
                     art: 'Web',
                     tools: 'Vue',
@@ -158,12 +174,18 @@ describe('API Integration', () => {
         expect(res.status).toBe(201);
         expect(res.body.name).toBe('Integration Project');
         expect(res.body.description).toBe('Created by tests');
+        expect(res.body.creator_id).toBe(login.body.id);
         expect(res.body.teaserImage).toMatch(/^\/public\/projects\//);
     });
 
     it('POST /projects/create rejects missing title (400)', async () => {
+        const login = await request(app)
+            .post('/auth/login')
+            .send(SEED_CREDENTIALS);
+
         const res = await request(app)
             .post('/projects/create')
+            .set('Authorization', `Bearer ${login.body.token}`)
             .field('projectData', JSON.stringify({ art: 'Web' }));
         expect(res.status).toBe(400);
     });
@@ -175,10 +197,10 @@ describe('API Integration', () => {
 
         const res = await request(app)
             .post('/projects/create')
+            .set('Authorization', `Bearer ${login.body.token}`)
             .field(
                 'projectData',
                 JSON.stringify({
-                    creatorId: login.body.id,
                     title: 'No Image Project',
                     art: 'Web',
                     category: 1,

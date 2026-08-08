@@ -6,6 +6,7 @@ import {
     getProjects,
 } from '../controllers/projectController.js';
 import { projectUpload } from '../utils/upload.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = Router();
 
@@ -112,6 +113,6 @@ router.get('/:name', getProjectByName);
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post('/create', projectUpload.array('pics'), createProject as RequestHandler);
+router.post('/create', requireAuth, projectUpload.array('pics'), createProject as RequestHandler);
 
 export default router;

@@ -1,5 +1,4 @@
 export type ProjectCreatePayload = {
-    creatorId?: string;
     title: string;
     kind: string;
     tools?: string;

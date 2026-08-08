@@ -9,6 +9,7 @@ export type UserApiData = {
     location?: string;
     description?: string;
     image?: string;
+    token?: string;
 };
 
 export type ProjectApiData = {

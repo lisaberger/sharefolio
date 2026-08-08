@@ -18,6 +18,7 @@ import {
 import { User } from '@core/user';
 import { getHttpClient } from '@api/common';
 import { GlobalErrorMapper } from '@api/error-handling';
+import Cookies from 'js-cookie';
 import { toUser } from '../../common/model-mappers';
 import type { UserApiData } from '../../common/api-types';
 
@@ -37,6 +38,10 @@ export class ApiAuthRepository implements AuthRepository {
                 credentials
             );
 
+            if (response.data.token) {
+                Cookies.set('sharefolio_token', response.data.token);
+            }
+
             return toDataResult(toUser(response.data));
         } catch (error) {
             return this._toErrorResult(error);
@@ -46,6 +51,7 @@ export class ApiAuthRepository implements AuthRepository {
     public async logout(): Promise<Result<void, AuthRepositoryErrors>> {
         try {
             await getHttpClient().post('/auth/logout');
+            Cookies.remove('sharefolio_token');
 
             return toDataResult(undefined);
         } catch (error) {

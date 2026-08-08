@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { onBeforeMount, ref } from 'vue';
 import { User } from '@core/user';
 import { Project } from '@core/project';
-import { getApiBasePath, userRepository } from '@config';
+import { userRepository } from '@config';
 
 /* Define Props */
 const account = ref<User | null>(null);
@@ -37,7 +37,7 @@ onBeforeMount(() => {
         <section class="profile">
             <img
                 id="pfp"
-                :src="getApiBasePath() + account?.image"
+                :src="account?.image"
                 alt="Profile Picture"
             />
             <div class="profile__info">

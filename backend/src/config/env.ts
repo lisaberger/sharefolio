@@ -14,6 +14,13 @@ const envSchema = z.object({
     SWAGGER_SERVER_URL: z.string().default('http://api.sharefolio.local'),
     SWAGGER_SERVER_DESCRIPTION: z.string().default('Sharefolio API'),
     UPLOAD_DIR: z.string().default('/app/public'),
+    SEED_UI_PUBLIC: z.string().default(''),
+    SESSION_SECRET: z
+        .string()
+        .min(16, 'SESSION_SECRET must be at least 16 characters')
+        .default('change-me-please-dev-secret'),
+    SESSION_TTL_MS: z.coerce.number().default(7 * 24 * 60 * 60 * 1000),
+    CORS_ORIGIN: z.string().default('http://ui.sharefolio.local'),
 });
 
 const parsed = envSchema.safeParse(process.env);

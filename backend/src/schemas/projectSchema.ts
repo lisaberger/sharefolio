@@ -1,10 +1,9 @@
 import { z } from 'zod';
 
-/* the frontend sends `projectData` as a JSON string inside the multipart body */
+/* the frontend sends `projectData` as a JSON string inside the multipart body.
+   the creator is derived from the authenticated session, not from the client. */
 export const projectDataSchema = z
     .object({
-        creatorId: z.string().optional(),
-        headerPath: z.string().optional(),
         title: z.string().min(1, 'Title is required'),
         art: z.string().min(1, 'Kind is required'),
         tools: z.string().optional(),
@@ -12,8 +11,6 @@ export const projectDataSchema = z
         category: z.coerce.number().int().optional().nullable(),
         link: z.string().optional(),
         collabs: z.string().optional(),
-        pic1Path: z.string().optional(),
-        pic2Path: z.string().optional(),
     })
     .strict();
 
