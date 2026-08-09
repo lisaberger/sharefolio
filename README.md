@@ -16,7 +16,7 @@ Sharefolio is a full-stack web platform for creative people to showcase their po
 | Layer | Technology |
 | ----- | ---------- |
 | Frontend | Vue 3 (Composition API, `<script setup>`), TypeScript, Vite, Pinia, Vue Router, Vue I18n, Vuelidate, PrimeVue, Tailwind CSS |
-| Backend | Node.js, Express, Sequelize (ORM), Passport (auth, WIP) |
+| Backend | Node.js, Express, Sequelize (ORM), stateless HMAC-session tokens |
 | Database | PostgreSQL 17 |
 | Reverse Proxy | Traefik |
 | Infra | Docker + Docker Compose |
@@ -81,8 +81,8 @@ Docker Compose orchestrates five services:
 | ------- | ---------- | ------------- | --------- |
 | `traefik` | image `traefik:latest` | 80 (web), 8080 (dashboard) | `80:80`, `8080:8080` |
 | `postgres` | `database/postgres/Dockerfile` | 5432 | internal only |
-| `api` | `backend/Dockerfile` | 4000 | internal (via Traefik) |
-| `ui` | `frontend/Dockerfile` | 5173 | internal (via Traefik) |
+| `api` | `server/Dockerfile` | 4000 | internal (via Traefik) |
+| `ui` | `client/Dockerfile` | 5173 | internal (via Traefik) |
 | `adminer` | `database/adminer/Dockerfile` | 8080 | internal (via Traefik) |
 
 All traffic enters through Traefik on port 80 and is routed to the right
@@ -103,15 +103,15 @@ Browser
 
 The API reads its database settings from environment variables
 (`DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_PORT`), so the same image
-works in every environment. See `backend/db/db.js`.
+works in every environment. See `server/src/db/db.ts`.
 
 ## Repository Layout
 
 ```
 .
-├── backend/            # Express REST API, Sequelize models, Swagger docs
-├── database/           # PostgreSQL Docker image + SQL schema, Adminer image
-├── frontend/           # Vue 3 / TypeScript / Vite application
+├── server/             # Express REST API (TypeScript), Sequelize models, migrations, Swagger docs
+├── database/           # PostgreSQL Docker image + Adminer image
+├── client/             # Vue 3 / TypeScript / Vite application
 │   └── src/
 │       ├── api/        # HTTP repositories + global error mapping
 │       ├── config/     # Dependency injection / wiring
@@ -201,7 +201,7 @@ and the Vite dev server locally:
 docker compose up -d postgres api adminer
 
 # Terminal 2 – frontend with hot reload
-cd frontend
+cd client
 npm install
 npm run dev
 ```
@@ -210,7 +210,7 @@ Open `http://localhost:5173`.
 
 ## Frontend-Only Commands
 
-Run inside the `frontend/` directory:
+Run inside the `client/` directory:
 
 ```sh
 npm run dev            # Start Vite dev server (port 5173)
@@ -230,7 +230,7 @@ npm run build-only     # production build only
 The frontend resolves the API base path at runtime, in this order:
 
 1. `VITE_BACKEND_URL` build/dev-time variable (set per environment in compose)
-2. `frontend/public/assets/app-config.json` → `BACKEND_URL`
+2. `client/public/assets/app-config.json` → `BACKEND_URL`
 3. Fallback: `http://localhost:4000`
 
 Each environment passes its own `BACKEND_URL` to the `ui` service, so the
@@ -247,15 +247,44 @@ frontend always talks to the matching API instance.
 | `ADMINER_HOST` | `adminer.sharefolio.local` | Hostname for the Adminer router |
 | `BACKEND_URL` | `http://api.sharefolio.local` | Base URL the frontend uses for the API |
 
-## Known Issues
+## Testing
 
-- **Backend auth is not functional yet.** The Passport local strategy in `backend/index.js` is commented out and `bcrypt` is missing from the backend dependencies. Login/registration will therefore fail.
-- **`/users` and `/projects` return 500.** The Sequelize models use `underscored: true`, so `isAdmin` is queried as `is_admin`, but the database column is `isAdmin` (same for `teaserImage`). The model field mappings need to be aligned with the actual schema.
+### Backend (`server/`)
+
+Run inside the `server/` directory:
+
+```sh
+npm run typecheck     # tsc --noEmit
+npm run test          # vitest (unit + integration, single run)
+npm run test:watch    # vitest watch mode
+npm run build         # tsc → dist/
+npm run migrate       # apply DB migrations manually (also run automatically at server start)
+```
+
+The integration tests need a **Postgres reachable on localhost:5432**. The
+`tests/global-setup.ts` drops and recreates a `sharefolio_test` database as
+user `web`/`web`, applies the migrations, and needs pgcrypto available in new
+databases (the compose `postgres` image installs it into `template1`). The
+compose `postgres` does **not** publish port 5432, and the app defaults
+(`DB_HOST=postgres`, `UPLOAD_DIR=/app/public`) are Docker values, so host-side
+runs need environment overrides:
+
+```sh
+DB_HOST=localhost UPLOAD_DIR=/tmp/sharefolio-uploads npm test
+```
+
+### Frontend (`client/`)
+
+```sh
+npm run test:nowatch  # vitest (jsdom, no external services)
+npm run type-check
+npm run lint:nofix
+```
 
 ## Architecture
 
-- **Backend:** see [`backend/ARCHITECTURE.md`](backend/ARCHITECTURE.md) — layers, models, routes, env configuration and known issues.
-- **Frontend:** see [`ARCHITECTURE.md`](ARCHITECTURE.md) — the layered UI architecture (UI / Core / Config / API).
+- **Backend:** see [`server/ARCHITECTURE.md`](server/ARCHITECTURE.md) — layers, models, routes, env configuration, migrations.
+- **Frontend:** see [`client/ARCHITECTURE.md`](client/ARCHITECTURE.md) — the layered UI architecture (UI / Core / Config / API).
 
 ## Credits
 

@@ -14,15 +14,15 @@ services:
         build:
             target: dev
         volumes:
-            - ./backend:/app
+            - ./server:/app
             - /app/node_modules
-            - ./frontend/public:/app/ui-public:ro
+            - ./client/public:/app/ui-public:ro
 
     ui:
         build:
             target: dev
         volumes:
-            - ./frontend:/app
+            - ./client:/app
             - /app/node_modules
 
 volumes:

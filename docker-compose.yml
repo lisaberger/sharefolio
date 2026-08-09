@@ -62,7 +62,7 @@ services:
 
     api:
         build:
-            context: ./backend
+            context: ./server
             target: ${API_TARGET:-dev}
         environment:
             DB_HOST: postgres
@@ -78,7 +78,7 @@ services:
             SESSION_SECRET: ${SESSION_SECRET:-change-me-please-dev-secret}
         volumes:
             - uploads:/app/public
-            - ./frontend/public:/app/ui-public:ro
+            - ./client/public:/app/ui-public:ro
         depends_on:
             postgres:
                 condition: service_healthy
@@ -93,7 +93,7 @@ services:
 
     ui:
         build:
-            context: ./frontend
+            context: ./client
             target: ${UI_TARGET:-dev}
             args:
                 VITE_BACKEND_URL: ${BACKEND_URL:-http://api.sharefolio.local}

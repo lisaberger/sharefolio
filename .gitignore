@@ -8,16 +8,16 @@ node_modules
 
 # testing
 /coverage
-backend/coverage
-frontend/coverage
+server/coverage
+client/coverage
 test-results/
 playwright-report/
 cypress/screenshots/
 cypress/videos/
 
 # builds
-backend/dist/
-frontend/dist/
+server/dist/
+client/dist/
 *.tsbuildinfo
 
 # production

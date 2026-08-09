@@ -1,5 +1,5 @@
 {
-    "name": "sharefolio",
+    "name": "sharefolio-client",
     "version": "1.0.0",
     "type": "module",
     "scripts": {
@@ -30,7 +30,6 @@
         "@vuelidate/validators": "^2.0.4",
         "@vueuse/core": "^11.3.0",
         "axios": "^1.19.0",
-        "happy-dom": "^6.0.4",
         "js-cookie": "^3.0.8",
         "material-icons": "^1.13.12",
         "pinia": "^2.3.1",
@@ -58,6 +57,7 @@
         "cypress": "^13.17.0",
         "eslint": "^8.57.0",
         "eslint-plugin-vue": "^9.22.0",
+        "happy-dom": "^6.0.4",
         "jsdom": "^24.1.0",
         "postcss": "^8.4.35",
         "prettier-plugin-tailwindcss": "^0.5.12",
