@@ -1,0 +1,24 @@
+# Staging overrides. Mirrors production (built assets) but under its own
+# hostnames and its own postgres volume.
+#
+# Usage:
+#   cp .env.example .env.staging
+#   # adjust DOMAIN_* / BACKEND_URL in .env.staging
+#   docker compose --env-file .env.staging \
+#     -f docker-compose.yml -f docker-compose.staging.yml up
+
+services:
+    postgres:
+        volumes:
+            - pgdata_staging:/var/lib/postgresql/data
+
+    api:
+        build:
+            target: prod
+
+    ui:
+        build:
+            target: serve
+
+volumes:
+    pgdata_staging:

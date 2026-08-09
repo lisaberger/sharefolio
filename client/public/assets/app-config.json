@@ -1,0 +1,4 @@
+{
+    "BACKEND_URL": "http://api.sharefolio.local",
+    "DEMO": false
+}

@@ -1,0 +1,24 @@
+# Production overrides. Built, optimized assets served statically; runs the
+# backend without dev tooling.
+#
+# Usage:
+#   cp .env.example .env.prod
+#   # adjust DOMAIN_* / BACKEND_URL in .env.prod
+#   docker compose --env-file .env.prod \
+#     -f docker-compose.yml -f docker-compose.prod.yml up
+
+services:
+    postgres:
+        volumes:
+            - pgdata_prod:/var/lib/postgresql/data
+
+    api:
+        build:
+            target: prod
+
+    ui:
+        build:
+            target: serve
+
+volumes:
+    pgdata_prod:

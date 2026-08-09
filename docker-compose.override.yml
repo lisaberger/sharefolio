@@ -1,0 +1,29 @@
+# Development overrides. Auto-loaded when running `docker compose up`.
+#
+# - live code reload via bind mounts (frontend HMR, backend nodemon)
+# - dev-stage Dockerfiles (vite dev server / nodemon)
+# - *.sharefolio.local hostnames (resolved via dnsmasq)
+# - own postgres volume to keep dev data separate from other environments
+
+services:
+    postgres:
+        volumes:
+            - pgdata_dev:/var/lib/postgresql/data
+
+    api:
+        build:
+            target: dev
+        volumes:
+            - ./server:/app
+            - /app/node_modules
+            - ./client/public:/app/ui-public:ro
+
+    ui:
+        build:
+            target: dev
+        volumes:
+            - ./client:/app
+            - /app/node_modules
+
+volumes:
+    pgdata_dev:
