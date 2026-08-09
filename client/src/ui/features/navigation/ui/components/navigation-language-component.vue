@@ -44,6 +44,7 @@ const languageMenuItems = ref([
         data-testid="language-button"
         aria-haspopup="true"
         aria-controls="languages"
+        :aria-label="t('button.changeLanguage')"
         :label="locale"
         @click="toggle"
     >
@@ -65,10 +66,14 @@ const languageMenuItems = ref([
 
 <i18n lang="yaml">
 de:
+    button:
+        changeLanguage: Sprache ändern
     menu:
         de: Deutsch
         en: English
 en:
+    button:
+        changeLanguage: Change language
     menu:
         de: Deutsch
         en: English

@@ -59,7 +59,7 @@ onBeforeMount(async () => {
             :current-user="user"
         />
 
-        <section v-if="titleProject" class="mx-auto max-w-5xl">
+        <section v-if="titleProject" class="mx-auto">
             <project-header-container :title-project="titleProject" />
         </section>
 

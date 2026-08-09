@@ -51,25 +51,25 @@ const welcomeText = computed(() => ({
             {{ welcomeText.description }}
         </p>
 
-        <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-3 w-full">
             <template v-if="!props.userLoggedIn">
                 <prime-button
                     data-testid="hero-login-button"
                     icon-pos="right"
+                    :label="t('hero.action.login')"
                     @click="router.push({ name: RouteName.Login })"
                 >
                     <template #icon>
                         <span class="material-icons">arrow_forward</span>
                     </template>
-                    {{ t('hero.action.login') }}
                 </prime-button>
                 <prime-button
                     severity="secondary"
                     outlined
                     data-testid="hero-register-button"
+                    :label="t('hero.action.register')"
                     @click="router.push({ name: RouteName.Register })"
                 >
-                    {{ t('hero.action.register') }}
                 </prime-button>
             </template>
             <prime-button

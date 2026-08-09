@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 
 @theme {
-    --font-sans:
-        'Inter', 'Arial', sans-serif;
+    /* COLORS */
+    --font-sans: 'Inter', 'Arial', sans-serif;
 
     --color-primary-50: rgb(var(--primary-50));
     --color-primary-100: rgb(var(--primary-100));
@@ -28,10 +28,18 @@
     --color-surface-800: rgb(var(--surface-800));
     --color-surface-900: rgb(var(--surface-900));
     --color-surface-950: rgb(var(--surface-950));
+
+    /* BREAKPOINTS */
+    --breakpoint-sm: 40rem;
+    --breakpoint-md: 48rem;
+    --breakpoint-lg: 64rem;
+    --breakpoint-xl: 80rem;
+    --breakpoint-2xl: 96rem;
 }
 
 @layer base {
     :root {
+        /* PRIMARY COLOR */
         --primary-50: 234 232 255;
         --primary-100: 191 185 255;
         --primary-200: 148 139 255;
@@ -43,6 +51,8 @@
         --primary-800: 9 0 116;
         --primary-900: 6 0 70;
         --primary-950: 2 0 23;
+
+        /* SURFACE COLOR */
         --surface-0: 255 255 255;
         --surface-50: 248 250 252;
         --surface-100: 241 245 249;
@@ -57,6 +67,7 @@
         --surface-950: 3 6 23;
     }
 
+    /* FONTS */
     /* inter-100 - latin */
     @font-face {
         font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */

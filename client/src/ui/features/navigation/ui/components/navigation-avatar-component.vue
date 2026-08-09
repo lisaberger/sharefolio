@@ -15,8 +15,9 @@ const router = useRouter();
 const { t } = useI18n();
 
 const menu = ref();
+const menuVisible = ref(false);
 
-const toggle = (event: MouseEvent): void => {
+const toggle = (event: Event): void => {
     menu.value.toggle(event);
 };
 
@@ -49,9 +50,14 @@ const emit = defineEmits<Emits>();
     <div
         class="hover:bg-primary-50 flex cursor-pointer items-center gap-2 rounded-full py-1 pl-2 pr-1 transition-colors"
         data-testid="profile-element"
+        role="button"
+        tabindex="0"
         aria-haspopup="true"
         aria-controls="options"
+        :aria-expanded="menuVisible"
         @click="toggle"
+        @keydown.enter="toggle"
+        @keydown.space.prevent="toggle"
     >
         <div class="hidden text-right text-sm lg:block">
             <p class="text-surface-800 font-semibold leading-tight">
@@ -76,7 +82,14 @@ const emit = defineEmits<Emits>();
         />
     </div>
 
-    <prime-menu id="options" ref="menu" :model="userMenuItems" :popup="true">
+    <prime-menu
+        id="options"
+        ref="menu"
+        :model="userMenuItems"
+        :popup="true"
+        @show="menuVisible = true"
+        @hide="menuVisible = false"
+    >
         <template #start>
             <div class="border-surface-100 border-b px-5 py-3">
                 <p class="text-surface-800 text-sm font-semibold">
