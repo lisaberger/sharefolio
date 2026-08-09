@@ -30,7 +30,7 @@ onBeforeMount(() => {
 <template>
     <div v-if="!isLoading" class="space-y-12 md:space-y-16">
         <section
-            class="border-surface-200 flex flex-col items-center gap-8 rounded-3xl border bg-white p-8 shadow-sm md:flex-row md:items-start md:gap-12 md:p-12"
+            class="border-surface-200 flex flex-col items-center gap-8 rounded-3xl border bg-white p-8 shadow-xs md:flex-row md:items-start md:gap-12 md:p-12"
         >
             <prime-avatar
                 :image="account?.image || undefined"

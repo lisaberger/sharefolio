@@ -29,7 +29,7 @@ const welcomeText = computed(() => ({
 <template>
     <section class="flex flex-col items-center px-4 py-20 text-center md:py-24">
         <span
-            class="border-surface-200 text-primary-500 mb-6 inline-flex items-center rounded-full border bg-white px-4 py-1.5 text-sm font-semibold tracking-wide shadow-sm"
+            class="border-surface-200 text-primary-500 mb-6 inline-flex items-center rounded-full border bg-white px-4 py-1.5 text-sm font-semibold tracking-wide shadow-xs"
         >
             <span class="material-icons mr-1.5 text-base">palette</span>
             {{ t('hero.badge') }}

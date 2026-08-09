@@ -20,7 +20,7 @@ const { t } = useI18n();
 
         <section class="mt-12 space-y-12">
             <div
-                class="border-surface-200 rounded-3xl border bg-white p-8 shadow-sm md:p-10"
+                class="border-surface-200 rounded-3xl border bg-white p-8 shadow-xs md:p-10"
             >
                 <h2
                     class="text-surface-900 flex items-center gap-2 text-xl font-bold"
@@ -37,7 +37,7 @@ const { t } = useI18n();
 
             <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                 <div
-                    class="border-surface-200 rounded-2xl border bg-white p-6 shadow-sm"
+                    class="border-surface-200 rounded-2xl border bg-white p-6 shadow-xs"
                 >
                     <span
                         class="bg-primary-50 text-primary-500 flex h-12 w-12 items-center justify-center rounded-xl"
@@ -53,7 +53,7 @@ const { t } = useI18n();
                 </div>
 
                 <div
-                    class="border-surface-200 rounded-2xl border bg-white p-6 shadow-sm"
+                    class="border-surface-200 rounded-2xl border bg-white p-6 shadow-xs"
                 >
                     <span
                         class="bg-primary-50 text-primary-500 flex h-12 w-12 items-center justify-center rounded-xl"
@@ -69,7 +69,7 @@ const { t } = useI18n();
                 </div>
 
                 <div
-                    class="border-surface-200 rounded-2xl border bg-white p-6 shadow-sm"
+                    class="border-surface-200 rounded-2xl border bg-white p-6 shadow-xs"
                 >
                     <span
                         class="bg-primary-50 text-primary-500 flex h-12 w-12 items-center justify-center rounded-xl"

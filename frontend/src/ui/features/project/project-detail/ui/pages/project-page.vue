@@ -27,7 +27,7 @@ onBeforeMount(() => fetchProjectByName(route.params.name as string));
             />
 
             <div
-                class="from-surface-950/85 via-surface-950/30 absolute inset-0 flex flex-col justify-end bg-gradient-to-t to-transparent p-6 md:p-12"
+                class="from-surface-950/85 via-surface-950/30 absolute inset-0 flex flex-col justify-end bg-linear-to-t to-transparent p-6 md:p-12"
             >
                 <h1
                     class="text-surface-900 max-w-3xl text-3xl font-extrabold leading-tight tracking-tight text-white md:text-5xl"
@@ -62,13 +62,13 @@ onBeforeMount(() => fetchProjectByName(route.params.name as string));
                     v-if="project.image1"
                     :src="project.image1"
                     alt="Projektbild 1"
-                    class="h-80 w-full rounded-2xl object-cover shadow-sm transition-transform duration-300 hover:scale-[1.02]"
+                    class="h-80 w-full rounded-2xl object-cover shadow-xs transition-transform duration-300 hover:scale-[1.02]"
                 />
                 <img
                     v-if="project.image2"
                     :src="project.image2"
                     alt="Projektbild 2"
-                    class="h-80 w-full rounded-2xl object-cover shadow-sm transition-transform duration-300 hover:scale-[1.02]"
+                    class="h-80 w-full rounded-2xl object-cover shadow-xs transition-transform duration-300 hover:scale-[1.02]"
                 />
             </div>
         </section>

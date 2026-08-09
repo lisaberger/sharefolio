@@ -50,7 +50,7 @@ const { t } = useI18n();
 <template>
     <section class="flex flex-col items-center px-4 py-16 md:py-20">
         <div
-            class="border-surface-200 w-full max-w-2xl rounded-3xl border bg-white p-8 shadow-sm md:p-10"
+            class="border-surface-200 w-full max-w-2xl rounded-3xl border bg-white p-8 shadow-xs md:p-10"
         >
             <div class="mb-8 flex flex-col items-center text-center">
                 <logo-component :extended="false" class="mb-4" />

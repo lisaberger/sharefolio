@@ -47,7 +47,7 @@ const logoutUser = async (): Promise<void> => {
         />
     </header>
 
-    <main class="mx-auto max-w-screen-2xl flex-1 p-4 pt-20 md:p-8 md:pt-24">
+    <main class="mx-auto max-w-(--breakpoint-2xl) flex-1 p-4 pt-20 md:p-8 md:pt-24">
         <router-view />
     </main>
 

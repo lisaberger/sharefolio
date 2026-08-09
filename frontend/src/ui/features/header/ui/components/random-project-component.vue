@@ -31,7 +31,7 @@ const projectLink = computed(() =>
         />
 
         <div
-            class="from-surface-950/90 absolute inset-0 flex flex-col justify-end bg-gradient-to-t via-transparent to-transparent p-8 md:p-10"
+            class="from-surface-950/90 absolute inset-0 flex flex-col justify-end bg-linear-to-t via-transparent to-transparent p-8 md:p-10"
         >
             <span
                 class="bg-primary-500 mb-3 inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white"

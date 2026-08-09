@@ -50,7 +50,7 @@ const creatorInitials = computed(() => {
             </div>
 
             <aside
-                class="border-surface-200 w-full shrink-0 space-y-5 rounded-2xl border bg-white p-6 shadow-sm lg:w-80"
+                class="border-surface-200 w-full shrink-0 space-y-5 rounded-2xl border bg-white p-6 shadow-xs lg:w-80"
             >
                 <div
                     v-if="props.project.creator"

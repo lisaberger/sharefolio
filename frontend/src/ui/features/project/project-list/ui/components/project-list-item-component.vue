@@ -22,7 +22,7 @@ const contributors = computed(() =>
 <template>
     <router-link
         :to="'/project/' + linkify(props.project.name)"
-        class="border-surface-200 group flex w-72 flex-col overflow-hidden rounded-xl border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+        class="border-surface-200 group flex w-72 flex-col overflow-hidden rounded-xl border bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
     >
         <div class="relative h-44 overflow-hidden">
             <img

@@ -93,7 +93,7 @@ watch(
         class="border-surface-200/80 fixed inset-x-0 top-0 z-40 h-16 border-b bg-white/80 backdrop-blur-md"
     >
         <nav
-            class="mx-auto flex h-full max-w-screen-2xl items-center gap-3 px-4 md:gap-4 md:px-8"
+            class="mx-auto flex h-full max-w-(--breakpoint-2xl) items-center gap-3 px-4 md:gap-4 md:px-8"
         >
             <logo-component class="shrink-0" />
 

@@ -91,7 +91,7 @@ onBeforeMount(async () => {
         </div>
 
         <form
-            class="border-surface-200 space-y-8 rounded-3xl border bg-white p-6 shadow-sm md:p-10"
+            class="border-surface-200 space-y-8 rounded-3xl border bg-white p-6 shadow-xs md:p-10"
             enctype="multipart/form-data"
             @submit.prevent="onSubmit"
         >
