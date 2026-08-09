@@ -1,4 +1,4 @@
-import Cookies from 'node_modules/@types/js-cookie';
+import Cookies from 'js-cookie';
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
 import { RouteName } from '@ui/router/enums/route';
 

@@ -1,0 +1,74 @@
+name: CI
+
+on:
+    push:
+        branches: [master]
+    pull_request:
+
+jobs:
+    server:
+        name: Server (typecheck, build, test)
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: server
+        services:
+            postgres:
+                image: postgres:17-alpine
+                env:
+                    POSTGRES_USER: web
+                    POSTGRES_PASSWORD: web
+                    POSTGRES_DB: postgres
+                ports:
+                    - 5432:5432
+                options: >-
+                    --health-cmd "pg_isready -U web"
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  cache: npm
+                  cache-dependency-path: server/package-lock.json
+
+            - run: npm ci
+
+            - name: Install pgcrypto into template1 (needed by the test database)
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y postgresql-client
+                  PGPASSWORD=web psql -h 127.0.0.1 -U web -d template1 -c "CREATE EXTENSION IF NOT EXISTS pgcrypto;"
+
+            - run: npm run typecheck
+            - run: npm run build
+
+            - name: Test
+              env:
+                  DB_HOST: localhost
+                  UPLOAD_DIR: /tmp/sharefolio-uploads
+              run: npm test
+
+    client:
+        name: Client (typecheck, lint, test, build)
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: client
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  cache: npm
+                  cache-dependency-path: client/package-lock.json
+
+            - run: npm ci
+            - run: npm run type-check
+            - run: npm run lint:nofix
+            - run: npm run test:nowatch
+            - run: npm run build

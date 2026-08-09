@@ -18,7 +18,7 @@ import {
 import { User } from '@core/user';
 import { getHttpClient } from '@api/common';
 import { GlobalErrorMapper } from '@api/error-handling';
-import Cookies from 'node_modules/@types/js-cookie';
+import Cookies from 'js-cookie';
 import { toUser } from '../../common/model-mappers';
 import type { UserApiData } from '../../common/api-types';
 

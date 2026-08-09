@@ -2,7 +2,7 @@
 import ProjectHeaderContainer from '@ui/features/header/ui/containers/project-header-container.vue';
 import WelcomeContainer from '@ui/features/welcome/ui/containers/welcome-container.vue';
 import { onBeforeMount, ref } from 'vue';
-import Cookies from 'node_modules/@types/js-cookie';
+import Cookies from 'js-cookie';
 import { Project } from '@core/project';
 import { User } from '@core/user';
 

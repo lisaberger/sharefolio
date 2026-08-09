@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Cookies from 'node_modules/@types/js-cookie';
+import Cookies from 'js-cookie';
 import { onBeforeMount, ref } from 'vue';
 import { RouterView, useRouter } from 'vue-router';
 import NavigationContainer from '@ui/features/navigation/ui/containers/navigation-container.vue';

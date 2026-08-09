@@ -1,5 +1,5 @@
 import axios, { type AxiosInstance } from 'axios';
-import Cookies from 'node_modules/@types/js-cookie';
+import Cookies from 'js-cookie';
 import { EnvironmentController } from '@core/common';
 
 let client: AxiosInstance | undefined;

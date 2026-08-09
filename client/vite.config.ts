@@ -36,5 +36,23 @@ export default defineConfig({
     },
     build: {
         target: 'esnext',
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (!id.includes('node_modules')) return;
+                    if (/node_modules\/(?:primevue|@primevue)/.test(id)) {
+                        return 'primevue';
+                    }
+                    if (
+                        /node_modules\/(?:vue|@vue|@vueuse|pinia|vue-router|vue-i18n)/.test(
+                            id
+                        )
+                    ) {
+                        return 'vue';
+                    }
+                    return 'vendor';
+                },
+            },
+        },
     },
 });

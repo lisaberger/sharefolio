@@ -6,7 +6,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required, minLength } from '@ui/i18n/validators/i18n-validators';
 import logoComponent from '@ui/features/common/ui/component/logo-component.vue';
 import { useI18n } from 'vue-i18n';
-import Cookies from 'node_modules/@types/js-cookie';
+import Cookies from 'js-cookie';
 import { authRepository } from '@config';
 
 const { t } = useI18n();
